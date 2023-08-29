@@ -1,7 +1,13 @@
-import React from 'react';
+import { Container } from 'react-bootstrap';
+import { Header } from './components';
 
-const App = () => {
-  return <h1>App</h1>;
-};
+const App = () => (
+  <>
+    <Header />
+    <Container>
+      <main className='py-3'>eComm</main>
+    </Container>
+  </>
+);
 
 export default App;
