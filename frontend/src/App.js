@@ -1,12 +1,16 @@
 import { Container } from 'react-bootstrap';
-import { Header } from './components';
+import { Outlet } from 'react-router-dom';
+import { Header, Footer } from './components';
 
 const App = () => (
   <>
     <Header />
-    <Container>
-      <main className='py-3'>eComm</main>
-    </Container>
+    <main className='py-3'>
+      <Container>
+        <Outlet />
+      </Container>
+    </main>
+    <Footer />
   </>
 );
 
