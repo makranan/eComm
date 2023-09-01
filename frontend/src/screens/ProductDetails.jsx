@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
 import { Link } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
-import { Rating } from '../components';
+import { Rating, BtnGoBack } from '../components';
 import axios from 'axios';
 
 const ProductDetails = () => {
@@ -21,9 +22,7 @@ const ProductDetails = () => {
 
   return (
     <>
-      <Link className='btn-primary btn my-3' to='/'>
-        Go Back
-      </Link>
+      <BtnGoBack className='btn-primary btn my-3' to='/' />
       <Row>
         <Col md={5}>
           <Image src={product.image} alt={product.name} fluid />
