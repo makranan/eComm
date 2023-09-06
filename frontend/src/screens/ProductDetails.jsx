@@ -27,7 +27,6 @@ const ProductDetails = () => {
     isLoading,
     error,
   } = useGetProductDetailsQuery(productId);
-  // const isInStock = productId.countInStock > 0;
 
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
@@ -88,9 +87,7 @@ const ProductDetails = () => {
                   <Row>
                     <Col>Stock:</Col>
                     <Col>
-                      <strong
-                      // className={isInStock ? 'text-success' : 'text-danger'}
-                      >
+                      <strong>
                         {`${
                           product.countInStock > 0
                             ? product.countInStock

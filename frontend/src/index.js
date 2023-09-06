@@ -13,7 +13,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './assets/styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { HomeScreen, ProductDetails, CartScreen, LoginScreen } from './screens';
+import {
+  HomeScreen,
+  ProductDetails,
+  CartScreen,
+  LoginScreen,
+  RegisterScreen,
+} from './screens';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +28,7 @@ const router = createBrowserRouter(
       <Route path='/product/:id' element={<ProductDetails />} />
       <Route path='/cart' element={<CartScreen />} />
       <Route path='/login' element={<LoginScreen />} />
+      <Route path='/register' element={<RegisterScreen />} />
     </Route>
   )
 );
