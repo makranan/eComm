@@ -8,17 +8,20 @@ import {
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-import './assets/styles/bootstrap.custom.css';
+import 'bootstrap/dist/css/bootstrap.css';
+// import './assets/styles/bootstrap.custom.css';
 import './assets/styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { HomeScreen, ProductDetails } from './screens';
+import { HomeScreen, ProductDetails, CartScreen, LoginScreen } from './screens';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
       <Route index={true} path='/' element={<HomeScreen />} />
       <Route path='/product/:id' element={<ProductDetails />} />
+      <Route path='/cart' element={<CartScreen />} />
+      <Route path='/login' element={<LoginScreen />} />
     </Route>
   )
 );

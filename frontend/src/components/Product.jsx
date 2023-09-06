@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Rating } from './';
-import ScaleLoader from 'react-spinners/ScaleLoader';
+import { Rating, Loader } from './';
 
 const Product = ({ product, value, text }) => {
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(true);
 
   const handleImageLoad = () => {
@@ -24,7 +26,7 @@ const Product = ({ product, value, text }) => {
                 transform: 'translate(-50%, -50%)',
               }}
             >
-              <ScaleLoader color='#a5a5a5' loading={loading} size={30} />
+              <Loader />
             </div>
           )}
           <Card.Img
@@ -47,7 +49,9 @@ const Product = ({ product, value, text }) => {
             text={`${product.numReviews} reviews`}
           />
         </Card.Text>
-        <Card.Text as='h3'>${product.price}</Card.Text>
+        <Card.Text as='h3' style={{ marginTop: '10px' }}>
+          ${product.price}
+        </Card.Text>
       </Card.Body>
     </Card>
   );
