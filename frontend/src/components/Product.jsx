@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Rating, Loader } from './';
+import { Rating, Loader, BtnAddToCart } from './';
 
 const Product = ({ product, value, text }) => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const Product = ({ product, value, text }) => {
   };
 
   return (
-    <Card className='my-3 py-3 rounded'>
+    <Card className='my-3'>
       <Link to={`/product/${product._id}`}>
         <div style={{ position: 'relative', minHeight: '200px' }}>
           {loading && (
@@ -33,7 +33,12 @@ const Product = ({ product, value, text }) => {
             src={product.image}
             variant='top'
             onLoad={handleImageLoad}
-            style={{ display: loading ? 'none' : 'flex' }}
+            style={{
+              display: loading ? 'none' : 'flex',
+              marginTop: '0px',
+              height: '100%',
+              objectFit: 'cover',
+            }}
           />
         </div>
       </Link>

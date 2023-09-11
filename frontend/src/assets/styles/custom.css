@@ -1,0 +1,30 @@
+.form-control::placeholder {
+  color: rgb(206, 206, 206);
+  padding-left: 0.3rem;
+}
+
+.form-control {
+  border-radius: 5px;
+}
+
+.btn {
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+}
+
+.navbar {
+  transition: all 1s ease-in;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+}
+
+.unselectable {
+  user-select: none;
+}
+
+.full-width {
+  width: 100vw;
+}

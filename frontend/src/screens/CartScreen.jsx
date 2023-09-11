@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -10,11 +11,11 @@ import {
   Card,
 } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
-import Message from '../components/Message';
-import { BtnGoBack } from '../components';
+import { BtnGoBack, Message } from '../components';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
 
 const CartScreen = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -31,6 +32,18 @@ const CartScreen = () => {
   const checkoutHandler = () => {
     navigate('/login?redirect=/shipping');
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <Row>
       <Col md={8}>
@@ -44,7 +57,7 @@ const CartScreen = () => {
             {cartItems.map(item => (
               <ListGroup.Item key={item._id}>
                 <Row>
-                  <Col md={3} sm={3}>
+                  <Col md={2} xs={12}>
                     <Image
                       src={item.image}
                       alt={item.name}
@@ -52,10 +65,10 @@ const CartScreen = () => {
                       rounded
                     ></Image>
                   </Col>
-                  <Col md={4} sm={6}>
+                  <Col md={4} xs={12} className='mb-4'>
                     <Link to={`/product/${item._id}`}>{item.name}</Link>
                   </Col>
-                  <Col md={2} sm={1}>
+                  <Col md={2} xs={3}>
                     <Form.Control
                       as='select'
                       value={item.qty}
@@ -70,10 +83,18 @@ const CartScreen = () => {
                       ))}
                     </Form.Control>
                   </Col>
-                  <Col md={2} sm={1}>
-                    ${item.price}
+                  <Col
+                    md={2}
+                    xs={7}
+                    className={
+                      window.innerWidth <= 768
+                        ? 'd-flex align-items-center '
+                        : 'mt-2 '
+                    }
+                  >
+                    <strong>${item.price}</strong>
                   </Col>
-                  <Col md={1}>
+                  <Col md={1} xs={2}>
                     <Button
                       type='button'
                       variant='light'
@@ -97,15 +118,18 @@ const CartScreen = () => {
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 items
               </h2>
-              $
-              {cartItems
-                .reduce((acc, item) => acc + item.qty * item.price, 0)
-                .toFixed(2)}
+
+              <strong style={{ fontSize: '2rem' }}>
+                $
+                {cartItems
+                  .reduce((acc, item) => acc + item.qty * item.price, 0)
+                  .toFixed(2)}
+              </strong>
             </ListGroup.Item>
             <ListGroup.Item>
               <Button
                 type='button'
-                className='btn-block'
+                className='btn-block btn-lg'
                 disabled={cartItems.length === 0}
                 onClick={checkoutHandler}
               >

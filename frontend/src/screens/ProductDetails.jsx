@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-// eslint-disable-next-line no-unused-vars
-import { Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   Form,
   Row,
@@ -15,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { Rating, BtnGoBack, Loader, Message } from '../components';
 import { useGetProductDetailsQuery } from '../slices/productsApiSlice';
 import { addToCart } from '../slices/cartSlice';
+import '../assets/styles/custom.css';
 
 const ProductDetails = () => {
   const { id: productId } = useParams();

@@ -8,9 +8,11 @@ import {
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootswatch/dist/yeti/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 // import './assets/styles/bootstrap.custom.css';
 import './assets/styles/index.css';
+import './assets/styles/custom.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
@@ -19,7 +21,11 @@ import {
   CartScreen,
   LoginScreen,
   RegisterScreen,
+  ShippingScreen,
+  PaymentScreen,
+  PlaceOrderScreen,
 } from './screens';
+import { PrivateRoute } from './components';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +35,12 @@ const router = createBrowserRouter(
       <Route path='/cart' element={<CartScreen />} />
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
+
+      <Route path='' element={<PrivateRoute />}>
+        <Route path='/shipping' element={<ShippingScreen />} />
+        <Route path='/payment' element={<PaymentScreen />} />
+        <Route path='/placeorder' element={<PlaceOrderScreen />} />
+      </Route>
     </Route>
   )
 );
