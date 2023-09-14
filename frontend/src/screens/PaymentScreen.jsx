@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Form, Button, Col } from 'react-bootstrap';
-import { FormContainer, CheckoutSteps } from '../components';
+import { Form, Button, Col, Row } from 'react-bootstrap';
+import { FormContainer, CheckoutSteps, BtnGoBack } from '../components';
 import { savePaymentMethod } from '../slices/cartSlice';
+import { FaChevronRight } from 'react-icons/fa';
 
 const PaymentScreen = () => {
   const [paymentMethod, setPaymentMethod] = useState('PayPal');
@@ -27,31 +28,45 @@ const PaymentScreen = () => {
   }, [shippingAddress, navigate]);
 
   return (
-    <FormContainer>
-      <CheckoutSteps step1 step2 step3 />
-      <h1>Payment Method</h1>
+    <>
+      <FormContainer>
+        <CheckoutSteps step1 step2 step3 />
 
-      <Form onSubmit={submitHandler}>
-        <Form.Group>
-          <Form.Label as='legend'>Select Method</Form.Label>
-          <Col>
-            <Form.Check
-              id='paypal'
-              name='paymentMethod'
-              value='PayPal'
-              className='my-2'
-              type='radio'
-              label='PayPal or Credit Card'
-              onChange={e => setPaymentMethod(e.target.value)}
-              checked
-            ></Form.Check>
-          </Col>
-        </Form.Group>
-        <Button type='submit' variant='primary'>
-          Continue
-        </Button>
-      </Form>
-    </FormContainer>
+        <h1>Payment Method</h1>
+
+        <Form onSubmit={submitHandler}>
+          <Form.Group>
+            <Form.Label as='legend'>Select Method</Form.Label>
+            <Col>
+              <br />
+              <Form.Check
+                id='paypal'
+                name='paymentMethod'
+                value='PayPal'
+                className=''
+                type='radio'
+                label='PayPal or Credit Card'
+                onChange={e => setPaymentMethod(e.target.value)}
+                checked
+              ></Form.Check>
+              <br />
+            </Col>
+          </Form.Group>
+          <Row className='d-flex align-items-center mt-4'>
+            <Col className='d-flex justify-content-end'>
+              <Button
+                type='submit'
+                variant='primary'
+                className='d-flex align-items-center'
+              >
+                Continue &nbsp;
+                <FaChevronRight />
+              </Button>
+            </Col>
+          </Row>
+        </Form>
+      </FormContainer>
+    </>
   );
 };
 

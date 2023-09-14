@@ -1,13 +1,11 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Card } from 'react-bootstrap';
+import { useState } from 'react';
+import { Card, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Rating, Loader, BtnAddToCart } from './';
+import { Rating, Loader, BtnAddToCart, MyModal } from './';
 
 const Product = ({ product, value, text }) => {
-  const dispatch = useDispatch();
-
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   const handleImageLoad = () => {
     setLoading(false);
@@ -16,7 +14,7 @@ const Product = ({ product, value, text }) => {
   return (
     <Card className='my-3'>
       <Link to={`/product/${product._id}`}>
-        <div style={{ position: 'relative', minHeight: '200px' }}>
+        <div>
           {loading && (
             <div
               style={{
@@ -45,7 +43,9 @@ const Product = ({ product, value, text }) => {
       <Card.Body>
         <Link to={`/product/${product._id}`}>
           <Card.Title as='div' className='product-title'>
-            <strong>{product.name}</strong>
+            <strong>
+              <h6>{product.name}</h6>
+            </strong>
           </Card.Title>
         </Link>
         <Card.Text as='div'>
@@ -54,10 +54,24 @@ const Product = ({ product, value, text }) => {
             text={`${product.numReviews} reviews`}
           />
         </Card.Text>
-        <Card.Text as='h3' style={{ marginTop: '10px' }}>
-          ${product.price}
-        </Card.Text>
+        <Row className='d-flex align-items-center'>
+          <Col md={7} sm={7} xs={7}>
+            <Card.Text as='h5' style={{ marginTop: '10px' }}>
+              <strong>${product.price}</strong>
+            </Card.Text>
+          </Col>
+          <Col md={2} sm={2} xs={2}>
+            <BtnAddToCart
+              product={product}
+              onAddToCart={() => setShowModal(true)}
+            />
+          </Col>
+        </Row>
       </Card.Body>
+      {/* Render the MyModal component with product information */}
+      {showModal && (
+        <MyModal product={product} handleClose={() => setShowModal(false)} />
+      )}
     </Card>
   );
 };

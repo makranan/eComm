@@ -11,7 +11,11 @@ import HeaderCarousel from './HeaderCarousel';
 import HeaderCarouselImage from './HeaderCarouselImage';
 import HeaderSwiper from './HeaderSwiper';
 import PrivateRoute from './PrivateRoute';
+import AdminRoute from './AdminRoute';
 import CheckoutSteps from './CheckoutSteps';
+import CheckoutStepsCircles from './CheckoutStepsCircles';
+import ProductImageGallery from './ProductImageGallery';
+import MyModal from './MyModal';
 
 export {
   Header,
@@ -27,5 +31,9 @@ export {
   HeaderCarouselImage,
   HeaderSwiper,
   PrivateRoute,
+  AdminRoute,
   CheckoutSteps,
+  CheckoutStepsCircles,
+  ProductImageGallery,
+  MyModal,
 };

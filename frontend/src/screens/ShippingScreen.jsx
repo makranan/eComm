@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { FormContainer, CheckoutSteps } from '../components';
+import { useNavigate, Link } from 'react-router-dom';
+import { FormContainer, CheckoutSteps, BtnGoBack } from '../components';
 // import CheckoutSteps from '../components/CheckoutSteps';
 import { saveShippingAddress } from '../slices/cartSlice';
+import { FaChevronRight } from 'react-icons/fa';
 
 const ShippingScreen = () => {
   const cart = useSelector(state => state.cart);
@@ -29,7 +30,9 @@ const ShippingScreen = () => {
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 />
+
       <h1>Shipping</h1>
+
       <Form onSubmit={submitHandler}>
         <Form.Group className='my-2' controlId='address'>
           <Form.Label>Address</Form.Label>
@@ -74,10 +77,19 @@ const ShippingScreen = () => {
             onChange={e => setCountry(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
-        <Button type='submit' variant='primary'>
-          Continue
-        </Button>
+        <Row className='d-flex align-items-center mt-4'>
+          <Col>{/* <BtnGoBack /> */}</Col>
+          <Col className='d-flex justify-content-end'>
+            <Button
+              type='submit'
+              variant='primary'
+              className='d-flex align-items-center'
+            >
+              Continue &nbsp;
+              <FaChevronRight />
+            </Button>
+          </Col>
+        </Row>
       </Form>
     </FormContainer>
   );

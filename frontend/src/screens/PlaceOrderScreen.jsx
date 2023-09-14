@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import { CheckoutSteps, Message, Loader } from '../components';
+import { CheckoutSteps, Message, Loader, BtnGoBack } from '../components';
 import { useCreateOrderMutation } from '../slices/orderApiSlice';
 import { clearCartItems } from '../slices/cartSlice';
 import { BsPaypal } from 'react-icons/bs';
@@ -47,10 +47,11 @@ const PlaceOrderScreen = () => {
   return (
     <>
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
+      <BtnGoBack />
       <Row>
         <Col md={8}>
           <ListGroup variant='flush'>
-            <ListGroup.Item>
+            <ListGroup.Item className='py-4'>
               <h2>Shipping</h2>
               <p>
                 <strong>Address: </strong>
@@ -60,13 +61,13 @@ const PlaceOrderScreen = () => {
               </p>
             </ListGroup.Item>
 
-            <ListGroup.Item>
+            <ListGroup.Item className='py-4'>
               <h2>Payment Method</h2>
               <strong>Method: </strong>
               <BsPaypal /> {cart.paymentMethod}
             </ListGroup.Item>
 
-            <ListGroup.Item>
+            <ListGroup.Item className='py-4'>
               <h2>Order Items</h2>
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty.</Message>
@@ -75,7 +76,7 @@ const PlaceOrderScreen = () => {
                   {cart.cartItems.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
-                        <Col md={2}>
+                        <Col md={3} xs={3}>
                           <Image
                             src={item.image}
                             alt={item.name}
@@ -85,13 +86,13 @@ const PlaceOrderScreen = () => {
                         </Col>
 
                         <Col>
-                          <Link to={`/products/${item._id}`}>
+                          <Link to={`/product/${item._id}`}>
                             <h6>{item.name}</h6>
                           </Link>
                         </Col>
 
-                        <Col md={3}>
-                          {item.qty} * {item.price}{' '}
+                        <Col md={3} xs={3}>
+                          {item.qty} * {item.price} ={' '}
                           <strong>
                             {' '}
                             ${(item.qty * item.price).toFixed(2)}
@@ -159,7 +160,7 @@ const PlaceOrderScreen = () => {
               <ListGroup.Item>
                 <Button
                   type='button'
-                  className='btn-block btn-lg'
+                  className='btn-block btn-lg btn-full-w'
                   disabled={cart.cartItems.length === 0}
                   onClick={placeOrderHandler}
                 >

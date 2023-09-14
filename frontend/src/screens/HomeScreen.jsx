@@ -1,4 +1,4 @@
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import { Product, Loader, Message } from '../components';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
 
@@ -18,7 +18,7 @@ const HomeScreen = () => {
           <h1>Latest Products</h1>
           <Row>
             {products.map(product => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+              <Col key={product._id} xs={6} sm={6} md={4} lg={4} xl={2}>
                 <Product product={product} />
               </Col>
             ))}

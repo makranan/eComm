@@ -1,3 +1,8 @@
+:root {
+  --line-border-fill: #f4a433;
+  --line-border-empty: #1a1a1a;
+}
+
 .form-control::placeholder {
   color: rgb(206, 206, 206);
   padding-left: 0.3rem;
@@ -7,10 +12,10 @@
   border-radius: 5px;
 }
 
-.btn {
+/* .btn {
   border-radius: 5px;
   padding: 0.5rem 1rem;
-}
+} */
 
 .navbar {
   transition: all 1s ease-in;
@@ -27,4 +32,80 @@
 
 .full-width {
   width: 100vw;
+}
+
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+  max-height: 100px;
+}
+
+.image-gallery-thumbnail .image-gallery-thumbnail-image {
+  aspect-ratio: auto;
+  height: 92px;
+  width: 92px;
+  object-fit: contain;
+}
+
+input[type='number'] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: auto;
+  max-width: 100px;
+}
+
+.btn-full-w {
+  width: 100%;
+}
+
+.btn-details {
+  padding: 2px 5px;
+}
+
+/* .card-body {
+  background-color: #f8f9fa;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px 5px 0 0;
+} */
+
+/* Checkout Steps */
+
+.progress-container-main {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  z-index: 100;
+}
+
+.progress-container {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  max-width: 100%;
+  width: 100vw;
+}
+
+.progress-container::before {
+  content: '';
+  background-color: var(--line-border-empty);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 10px;
+  width: 100%;
+  z-index: -1;
+}
+
+.progress {
+  background-color: var(--line-border-fill);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 0%;
+  z-index: -1;
+  transition: 0.4s ease;
 }

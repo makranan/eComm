@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Badge, Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { FaShoppingCart, FaUser, FaTags } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 import { LinkContainer } from 'react-router-bootstrap';
+import { CheckoutStepsCircles } from '.';
 
 const Header = () => {
   const { cartItems } = useSelector(state => state.cart);
@@ -26,10 +27,20 @@ const Header = () => {
     }
   };
 
+  // Conditionally render CheckoutStepsCircles based on the current route
+  const location = useLocation();
+  const showCheckoutSteps = [
+    '/shipping',
+    '/payment',
+    '/placeorder',
+    '/cart',
+  ].includes(location.pathname);
+
   return (
     <>
+      <CheckoutStepsCircles />
       <header>
-        <Navbar bg='dark' variant='dark' expand='md' collapseOnSelect>
+        <Navbar bg='primary' variant='dark' expand='md' collapseOnSelect>
           <Container>
             <LinkContainer to='/'>
               <Navbar.Brand>
@@ -43,7 +54,7 @@ const Header = () => {
                   <Nav.Link>
                     <FaShoppingCart /> &nbsp; Cart&nbsp;
                     {cartItems.length > 0 && (
-                      <Badge pill>
+                      <Badge className='bg-warning' pill>
                         {cartItems.reduce((a, c) => a + c.qty, 0)}
                       </Badge>
                     )}
@@ -66,6 +77,22 @@ const Header = () => {
                       <FaUser /> &nbsp; Sign In
                     </Nav.Link>
                   </LinkContainer>
+                )}
+
+                {userInfo && userInfo.isAdmin && (
+                  <NavDropdown title='Admin' id='adminmenu'>
+                    <LinkContainer to='/admin/productlist'>
+                      <NavDropdown.Item>Products</NavDropdown.Item>
+                    </LinkContainer>
+
+                    <LinkContainer to='/admin/orderlist'>
+                      <NavDropdown.Item>Orders</NavDropdown.Item>
+                    </LinkContainer>
+
+                    <LinkContainer to='/admin/userlist'>
+                      <NavDropdown.Item>Users</NavDropdown.Item>
+                    </LinkContainer>
+                  </NavDropdown>
                 )}
               </Nav>
             </Navbar.Collapse>

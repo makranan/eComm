@@ -10,10 +10,17 @@ import {
   Button,
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { Rating, BtnGoBack, Loader, Message } from '../components';
+import {
+  Rating,
+  BtnGoBack,
+  Loader,
+  Message,
+  ProductImageGallery,
+} from '../components';
 import { useGetProductDetailsQuery } from '../slices/productsApiSlice';
 import { addToCart } from '../slices/cartSlice';
-import '../assets/styles/custom.css';
+
+// import '../assets/styles/custom.css';
 
 const ProductDetails = () => {
   const { id: productId } = useParams();
@@ -54,7 +61,11 @@ const ProductDetails = () => {
       ) : (
         <Row>
           <Col md={5}>
-            <Image src={product.image} alt={product.name} fluid />
+            {/* <Image src={product.image} alt={product.name} fluid /> */}
+            <ProductImageGallery
+              images={product.images}
+              showPlayButton={false}
+            />
           </Col>
           <Col md={4}>
             <ListGroup variant='flush'>
@@ -86,7 +97,11 @@ const ProductDetails = () => {
                   <Row>
                     <Col>Stock:</Col>
                     <Col>
-                      <strong>
+                      <strong
+                        style={{
+                          color: product.countInStock > 0 ? 'green' : 'red',
+                        }}
+                      >
                         {`${
                           product.countInStock > 0
                             ? product.countInStock
@@ -98,27 +113,34 @@ const ProductDetails = () => {
                 </ListGroup.Item>
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
-                    <Row>
+                    <Row className='d-flex align-items-center'>
                       <Col>Qty:</Col>
                       <Col>
-                        <Form.Control
-                          as='select'
+                        <input
+                          type='number'
                           value={qty}
-                          onChange={e => setQty(Number(e.target.value))}
-                        >
-                          {[...Array(product.countInStock).keys()].map(x => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
-                        </Form.Control>
+                          onChange={e => {
+                            const newValue = Number(e.target.value);
+                            if (newValue <= product.countInStock) {
+                              setQty(newValue);
+                            } else {
+                              // Optionally, you can provide some feedback to the user
+                              console.log(
+                                'Quantity cannot exceed the available stock.'
+                              );
+                            }
+                          }}
+                          min={1}
+                          max={product.countInStock}
+                        />
                       </Col>
                     </Row>
                   </ListGroup.Item>
                 )}
+
                 <ListGroup.Item>
                   <Button
-                    className='btn-block'
+                    className='btn-block btn-full-w'
                     type='button'
                     disabled={product.countInStock === 0}
                     onClick={addToCartHandler}
