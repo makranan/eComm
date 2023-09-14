@@ -10,7 +10,7 @@ const MyModal = ({ product }) => {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} animation={true}>
+      <Modal show={show} onHide={handleClose} animation={true} centered>
         <Modal.Header closeButton>
           <Modal.Title>Item was added to your cart.</Modal.Title>
         </Modal.Header>
