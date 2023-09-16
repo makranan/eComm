@@ -54,6 +54,24 @@ const ProfileScreen = () => {
     }
   };
 
+  const circleContainerStyle = {
+    display: 'flex',
+
+    alignItems: 'center',
+    width: '20px', // Set the desired width
+    height: '20px', // Set the desired height
+  };
+
+  const circleStyle = {
+    background: '#e7e8e5',
+    borderRadius: '50%',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
+
   return (
     <Row>
       <Col md={3}>
@@ -130,7 +148,7 @@ const ProfileScreen = () => {
             </thead>
             <tbody>
               {orders.map(order => (
-                <tr key={order._id}>
+                <tr key={order._id} style={{ verticalAlign: 'middle' }}>
                   <td>{order._id}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
                   <td>${order.totalPrice}</td>
@@ -141,19 +159,26 @@ const ProfileScreen = () => {
                         {/* {order.paidAt.substring(0, 10)} */}
                       </>
                     ) : (
-                      <FaTimes style={{ color: 'red' }} />
+                      <FaTimes style={{ color: 'red', fontSize: '12px' }} />
                     )}
                   </td>
                   <td>
                     {order.isDelivered ? (
-                      order.deliveredAt.substring(0, 10)
+                      <>
+                        <FaCheck style={{ color: 'green' }} />,
+                        {/* {order.deliveredAt.substring(0, 10)} */}
+                      </>
                     ) : (
-                      <FaTimes style={{ color: 'red' }} />
+                      <FaTimes style={{ color: 'red', fontSize: '12px' }} />
                     )}
                   </td>
-                  <td style={{ background: '#999999' }}>
+                  <td
+                    style={{
+                      background: '#1e1e1e',
+                    }}
+                  >
                     <LinkContainer to={`/order/${order._id}`}>
-                      <Button className='btn-sm btn-details' variant='light'>
+                      <Button className='btn btn-primary btn-sm' variant='dark'>
                         Details
                       </Button>
                     </LinkContainer>

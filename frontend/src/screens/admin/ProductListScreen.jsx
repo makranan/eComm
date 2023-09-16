@@ -2,13 +2,44 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Row, Col } from 'react-bootstrap';
 import { FaTimes, FaCheck, FaEdit, FaTrash } from 'react-icons/fa';
 import { Message, Loader } from '../../components';
-import { useGetProductsQuery } from '../../slices/productsApiSlice';
+import { toast } from 'react-toastify';
+import {
+  useGetProductsQuery,
+  useCreateProductMutation,
+  useDeleteProductMutation,
+} from '../../slices/productsApiSlice';
+import { useGetOrderDetailsQuery } from '../../slices/orderApiSlice';
 
 const ProductListScreen = () => {
-  const { data: products, isLoading, error } = useGetProductsQuery();
+  const { data: products, isLoading, error, refetch } = useGetProductsQuery();
 
-  const deleteHandler = id => {
-    console.log('delete: ', id);
+  const [createProduct, { isLoading: loadingCreate }] =
+    useCreateProductMutation();
+
+  const [deleteProduct, { isLoading: loadingDelete }] =
+    useDeleteProductMutation();
+
+  const createProductHandler = async () => {
+    if (window.confirm('Are you sure you want to create a new product?')) {
+      try {
+        await createProduct();
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    }
+  };
+
+  const deleteHandler = async id => {
+    if (window.confirm(`Your gonna delete ${id}. Are you sure?`)) {
+      try {
+        await deleteProduct(id);
+        refetch();
+        toast.success('Product deleted');
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    }
   };
 
   return (
@@ -18,11 +49,17 @@ const ProductListScreen = () => {
           <h1 className='mt-2'>Products</h1>
         </Col>
         <Col className='d-flex justify-content-end '>
-          <Button className='d-flex align-items-center btn btn-sm'>
-            <FaEdit /> &nbsp;&nbsp;Add Product
+          <Button
+            className='d-flex align-items-center btn btn-sm'
+            onClick={createProductHandler}
+          >
+            <FaEdit /> &nbsp;&nbsp;Create Product
           </Button>
         </Col>
       </Row>
+
+      {loadingCreate && <Loader />}
+      {loadingDelete && <Loader />}
 
       {isLoading ? (
         <Loader />
@@ -43,16 +80,26 @@ const ProductListScreen = () => {
             </thead>
             <tbody>
               {products.map(product => (
-                <tr key={product._id}>
+                <tr key={product._id} style={{ verticalAlign: 'middle' }}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
                   <td>{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
-                  <td>
-                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                  <td
+                    style={{
+                      background: '#1e1e1e',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        gap: '4px',
+                      }}
+                    >
                       <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                        <Button variant='light' className='btn-sm mx-2'>
+                        <Button variant='light' className='btn-sm'>
                           <FaEdit />
                         </Button>
                       </LinkContainer>

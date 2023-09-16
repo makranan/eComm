@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FormContainer, CheckoutSteps, BtnGoBack } from '../components';
 // import CheckoutSteps from '../components/CheckoutSteps';
 import { saveShippingAddress } from '../slices/cartSlice';
-import { FaChevronRight } from 'react-icons/fa';
+import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
 const ShippingScreen = () => {
   const cart = useSelector(state => state.cart);
@@ -78,7 +78,13 @@ const ShippingScreen = () => {
           ></Form.Control>
         </Form.Group>
         <Row className='d-flex align-items-center mt-4'>
-          <Col>{/* <BtnGoBack /> */}</Col>
+          <Col>
+            <Link to={'/cart'} className='btn btn-light my-3'>
+              <div className='d-flex align-items-center'>
+                <FaChevronLeft /> &nbsp;Go Back
+              </div>
+            </Link>
+          </Col>
           <Col className='d-flex justify-content-end'>
             <Button
               type='submit'

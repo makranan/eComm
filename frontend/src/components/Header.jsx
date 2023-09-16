@@ -7,6 +7,7 @@ import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 import { LinkContainer } from 'react-router-bootstrap';
 import { CheckoutStepsCircles } from '.';
+import logo from '../assets/logo.svg';
 
 const Header = () => {
   const { cartItems } = useSelector(state => state.cart);
@@ -28,13 +29,13 @@ const Header = () => {
   };
 
   // Conditionally render CheckoutStepsCircles based on the current route
-  const location = useLocation();
-  const showCheckoutSteps = [
-    '/shipping',
-    '/payment',
-    '/placeorder',
-    '/cart',
-  ].includes(location.pathname);
+  // const location = useLocation();
+  // const showCheckoutSteps = [
+  //   '/cart',
+  //   '/shipping',
+  //   '/payment',
+  //   '/placeorder',
+  // ].includes(location.pathname);
 
   return (
     <>
@@ -44,7 +45,12 @@ const Header = () => {
           <Container>
             <LinkContainer to='/'>
               <Navbar.Brand>
-                <FaTags /> eComm
+                <img
+                  src={logo}
+                  alt='Electro Empire'
+                  style={{ height: '40px' }}
+                />{' '}
+                <strong style={{ fontSize: '1rem' }}>TechWorld</strong>
               </Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls='basic-navbar-bav' />

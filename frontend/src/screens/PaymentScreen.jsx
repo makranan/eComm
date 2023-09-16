@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Form, Button, Col, Row } from 'react-bootstrap';
 import { FormContainer, CheckoutSteps, BtnGoBack } from '../components';
 import { savePaymentMethod } from '../slices/cartSlice';
-import { FaChevronRight } from 'react-icons/fa';
+import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
 const PaymentScreen = () => {
   const [paymentMethod, setPaymentMethod] = useState('PayPal');
@@ -53,6 +53,14 @@ const PaymentScreen = () => {
             </Col>
           </Form.Group>
           <Row className='d-flex align-items-center mt-4'>
+            <Col>
+              <Link to='/shipping' className='btn btn-light'>
+                <div className='d-flex align-items-center'>
+                  <FaChevronLeft /> &nbsp;Go Back
+                </div>
+              </Link>
+              {/* <BtnGoBack /> */}
+            </Col>
             <Col className='d-flex justify-content-end'>
               <Button
                 type='submit'

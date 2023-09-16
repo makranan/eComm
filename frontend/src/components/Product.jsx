@@ -55,16 +55,30 @@ const Product = ({ product, value, text }) => {
           />
         </Card.Text>
         <Row className='d-flex align-items-center'>
-          <Col md={7} sm={7} xs={7}>
+          <Col lg={6} md={7} sm={7} xs={6}>
             <Card.Text as='h5' style={{ marginTop: '10px' }}>
-              <strong>${product.price}</strong>
+              <div
+                style={{
+                  whiteSpace: 'nowrap',
+                  backgroundColor: '#ffffff',
+                  zIndex: '1',
+                  display: 'inline-block',
+                  position: 'relative',
+                  pointerEvents: 'none',
+                  borderRadius: '5px',
+                }}
+              >
+                <strong>${product.price}</strong>
+              </div>
             </Card.Text>
           </Col>
-          <Col md={2} sm={2} xs={2}>
-            <BtnAddToCart
-              product={product}
-              onAddToCart={() => setShowModal(true)}
-            />
+          <Col>
+            <div className='text-end' style={{ transform: 'translateX(2px)' }}>
+              <BtnAddToCart
+                product={product}
+                onAddToCart={() => setShowModal(true)}
+              />
+            </div>
           </Col>
         </Row>
       </Card.Body>

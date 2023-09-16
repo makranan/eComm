@@ -23,6 +23,26 @@ const RegisterScreen = () => {
   const searchParams = new URLSearchParams(search);
   const redirect = searchParams.get('redirect') || '/';
 
+  const validateForm = () => {
+    if (name.trim() === '') {
+      toast.error('Name is required');
+      return false;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      toast.error('Invalid email format');
+      return false;
+    }
+    if (password.length < 6) {
+      toast.error('Password must be at least 6 characters long');
+      return false;
+    }
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match');
+      return false;
+    }
+    return true;
+  };
+
   useEffect(() => {
     if (userInfo) {
       navigate(redirect);
@@ -32,10 +52,7 @@ const RegisterScreen = () => {
   const submitHandler = async e => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      toast.error('Passwords dont match');
-      return;
-    } else {
+    if (validateForm()) {
       try {
         const res = await register({
           name,
@@ -49,6 +66,7 @@ const RegisterScreen = () => {
       }
     }
   };
+
   return (
     <FormContainer>
       <h1>Sign Up</h1>

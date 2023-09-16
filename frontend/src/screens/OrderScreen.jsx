@@ -159,7 +159,7 @@ const OrderScreen = () => {
               <h2>Order Items</h2>
               {order.orderItems.map((item, index) => (
                 <ListGroup.Item key={index}>
-                  <Row>
+                  <Row className='d-flex align-items-center'>
                     <Col md={2} xs={3}>
                       <Image src={item.image} alt={item.name} fluid />
                     </Col>
@@ -185,7 +185,7 @@ const OrderScreen = () => {
           <Card>
             <ListGroup variant='flush'>
               <ListGroup.Item>
-                <h2>Order Summary:</h2>
+                <h2 className='pt-2'>Order Summary:</h2>
               </ListGroup.Item>
 
               <ListGroup.Item>
@@ -195,26 +195,30 @@ const OrderScreen = () => {
                     <strong>${order.itemsPrice}</strong>
                   </Col>
                 </Row>
+              </ListGroup.Item>
 
+              <ListGroup.Item>
                 <Row>
                   <Col>Shipping:</Col>
                   <Col>
                     <strong>${order.shippingPrice}</strong>
                   </Col>
                 </Row>
+              </ListGroup.Item>
 
+              <ListGroup.Item>
                 <Row>
                   <Col>Tax:</Col>
                   <Col>
                     <strong>${order.taxPrice}</strong>
                   </Col>
                 </Row>
+              </ListGroup.Item>
 
+              <ListGroup.Item>
                 <Row
                   style={{
-                    marginTop: '10px',
                     padding: '10px 0 ',
-                    // borderTop: '1px solid red',
                   }}
                 >
                   <Col>Total:</Col>
@@ -230,12 +234,12 @@ const OrderScreen = () => {
                     <Loader />
                   ) : (
                     <div>
-                      {/* <Button
+                      <Button
                         onClick={onApproveTest}
                         style={{ marginBottom: '5px' }}
                       >
                         Test Pay Order
-                      </Button> */}
+                      </Button>
                       <div>
                         <PayPalButtons
                           createOrder={createOrder}

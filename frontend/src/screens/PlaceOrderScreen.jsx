@@ -74,8 +74,11 @@ const PlaceOrderScreen = () => {
               ) : (
                 <ListGroup variant='flush'>
                   {cart.cartItems.map((item, index) => (
-                    <ListGroup.Item key={index}>
-                      <Row>
+                    <ListGroup.Item
+                      key={index}
+                      className={index > 0 ? 'mt-2' : ''}
+                    >
+                      <Row className='d-flex align-items-center'>
                         <Col md={3} xs={3}>
                           <Image
                             src={item.image}
@@ -111,7 +114,7 @@ const PlaceOrderScreen = () => {
           <Card>
             <ListGroup variant='flush'>
               <ListGroup.Item>
-                <h2>Order Summary</h2>
+                <h2 className='pt-2'>Order Summary</h2>
               </ListGroup.Item>
 
               <ListGroup.Item>
@@ -141,11 +144,13 @@ const PlaceOrderScreen = () => {
                 </Row>
               </ListGroup.Item>
 
-              <ListGroup.Item>
+              <ListGroup.Item variant='info'>
                 <Row>
                   <Col>Total:</Col>
                   <Col>
-                    <strong>${cart.totalPrice}</strong>
+                    <strong style={{ fontWeight: '600' }}>
+                      ${cart.totalPrice}
+                    </strong>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -157,7 +162,7 @@ const PlaceOrderScreen = () => {
                 {isLoading && <Loader />}
               </ListGroup.Item>
 
-              <ListGroup.Item>
+              <ListGroup.Item className='no-pd-mr'>
                 <Button
                   type='button'
                   className='btn-block btn-lg btn-full-w'

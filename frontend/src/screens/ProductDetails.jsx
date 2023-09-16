@@ -13,12 +13,15 @@ import { useDispatch } from 'react-redux';
 import {
   Rating,
   BtnGoBack,
+  BtnCount,
   Loader,
   Message,
   ProductImageGallery,
+  StyledNumberInput,
 } from '../components';
 import { useGetProductDetailsQuery } from '../slices/productsApiSlice';
 import { addToCart } from '../slices/cartSlice';
+import { FaPlus, FaMinus } from 'react-icons/fa';
 
 // import '../assets/styles/custom.css';
 
@@ -27,6 +30,7 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [qty, setQty] = useState(1);
+  const [selectedQty, setSelectedQty] = useState(1);
 
   const {
     data: product,
@@ -89,11 +93,15 @@ const ProductDetails = () => {
                   <Row>
                     <Col>Price:</Col>
                     <Col>
-                      <strong>${product.price} </strong>
+                      <strong style={{ fontWeight: '600' }}>
+                        ${product.price}{' '}
+                      </strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
-                <ListGroup.Item>
+                <ListGroup.Item
+                  variant={product.countInStock === 0 ? 'danger' : ''}
+                >
                   <Row>
                     <Col>Stock:</Col>
                     <Col>
@@ -114,31 +122,37 @@ const ProductDetails = () => {
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <Row className='d-flex align-items-center'>
-                      <Col>Qty:</Col>
+                      {/* <Col>Qty:</Col> */}
                       <Col>
-                        <input
-                          type='number'
-                          value={qty}
-                          onChange={e => {
-                            const newValue = Number(e.target.value);
-                            if (newValue <= product.countInStock) {
-                              setQty(newValue);
-                            } else {
-                              // Optionally, you can provide some feedback to the user
-                              console.log(
-                                'Quantity cannot exceed the available stock.'
-                              );
-                            }
-                          }}
-                          min={1}
-                          max={product.countInStock}
-                        />
+                        <div className='d-flex flex-column align-items-center'>
+                          <StyledNumberInput
+                            value={qty}
+                            onChange={newValue => {
+                              setQty(newValue); // Update local state
+                            }}
+                            min={1}
+                            max={product.countInStock}
+                          />
+
+                          <div style={{ marginTop: '5px' }}>
+                            <BtnCount
+                              initialValue={qty}
+                              maxValue={product.countInStock}
+                              onCountChange={newCount => {
+                                setQty(newCount); // Update local state
+                              }}
+                              step={1}
+                              increaseIcon={<FaPlus />}
+                              decreaseIcon={<FaMinus />}
+                            />
+                          </div>
+                        </div>
                       </Col>
                     </Row>
                   </ListGroup.Item>
                 )}
 
-                <ListGroup.Item>
+                <ListGroup.Item className='no-pd-mr'>
                   <Button
                     className='btn-block btn-full-w'
                     type='button'
