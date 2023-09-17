@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Form, Button, FormGroup, Row, Col } from 'react-bootstrap';
+import { Form, Button, FormGroup, Row, Col, Image } from 'react-bootstrap';
 import { Message, Loader, FormContainer } from '../../components';
 import { toast } from 'react-toastify';
 import {
@@ -119,7 +119,10 @@ const ProductEditScreen = () => {
         {isLoading ? (
           <Loader />
         ) : error ? (
-          <Message variant='danger'>{error}</Message>
+          <Message variant='danger'>
+            {' '}
+            {error?.data?.message || error.error}
+          </Message>
         ) : (
           <Form onSubmit={submitHandler}>
             <Form.Group controlId='name'>
@@ -167,15 +170,31 @@ const ProductEditScreen = () => {
                 </Form.Group>
               </Col>
             </Row>
+            <Row>
+              <Col xs={9}>
+                <Form.Group controlId='imageUpload'>
+                  <Form.Label>Pick Thumbnail</Form.Label>
+                  <Form.Control
+                    type='file'
+                    label='Choose file'
+                    onChange={uploadImageHandler}
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
 
-            <Form.Group controlId='imageUpload'>
-              <Form.Label>Pick Thumbnail</Form.Label>
-              <Form.Control
-                type='file'
-                label='Choose file'
-                onChange={uploadImageHandler}
-              ></Form.Control>
-            </Form.Group>
+              <Col xs={3}>
+                {image && (
+                  <Image
+                    src={image}
+                    alt='Thumbnail'
+                    style={{
+                      height: '80px',
+                    }}
+                    fluid
+                  />
+                )}
+              </Col>
+            </Row>
 
             <Row className='my-2'>
               <Col>

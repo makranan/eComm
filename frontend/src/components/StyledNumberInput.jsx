@@ -6,6 +6,7 @@ const customInputStyle = {
   borderRadius: '4px',
   width: 'auto',
   maxWidth: 'calc(50% - 5px)',
+  textAlign: 'center',
 };
 
 function StyledNumberInput({ value, onChange, min, max }) {

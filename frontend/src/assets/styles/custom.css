@@ -1,7 +1,11 @@
 :root {
-  --line-border-fill: #f4a433;
+  --line-border-fill: #33bdf4;
   --line-border-empty: #1a1a1a;
   --borderTopColor: #c2c2c2;
+}
+
+.review button {
+  margin-top: 0;
 }
 
 .product-title {

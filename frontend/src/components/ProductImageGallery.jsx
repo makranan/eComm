@@ -11,7 +11,7 @@ class ProductImageGallery extends React.Component {
         items={images}
         showPlayButton={showPlayButton}
         showNav={false}
-        autoPlay={false}
+        autoPlay={true}
         disableThumbnailScroll={false}
         useBrowserFullscreen={false}
         useTranslate3D={false}

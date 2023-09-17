@@ -24,14 +24,14 @@ const HeaderSwiper = () => {
           disableOnInteraction: true,
         }}
         slidesPerView={1}
-        spaceBetween={30}
+        spaceBetween={0}
         loop={true}
         pagination={{
           clickable: true,
         }}
         navigation={true}
         modules={[Autoplay, Navigation]}
-        className='mySwiper mb-3'
+        className='mb-3 '
       >
         <SwiperSlide>
           {loading && (
@@ -46,29 +46,9 @@ const HeaderSwiper = () => {
               <Loader />
             </div>
           )}
-          <Link to='/cart'>
-            <img
-              src='/images/carousel/slide1.jpg'
-              alt=''
-              onLoad={handleImageLoad}
-            />
-          </Link>
-        </SwiperSlide>
-        <SwiperSlide>
-          {loading && (
-            <div
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}
-            >
-              <Loader />
-            </div>
-          )}
+
           <img
-            src='/images/carousel/slide2.jpg'
+            src='/images/carousel/slide1.svg'
             alt=''
             onLoad={handleImageLoad}
           />
@@ -87,7 +67,26 @@ const HeaderSwiper = () => {
             </div>
           )}
           <img
-            src='/images/carousel/slide3.jpg'
+            src='/images/carousel/slide2.svg'
+            alt=''
+            onLoad={handleImageLoad}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          {loading && (
+            <div
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+              }}
+            >
+              <Loader />
+            </div>
+          )}
+          <img
+            src='/images/carousel/slide3.svg'
             alt=''
             onLoad={handleImageLoad}
           />

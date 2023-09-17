@@ -66,6 +66,7 @@ const Product = ({ product, value, text }) => {
                   position: 'relative',
                   pointerEvents: 'none',
                   borderRadius: '5px',
+                  marginBottom: '5px',
                 }}
               >
                 <strong>${product.price}</strong>
