@@ -219,10 +219,18 @@ const ProductDetails = () => {
               className='my-3'
               justify
             >
-              <Tab eventKey='description' title='Description'>
+              <Tab
+                eventKey='description'
+                title='Description'
+                tabClassName='tab-text-center'
+              >
                 <FormContainer>{product.description}</FormContainer>
               </Tab>
-              <Tab eventKey='reviews' title='Reviews'>
+              <Tab
+                eventKey='reviews'
+                title='Reviews'
+                tabClassName='tab-text-center'
+              >
                 <FormContainer>
                   <ListGroup variant='flush'>
                     {product.reviews.length === 0 && (
@@ -246,7 +254,11 @@ const ProductDetails = () => {
                   </ListGroup>
                 </FormContainer>
               </Tab>
-              <Tab eventKey='writeReview' title='Write Review'>
+              <Tab
+                eventKey='writeReview'
+                title='Write Review'
+                tabClassName='tab-text-center'
+              >
                 <FormContainer>
                   {loadingReview && <Loader />}
 

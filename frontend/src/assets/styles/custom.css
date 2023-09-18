@@ -22,10 +22,9 @@
   justify-content: center;
 }
 
-/* .nav-link {
-  display: flex;
+.tab-text-center {
   justify-content: center;
-} */
+}
 
 .product-title {
   margin-bottom: -8px;
