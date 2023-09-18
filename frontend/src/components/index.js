@@ -18,6 +18,10 @@ import CheckoutStepsCircles from './CheckoutStepsCircles';
 import ProductImageGallery from './ProductImageGallery';
 import MyModal from './MyModal';
 import StyledNumberInput from './StyledNumberInput';
+import Paginate from './Paginate';
+import SearchBox from './SearchBox';
+import ProductCarousel from './ProductCarousel';
+import Meta from './Meta';
 
 export {
   Header,
@@ -40,4 +44,8 @@ export {
   ProductImageGallery,
   MyModal,
   StyledNumberInput,
+  Paginate,
+  SearchBox,
+  ProductCarousel,
+  Meta,
 };

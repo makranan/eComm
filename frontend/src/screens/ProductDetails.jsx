@@ -9,6 +9,8 @@ import {
   Card,
   Button,
   Accordion,
+  Tab,
+  Tabs,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -19,6 +21,8 @@ import {
   Message,
   ProductImageGallery,
   StyledNumberInput,
+  FormContainer,
+  Meta,
 } from '../components';
 import {
   useGetProductDetailsQuery,
@@ -99,6 +103,7 @@ const ProductDetails = () => {
         </Message>
       ) : (
         <>
+          <Meta title={product.name} description={product.description} />
           <Row>
             <Col md={5}>
               {/* <Image src={product.image} alt={product.name} fluid /> */}
@@ -122,7 +127,9 @@ const ProductDetails = () => {
                 <ListGroup.Item>
                   Tax: $ {calculateTaxPrice(product.price)}
                 </ListGroup.Item>
-                <ListGroup.Item>{product.description}</ListGroup.Item>
+                <ListGroup.Item>
+                  {product.description.substring(0, 200)}...
+                </ListGroup.Item>
               </ListGroup>
             </Col>
             <Col md={3}>
@@ -205,83 +212,109 @@ const ProductDetails = () => {
             </Col>
           </Row>
 
-          <Row className='review'>
+          <Row>
+            <Tabs
+              defaultActiveKey='description'
+              id='product-tabs'
+              className='my-3'
+              justify
+            >
+              <Tab eventKey='description' title='Description'>
+                <FormContainer>{product.description}</FormContainer>
+              </Tab>
+              <Tab eventKey='reviews' title='Reviews'>
+                <FormContainer>
+                  <ListGroup variant='flush'>
+                    {product.reviews.length === 0 && (
+                      <Message>No reviews</Message>
+                    )}
+
+                    {product.reviews.map(review => (
+                      <ListGroup.Item key={review._id}>
+                        <Row>
+                          <Col xs={3}>
+                            <strong>{review.name}</strong>
+                            <Rating value={review.rating} />
+                            <p>{review.createdAt.substring(0, 10)}</p>
+                          </Col>
+                          <Col xs={9} className='d-flex align-items-center'>
+                            <p>{review.comment}</p>
+                          </Col>
+                        </Row>
+                      </ListGroup.Item>
+                    ))}
+                  </ListGroup>
+                </FormContainer>
+              </Tab>
+              <Tab eventKey='writeReview' title='Write Review'>
+                <FormContainer>
+                  {loadingReview && <Loader />}
+
+                  {userInfo ? (
+                    <Form onSubmit={submitHandler}>
+                      <Form.Group controlId='rating' className='my-2'>
+                        <Form.Label>Rating</Form.Label>
+                        <Form.Control
+                          as='select'
+                          value={rating}
+                          onChange={e => setRating(Number(e.target.value))}
+                        >
+                          <option value=''>Select...</option>
+                          <option value='1'>1 - Poor</option>
+                          <option value='2'>2 - Fair</option>
+                          <option value='3'>3 - Good</option>
+                          <option value='4'>4 - Very Good</option>
+                          <option value='5'>5 - Excellent</option>
+                        </Form.Control>
+                      </Form.Group>
+
+                      <Form.Group controlId='comment' className='my-2'>
+                        <Form.Label>Review Message</Form.Label>
+                        <Form.Control
+                          as='textarea'
+                          rows={3}
+                          value={comment}
+                          placeholder='Write a review'
+                          onChange={e => setComment(e.target.value)}
+                        ></Form.Control>
+                      </Form.Group>
+
+                      <Button
+                        disabled={loadingReview}
+                        type='submit'
+                        variant='primary'
+                      >
+                        Submit
+                      </Button>
+                    </Form>
+                  ) : (
+                    <Message>
+                      Please <Link to='/login'>sign in</Link> to write a review
+                    </Message>
+                  )}
+                </FormContainer>
+              </Tab>
+            </Tabs>
+          </Row>
+
+          {/* <Row className='review'>
             <Col md={5}>
               <Accordion defaultActiveKey='0' flush>
                 <Accordion.Item eventKey='0'>
                   <Accordion.Header style={{ padding: '0' }}>
                     Reviews
                   </Accordion.Header>
-                  <Accordion.Body>
-                    {product.reviews.length === 0 && (
-                      <Message>No reviews</Message>
-                    )}
-
-                    {product.reviews.map(review => (
-                      <ListGroup.Item key={product._id}>
-                        <strong>{review.name}</strong>
-                        <Rating value={review.rating} />
-                        <p>{review.createdAt.substring(0, 10)}</p>
-                        <p>{review.comment}</p>
-                      </ListGroup.Item>
-                    ))}
-                  </Accordion.Body>
+                  <Accordion.Body></Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey='1'>
                   <Accordion.Header style={{ padding: '0' }}>
                     Write a review
                   </Accordion.Header>
-                  <Accordion.Body>
-                    {loadingReview && <Loader />}
-
-                    {userInfo ? (
-                      <Form onSubmit={submitHandler}>
-                        <Form.Group controlId='rating' className='my-2'>
-                          <Form.Label>Rating</Form.Label>
-                          <Form.Control
-                            as='select'
-                            value={rating}
-                            onChange={e => setRating(Number(e.target.value))}
-                          >
-                            <option value=''>Select...</option>
-                            <option value='1'>1 - Poor</option>
-                            <option value='2'>2 - Fair</option>
-                            <option value='3'>3 - Good</option>
-                            <option value='4'>4 - Very Good</option>
-                            <option value='5'>5 - Excellent</option>
-                          </Form.Control>
-                        </Form.Group>
-
-                        <Form.Group controlId='comment' className='my-2'>
-                          <Form.Label>Review Message</Form.Label>
-                          <Form.Control
-                            as='textarea'
-                            rows={3}
-                            value={comment}
-                            placeholder='Write a review'
-                            onChange={e => setComment(e.target.value)}
-                          ></Form.Control>
-                        </Form.Group>
-
-                        <Button
-                          disabled={loadingReview}
-                          type='submit'
-                          variant='primary'
-                        >
-                          Submit
-                        </Button>
-                      </Form>
-                    ) : (
-                      <Message>
-                        Please <Link to='/login'>sign in</Link> to write a
-                        review
-                      </Message>
-                    )}
-                  </Accordion.Body>
+                  <Accordion.Body></Accordion.Body>
                 </Accordion.Item>
               </Accordion>
             </Col>
-          </Row>
+          </Row> */}
         </>
       )}
     </>

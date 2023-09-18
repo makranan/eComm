@@ -8,6 +8,25 @@
   margin-top: 0;
 }
 
+.centered-tabs .nav-item {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  border-bottom: 2px solid #007bff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+/* .nav-link {
+  display: flex;
+  justify-content: center;
+} */
+
 .product-title {
   margin-bottom: -8px;
 }
@@ -117,4 +136,13 @@ input[type='number'] {
   width: 0%;
   z-index: -1;
   transition: 0.4s ease;
+}
+
+.carousel-caption {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
 }
