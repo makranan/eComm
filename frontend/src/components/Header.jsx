@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Badge, Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-import { FaShoppingCart, FaUser, FaTags } from 'react-icons/fa';
+import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
@@ -45,21 +45,17 @@ const Header = () => {
           <Container>
             <LinkContainer to='/'>
               <Navbar.Brand>
-                <img
-                  src={logo}
-                  alt='Electro Empire'
-                  style={{ height: '40px' }}
-                />{' '}
+                <img src={logo} alt='Tech World' style={{ height: '40px' }} />{' '}
                 <strong style={{ fontSize: '1rem' }}>TechWorld</strong>
               </Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls='basic-navbar-bav' />
             <Navbar.Collapse id='basic-navbar-nav'>
-              <Nav className='ms-auto'>
+              <Nav className='ms-auto' navbarScroll>
                 <SearchBox />
 
                 <LinkContainer to='/cart'>
-                  <Nav.Link>
+                  <Nav.Link className='mb-1'>
                     <FaShoppingCart style={{ marginRight: '5px' }} />
                     Cart
                     {cartItems.length > 0 && (

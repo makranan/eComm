@@ -1,0 +1,70 @@
+/* Example CSS to customize the gallery */
+
+/* Change the background color of the gallery */
+.image-gallery {
+  background-color: #ffffff;
+}
+
+/* Style the gallery navigation buttons */
+.image-gallery-icon {
+  color: #007bff;
+  box-shadow: none;
+}
+
+/* Style the image captions */
+.image-gallery-description {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Style the image thumbnails */
+/* .image-gallery-thumbnail {
+  border: 2px solid #007bff;
+} */
+
+.image-gallery-content:not(.fullscreen) .image-gallery-image:not(.fullscreen) {
+  max-height: 30vh;
+}
+
+.image-gallery-thumbnail:hover {
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  transform: scale(1);
+}
+
+.image-gallery-thumbnail .image-gallery-thumbnail-image {
+  aspect-ratio: auto;
+  height: 92px;
+  width: 92px;
+  object-fit: contain;
+  /* transform: scale(0.7); */
+}
+
+.image-gallery-thumbnail.active,
+.image-gallery-thumbnail:focus {
+  border: 3px solid rgba(0, 0, 0, 0.1);
+}
+
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+  background-color: #ffffff;
+}
+
+.image-gallery-thumbnails .image-gallery-thumbnails-container {
+  background-color: #ffffff;
+}
+.image-gallery-thumbnails {
+  padding: 0;
+}
+
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+  max-height: 80vh;
+}
+
+.image-gallery.fullscreen-modal {
+  background: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .image-gallery-thumbnail {
+    width: auto;
+  }
+}

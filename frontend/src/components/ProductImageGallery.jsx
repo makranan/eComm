@@ -1,6 +1,7 @@
 import React from 'react';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import ImageGallery from 'react-image-gallery';
+import '../assets/styles/imageCarousel.css';
 
 class ProductImageGallery extends React.Component {
   render() {
@@ -10,8 +11,8 @@ class ProductImageGallery extends React.Component {
       <ImageGallery
         items={images}
         showPlayButton={showPlayButton}
-        showNav={false}
-        autoPlay={true}
+        showNav={true}
+        autoPlay={false}
         disableThumbnailScroll={false}
         useBrowserFullscreen={false}
         useTranslate3D={false}

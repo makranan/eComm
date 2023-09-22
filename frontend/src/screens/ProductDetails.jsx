@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   Form,
@@ -39,9 +39,11 @@ const ProductDetails = () => {
   const { id: productId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
+  const [activeTab, setActiveTab] = useState('description');
 
   const {
     data: product,
@@ -73,6 +75,7 @@ const ProductDetails = () => {
       toast.success('Review submitted');
       setRating(0);
       setComment('');
+      setActiveTab('reviews');
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
@@ -107,9 +110,11 @@ const ProductDetails = () => {
           <Row>
             <Col md={5}>
               {/* <Image src={product.image} alt={product.name} fluid /> */}
+
               <ProductImageGallery
                 images={product.images}
                 showPlayButton={false}
+                infinite={true}
               />
             </Col>
             <Col md={4}>
@@ -118,18 +123,23 @@ const ProductDetails = () => {
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Rating
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                  />
+                  <div
+                    onClick={() => setActiveTab('reviews')}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <Rating
+                      value={product.rating}
+                      text={`${product.numReviews} reviews`}
+                    />
+                  </div>
                 </ListGroup.Item>
                 <ListGroup.Item>Price: $ {product.price}</ListGroup.Item>
                 <ListGroup.Item>
                   Tax: $ {calculateTaxPrice(product.price)}
                 </ListGroup.Item>
-                <ListGroup.Item>
+                {/* <ListGroup.Item>
                   {product.description.substring(0, 200)}...
-                </ListGroup.Item>
+                </ListGroup.Item> */}
               </ListGroup>
             </Col>
             <Col md={3}>
@@ -213,100 +223,105 @@ const ProductDetails = () => {
           </Row>
 
           <Row>
-            <Tabs
-              defaultActiveKey='description'
-              id='product-tabs'
-              className='my-3'
-              justify
-            >
-              <Tab
-                eventKey='description'
-                title='Description'
-                tabClassName='tab-text-center'
+            <Col>
+              <Tabs
+                defaultActiveKey='description'
+                activeKey={activeTab}
+                onSelect={k => setActiveTab(k)}
+                id='product-tabs'
+                className='my-3'
+                justify
               >
-                <FormContainer>{product.description}</FormContainer>
-              </Tab>
-              <Tab
-                eventKey='reviews'
-                title='Reviews'
-                tabClassName='tab-text-center'
-              >
-                <FormContainer>
-                  <ListGroup variant='flush'>
-                    {product.reviews.length === 0 && (
-                      <Message>No reviews</Message>
-                    )}
+                <Tab
+                  eventKey='description'
+                  title='DESCRIPTION'
+                  tabClassName='tab-text-center'
+                >
+                  <FormContainer>{product.description}</FormContainer>
+                </Tab>
+                <Tab
+                  eventKey='reviews'
+                  title='REVIEWS'
+                  tabClassName='tab-text-center'
+                >
+                  <FormContainer>
+                    <ListGroup variant='flush'>
+                      {product.reviews.length === 0 && (
+                        <Message>No reviews</Message>
+                      )}
 
-                    {product.reviews.map(review => (
-                      <ListGroup.Item key={review._id}>
-                        <Row>
-                          <Col xs={3}>
-                            <strong>{review.name}</strong>
-                            <Rating value={review.rating} />
-                            <p>{review.createdAt.substring(0, 10)}</p>
-                          </Col>
-                          <Col xs={9} className='d-flex align-items-center'>
-                            <p>{review.comment}</p>
-                          </Col>
-                        </Row>
-                      </ListGroup.Item>
-                    ))}
-                  </ListGroup>
-                </FormContainer>
-              </Tab>
-              <Tab
-                eventKey='writeReview'
-                title='Write Review'
-                tabClassName='tab-text-center'
-              >
-                <FormContainer>
-                  {loadingReview && <Loader />}
+                      {product.reviews.map(review => (
+                        <ListGroup.Item key={review._id}>
+                          <Row>
+                            <Col xs={4}>
+                              <strong>{review.name}</strong>
+                              <Rating value={review.rating} />
+                              <p>{review.createdAt.substring(0, 10)}</p>
+                            </Col>
+                            <Col xs={8} className='d-flex align-items-center'>
+                              <p>{review.comment}</p>
+                            </Col>
+                          </Row>
+                        </ListGroup.Item>
+                      ))}
+                    </ListGroup>
+                  </FormContainer>
+                </Tab>
+                <Tab
+                  eventKey='writeReview'
+                  title='WRITE REVIEW'
+                  tabClassName='tab-text-center'
+                >
+                  <FormContainer>
+                    {loadingReview && <Loader />}
 
-                  {userInfo ? (
-                    <Form onSubmit={submitHandler}>
-                      <Form.Group controlId='rating' className='my-2'>
-                        <Form.Label>Rating</Form.Label>
-                        <Form.Control
-                          as='select'
-                          value={rating}
-                          onChange={e => setRating(Number(e.target.value))}
+                    {userInfo ? (
+                      <Form onSubmit={submitHandler}>
+                        <Form.Group controlId='rating' className='my-2'>
+                          <Form.Label>Rating</Form.Label>
+                          <Form.Control
+                            as='select'
+                            value={rating}
+                            onChange={e => setRating(Number(e.target.value))}
+                          >
+                            <option value=''>Select...</option>
+                            <option value='1'>1 - Poor</option>
+                            <option value='2'>2 - Fair</option>
+                            <option value='3'>3 - Good</option>
+                            <option value='4'>4 - Very Good</option>
+                            <option value='5'>5 - Excellent</option>
+                          </Form.Control>
+                        </Form.Group>
+
+                        <Form.Group controlId='comment' className='my-2'>
+                          <Form.Label>Review Message</Form.Label>
+                          <Form.Control
+                            as='textarea'
+                            rows={3}
+                            value={comment}
+                            placeholder='Write a review'
+                            onChange={e => setComment(e.target.value)}
+                          ></Form.Control>
+                        </Form.Group>
+
+                        <Button
+                          disabled={loadingReview}
+                          type='submit'
+                          variant='primary'
                         >
-                          <option value=''>Select...</option>
-                          <option value='1'>1 - Poor</option>
-                          <option value='2'>2 - Fair</option>
-                          <option value='3'>3 - Good</option>
-                          <option value='4'>4 - Very Good</option>
-                          <option value='5'>5 - Excellent</option>
-                        </Form.Control>
-                      </Form.Group>
-
-                      <Form.Group controlId='comment' className='my-2'>
-                        <Form.Label>Review Message</Form.Label>
-                        <Form.Control
-                          as='textarea'
-                          rows={3}
-                          value={comment}
-                          placeholder='Write a review'
-                          onChange={e => setComment(e.target.value)}
-                        ></Form.Control>
-                      </Form.Group>
-
-                      <Button
-                        disabled={loadingReview}
-                        type='submit'
-                        variant='primary'
-                      >
-                        Submit
-                      </Button>
-                    </Form>
-                  ) : (
-                    <Message>
-                      Please <Link to='/login'>sign in</Link> to write a review
-                    </Message>
-                  )}
-                </FormContainer>
-              </Tab>
-            </Tabs>
+                          Submit
+                        </Button>
+                      </Form>
+                    ) : (
+                      <Message>
+                        Please <Link to='/login'>sign in</Link> to write a
+                        review
+                      </Message>
+                    )}
+                  </FormContainer>
+                </Tab>
+              </Tabs>
+            </Col>
           </Row>
 
           {/* <Row className='review'>

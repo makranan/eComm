@@ -78,6 +78,7 @@ const RegisterScreen = () => {
             placeholder='Enter Your Name'
             value={name}
             onChange={e => setName(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
@@ -88,6 +89,7 @@ const RegisterScreen = () => {
             placeholder='Enter Email'
             value={email}
             onChange={e => setEmail(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
@@ -98,6 +100,7 @@ const RegisterScreen = () => {
             placeholder='Enter Password'
             value={password}
             onChange={e => setPassword(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
@@ -108,15 +111,25 @@ const RegisterScreen = () => {
             placeholder='Confirm Password'
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
-        <Button
-          type='submit'
-          variant='primary'
-          className='mt-2'
-          disabled={isLoading}
-        >
+        <Form.Group controlId='acceptTerms' className='my-4'>
+          <Form.Check // prettier-ignore
+            type='checkbox'
+            id='custom-switch'
+            label={
+              <>
+                <span style={{ color: 'red' }}>*</span> Accept our{' '}
+                <Link> Terms and Services </Link>
+              </>
+            }
+            required
+          />
+        </Form.Group>
+
+        <Button type='submit' variant='primary' disabled={isLoading}>
           Register
         </Button>
         {isLoading && <Loader />}

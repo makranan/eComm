@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaChevronLeft } from 'react-icons/fa';
 
@@ -7,6 +8,18 @@ const BtnGoBack = () => {
   const handleGoBack = () => {
     navigate(-1);
   };
+
+  useEffect(() => {
+    const onBeforeUnload = () => {
+      sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+    };
+
+    window.addEventListener('beforeunload', onBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', onBeforeUnload);
+    };
+  }, []);
 
   return (
     <button

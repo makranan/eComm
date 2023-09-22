@@ -46,6 +46,16 @@ const CartScreen = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  function ScrollToTop() {
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
+    return null;
+  }
+  ScrollToTop();
+
   return (
     <>
       <BtnGoBack />

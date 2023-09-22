@@ -1,5 +1,5 @@
 :root {
-  --line-border-fill: #33bdf4;
+  --line-border-fill: #1363f6;
   --line-border-empty: #1a1a1a;
   --borderTopColor: #c2c2c2;
 }
@@ -63,17 +63,6 @@
 
 .full-width {
   width: 100vw;
-}
-
-.image-gallery-content .image-gallery-slide .image-gallery-image {
-  max-height: 100px;
-}
-
-.image-gallery-thumbnail .image-gallery-thumbnail-image {
-  aspect-ratio: auto;
-  height: 92px;
-  width: 92px;
-  object-fit: contain;
 }
 
 input[type='number'] {
@@ -144,4 +133,31 @@ input[type='number'] {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
+}
+
+.nav-tabs {
+  background: #f3f3f3;
+  width: 100%;
+}
+
+.nav-tabs .nav-link {
+  border: none;
+}
+
+.footer-social-icon {
+  color: #ffffff;
+  transition: all 0.1s ease-in;
+}
+
+.footer-social-icon:hover {
+  color: var(--line-border-fill);
+}
+
+.footer-social-text {
+  color: #727272;
+  transition: all 0.1s ease-in;
+}
+
+.footer-social-text:hover {
+  color: var(--line-border-fill);
 }
