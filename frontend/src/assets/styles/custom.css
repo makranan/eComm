@@ -4,6 +4,22 @@
   --borderTopColor: #c2c2c2;
 }
 
+html {
+  background: #ffffff;
+}
+
+body {
+  transition: all 0.1s ease-in;
+}
+
+.btn {
+  transition: all 0.1s ease-in;
+}
+
+.btn:hover {
+  border-radius: 5px;
+}
+
 .review button {
   margin-top: 0;
 }
@@ -20,6 +36,8 @@
   text-align: center;
   display: flex;
   justify-content: center;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease-in;
 }
 
 .tab-text-center {

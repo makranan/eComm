@@ -29,7 +29,7 @@ import {
   useCreateReviewMutation,
 } from '../slices/productsApiSlice';
 import { addToCart } from '../slices/cartSlice';
-import { FaPlus, FaMinus } from 'react-icons/fa';
+import { FaPlus, FaMinus, FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { addDecimals } from '../utils/cartUtils';
 
@@ -85,18 +85,39 @@ const ProductDetails = () => {
     return addDecimals(Number((0.23 * productPrice).toFixed(2)));
   };
 
-  function ScrollToTop() {
+  const ScrollToTop = () => {
     useEffect(() => {
       window.scrollTo(0, 0);
     }, []);
 
     return null;
-  }
+  };
   ScrollToTop();
+
+  const tabs = document.getElementById('product-tabs');
+
+  useEffect(() => {
+    if (tabs) {
+      tabs.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  }, []);
 
   return (
     <>
-      <BtnGoBack className='btn-primary btn my-3' to='/' />
+      <div className='d-flex justify-content-between'>
+        <BtnGoBack className='btn btn-primary my-3' to='/' />
+
+        {userInfo && userInfo.isAdmin && (
+          <Link to={`/admin/product/${productId}/edit`}>
+            <Button variant='light' className='btn-sm'>
+              <FaEdit /> Edit Product
+            </Button>
+          </Link>
+        )}
+      </div>
 
       {isLoading ? (
         <Loader />
@@ -124,8 +145,19 @@ const ProductDetails = () => {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <div
-                    onClick={() => setActiveTab('reviews')}
                     style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      setActiveTab('reviews');
+
+                      const tab = document.getElementById('product-tabs');
+
+                      if (tab) {
+                        tab.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'start',
+                        });
+                      }
+                    }}
                   >
                     <Rating
                       value={product.rating}
@@ -223,56 +255,105 @@ const ProductDetails = () => {
           </Row>
 
           <Row>
-            <Col>
-              <Tabs
-                defaultActiveKey='description'
-                activeKey={activeTab}
-                onSelect={k => setActiveTab(k)}
-                id='product-tabs'
-                className='my-3'
-                justify
-              >
-                <Tab
-                  eventKey='description'
-                  title='DESCRIPTION'
-                  tabClassName='tab-text-center'
+            <div id='product-tabs'>
+              <Col>
+                <Tabs
+                  defaultActiveKey='description'
+                  activeKey={activeTab}
+                  onSelect={k => setActiveTab(k)}
+                  id='product-tabs'
+                  className='my-3'
+                  justify
                 >
-                  <FormContainer>{product.description}</FormContainer>
-                </Tab>
-                <Tab
-                  eventKey='reviews'
-                  title='REVIEWS'
-                  tabClassName='tab-text-center'
-                >
-                  <FormContainer>
-                    <ListGroup variant='flush'>
-                      {product.reviews.length === 0 && (
-                        <Message>No reviews</Message>
-                      )}
+                  <Tab
+                    eventKey='description'
+                    title='DESCRIPTION'
+                    tabClassName='tab-text-center'
+                  >
+                    <FormContainer>{product.description}</FormContainer>
+                  </Tab>
+                  <Tab
+                    eventKey='reviews'
+                    title='REVIEWS'
+                    tabClassName='tab-text-center'
+                  >
+                    <FormContainer>
+                      {loadingReview && <Loader />}
 
-                      {product.reviews.map(review => (
-                        <ListGroup.Item key={review._id}>
-                          <Row>
-                            <Col xs={4}>
-                              <strong>{review.name}</strong>
-                              <Rating value={review.rating} />
-                              <p>{review.createdAt.substring(0, 10)}</p>
-                            </Col>
-                            <Col xs={8} className='d-flex align-items-center'>
-                              <p>{review.comment}</p>
-                            </Col>
-                          </Row>
-                        </ListGroup.Item>
-                      ))}
-                    </ListGroup>
-                  </FormContainer>
-                </Tab>
-                <Tab
-                  eventKey='writeReview'
-                  title='WRITE REVIEW'
-                  tabClassName='tab-text-center'
-                >
-                  <FormContainer>
+                      {userInfo ? (
+                        <Form onSubmit={submitHandler} className='my-4'>
+                          <Form.Group controlId='rating' className='my-2'>
+                            <Form.Label>Rating</Form.Label>
+                            <Form.Control
+                              as='select'
+                              value={rating}
+                              onChange={e => setRating(Number(e.target.value))}
+                            >
+                              <option value=''>Select...</option>
+                              <option value='1'>1 - Poor</option>
+                              <option value='2'>2 - Fair</option>
+                              <option value='3'>3 - Good</option>
+                              <option value='4'>4 - Very Good</option>
+                              <option value='5'>5 - Excellent</option>
+                            </Form.Control>
+                          </Form.Group>
+
+                          <Form.Group controlId='comment' className='my-2'>
+                            <Form.Label>Review Message</Form.Label>
+                            <Form.Control
+                              as='textarea'
+                              rows={3}
+                              value={comment}
+                              placeholder='Write a review'
+                              onChange={e => setComment(e.target.value)}
+                            ></Form.Control>
+                          </Form.Group>
+
+                          <Button
+                            disabled={loadingReview}
+                            type='submit'
+                            variant='primary'
+                          >
+                            Submit
+                          </Button>
+                        </Form>
+                      ) : (
+                        <Message>
+                          Please <Link to='/login'>sign in</Link> to write a
+                          review
+                        </Message>
+                      )}
+                    </FormContainer>
+                    <FormContainer>
+                      <ListGroup variant='flush'>
+                        {product.reviews.length === 0 && (
+                          <Message>No reviews</Message>
+                        )}
+
+                        {product.reviews.map(review => (
+                          <ListGroup.Item key={review._id}>
+                            <Row>
+                              <Col xs={4}>
+                                <strong>{review.name}</strong>
+                                <Rating value={review.rating} />
+                                <p>{review.createdAt.substring(0, 10)}</p>
+                              </Col>
+                              <Col xs={8} className='d-flex align-items-center'>
+                                <p>{review.comment}</p>
+                              </Col>
+                            </Row>
+                          </ListGroup.Item>
+                        ))}
+                      </ListGroup>
+                    </FormContainer>
+                  </Tab>
+
+                  <Tab
+                    eventKey='details'
+                    title='DETAILS'
+                    tabClassName='tab-text-center'
+                  >
+                    {/* <FormContainer>
                     {loadingReview && <Loader />}
 
                     {userInfo ? (
@@ -318,10 +399,11 @@ const ProductDetails = () => {
                         review
                       </Message>
                     )}
-                  </FormContainer>
-                </Tab>
-              </Tabs>
-            </Col>
+                  </FormContainer> */}
+                  </Tab>
+                </Tabs>
+              </Col>
+            </div>
           </Row>
 
           {/* <Row className='review'>

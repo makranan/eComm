@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Form, Button, FormGroup, Row, Col, Image } from 'react-bootstrap';
-import { Message, Loader, FormContainer } from '../../components';
+import { Message, Loader, FormContainer, BtnGoBack } from '../../components';
 import { toast } from 'react-toastify';
 import {
   useUpdateProductMutation,
   useGetProductDetailsQuery,
   useUploadProductImageMutation,
+  useUploadProductImagesMutation,
 } from '../../slices/productsApiSlice';
 
 const ProductEditScreen = () => {
@@ -15,7 +16,7 @@ const ProductEditScreen = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState('');
-  const [images, setImages] = useState('');
+  const [images, setImages] = useState([]);
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
@@ -33,6 +34,9 @@ const ProductEditScreen = () => {
 
   const [uploadProductImage, { isLoading: loadingUpload }] =
     useUploadProductImageMutation(productId);
+
+  const [uploadProductImages, { isLoading: loadingUploadImages }] =
+    useUploadProductImagesMutation(productId);
 
   const navigate = useNavigate();
 
@@ -86,6 +90,10 @@ const ProductEditScreen = () => {
     }
   };
 
+  const uploadImagesHandler = async e => {
+    console.log(e.target.files);
+  };
+
   const priceChangeHandler = e => {
     // Extract the entered value as a number
     const enteredValue = parseFloat(e.target.value);
@@ -104,13 +112,15 @@ const ProductEditScreen = () => {
   return (
     <>
       <FormContainer>
-        <Link
+        {/* <Link
           to={'/admin/productlist'}
           className='btn btn-light my-3'
           style={{ transform: 'translateX(-20px)' }}
         >
           Go Back
-        </Link>
+        </Link> */}
+
+        <BtnGoBack />
 
         <h1>Edit Product</h1>
 
@@ -193,6 +203,36 @@ const ProductEditScreen = () => {
                     fluid
                   />
                 )}
+              </Col>
+            </Row>
+
+            <Row className='my-4'>
+              {images &&
+                images.map((image, index) => (
+                  <Col key={index} xs={3}>
+                    <Image
+                      src={image.original}
+                      alt={`Image ${index + 1}`}
+                      style={{
+                        height: '80px',
+                      }}
+                      fluid
+                    />
+                  </Col>
+                ))}
+            </Row>
+
+            <Row>
+              <Col>
+                <Form.Group controlId='imagesUpload'>
+                  <Form.Label>Pick Images</Form.Label>
+                  <Form.Control
+                    type='file'
+                    label='Choose files'
+                    onChange={uploadImagesHandler}
+                    multiple
+                  ></Form.Control>
+                </Form.Group>
               </Col>
             </Row>
 

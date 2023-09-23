@@ -44,8 +44,16 @@ const createProduct = asyncHandler(async (req, res) => {
     image: '/images/sample.jpg',
     images: [
       {
+        original: '/images/sample.jpg',
+        thumbnail: '/images/sample.jpg',
+      },
+      {
         original: '/images/sample2.jpg',
         thumbnail: '/images/sample2.jpg',
+      },
+      {
+        original: '/images/sample3.jpg',
+        thumbnail: '/images/sample3.jpg',
       },
     ],
     brand: 'Brand',

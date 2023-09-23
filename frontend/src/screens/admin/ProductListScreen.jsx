@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Row, Col } from 'react-bootstrap';
 import { FaTimes, FaCheck, FaEdit, FaTrash } from 'react-icons/fa';
@@ -86,7 +86,14 @@ const ProductListScreen = () => {
               {data.products.map(product => (
                 <tr key={product._id} style={{ verticalAlign: 'middle' }}>
                   <td>{product._id}</td>
-                  <td>{product.name}</td>
+                  <td>
+                    <Link
+                      to={`/product/${product._id}`}
+                      style={{ textDecoration: 'none', color: 'blue' }}
+                    >
+                      {product.name}
+                    </Link>
+                  </td>
                   <td>{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>

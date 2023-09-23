@@ -1,14 +1,27 @@
 /* Example CSS to customize the gallery */
 
 /* Change the background color of the gallery */
+.image-gallery * {
+  background-color: #ffffff;
+}
+
 .image-gallery {
   background-color: #ffffff;
 }
 
 /* Style the gallery navigation buttons */
 .image-gallery-icon {
-  color: #007bff;
-  box-shadow: none;
+  background-color: transparent;
+  color: #727272;
+  filter: none;
+}
+
+.image-gallery-svg {
+  background-color: transparent;
+}
+
+.image-gallery-icon:focus {
+  outline: none;
 }
 
 /* Style the image captions */

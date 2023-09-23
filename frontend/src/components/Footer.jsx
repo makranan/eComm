@@ -26,7 +26,7 @@ const Footer = () => {
                 TechWorld
               </strong>
             </Col>
-            <Col lg={6} sm={8} xs={9} className='text-start my-4'>
+            <Col lg={6} sm={8} xs={10} className='text-start my-4'>
               <Form.Control type='email' placeholder='Join our Newsletter!' />
             </Col>
             <Col lg={3} sm={2} xs={3}>
