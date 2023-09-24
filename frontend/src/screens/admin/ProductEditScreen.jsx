@@ -91,7 +91,28 @@ const ProductEditScreen = () => {
   };
 
   const uploadImagesHandler = async e => {
-    console.log(e.target.files);
+    const files = e.target.files;
+    const formData = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append('images', files[i]);
+    }
+
+    try {
+      const res = await uploadProductImages(formData).unwrap();
+      toast.success(res.message);
+
+      const imagePaths = res.images;
+
+      const imagesArray = imagePaths.map(path => ({
+        original: path,
+        thumbnail: path,
+      }));
+
+      setImages(imagesArray);
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
   };
 
   const priceChangeHandler = e => {
@@ -229,6 +250,7 @@ const ProductEditScreen = () => {
                   <Form.Control
                     type='file'
                     label='Choose files'
+                    name='images'
                     onChange={uploadImagesHandler}
                     multiple
                   ></Form.Control>

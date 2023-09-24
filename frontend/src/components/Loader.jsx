@@ -9,7 +9,7 @@ const Loader = () => {
     <ScaleLoader
       color='#a5a5a5'
       loading={loading}
-      size={30}
+      size={25}
       aria-label='Loading Spinner'
       style={{
         display: 'flex',

@@ -71,6 +71,8 @@ const createProduct = asyncHandler(async (req, res) => {
 // @route   PUT /api/products/:id
 // @access  Private/Admin
 const updateProduct = asyncHandler(async (req, res) => {
+  console.log('Request Body:', req.body);
+
   const {
     name,
     price,
@@ -93,11 +95,16 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.category = category;
     product.countInStock = countInStock;
 
-    const updatedProduct = await product.save();
-    res.json(updatedProduct);
+    try {
+      const updatedProduct = await product.save();
+      res.json(updatedProduct);
+    } catch (error) {
+      res
+        .status(400)
+        .json({ message: 'Invalid product data', error: error.message });
+    }
   } else {
-    res.status(404);
-    throw new Error('Resource not found');
+    res.status(404).json({ message: 'Product not found' });
   }
 });
 
