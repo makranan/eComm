@@ -74,6 +74,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   console.log('Request Body:', req.body);
 
   const {
+    user,
     name,
     price,
     description,
@@ -86,6 +87,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   if (product) {
+    product.user = user;
     product.name = name;
     product.price = price;
     product.description = description;

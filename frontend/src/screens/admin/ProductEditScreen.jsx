@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Form, Button, FormGroup, Row, Col, Image } from 'react-bootstrap';
 import { Message, Loader, FormContainer, BtnGoBack } from '../../components';
@@ -12,11 +13,12 @@ import {
 
 const ProductEditScreen = () => {
   const { id: productId } = useParams();
+  const { userInfo: user } = useSelector(state => state.auth);
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState(user);
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState('');
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState();
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
@@ -97,6 +99,18 @@ const ProductEditScreen = () => {
     for (let i = 0; i < files.length; i++) {
       formData.append('images', files[i]);
     }
+
+    formData.append('user', user);
+    formData.append('name', name);
+    formData.append('price', price);
+    formData.append('image', image);
+    formData.append('images', images);
+    formData.append('brand', brand);
+    formData.append('category', category);
+    formData.append('countInStock', countInStock);
+    formData.append('description', description);
+
+    // console.log(...formData);
 
     try {
       const res = await uploadProductImages(formData).unwrap();
@@ -208,6 +222,7 @@ const ProductEditScreen = () => {
                   <Form.Control
                     type='file'
                     label='Choose file'
+                    name='image'
                     onChange={uploadImageHandler}
                   ></Form.Control>
                 </Form.Group>
@@ -227,7 +242,7 @@ const ProductEditScreen = () => {
               </Col>
             </Row>
 
-            <Row className='my-4'>
+            {/* <Row className='my-4'>
               {images &&
                 images.map((image, index) => (
                   <Col key={index} xs={3}>
@@ -241,7 +256,7 @@ const ProductEditScreen = () => {
                     />
                   </Col>
                 ))}
-            </Row>
+            </Row> */}
 
             <Row>
               <Col>

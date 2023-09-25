@@ -27,9 +27,10 @@ import {
 import {
   useGetProductDetailsQuery,
   useCreateReviewMutation,
+  useDeleteProductMutation,
 } from '../slices/productsApiSlice';
 import { addToCart } from '../slices/cartSlice';
-import { FaPlus, FaMinus, FaEdit } from 'react-icons/fa';
+import { FaPlus, FaMinus, FaEdit, FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { addDecimals } from '../utils/cartUtils';
 
@@ -54,6 +55,9 @@ const ProductDetails = () => {
 
   const [createReview, { isLoading: loadingReview }] =
     useCreateReviewMutation();
+
+  const [deleteProduct, { isLoading: loadingDelete }] =
+    useDeleteProductMutation();
 
   const { userInfo } = useSelector(state => state.auth);
 
@@ -96,6 +100,18 @@ const ProductDetails = () => {
 
   const tabs = document.getElementById('product-tabs');
 
+  const deleteHandler = async id => {
+    if (window.confirm(`Your gonna delete ${id}. Are you sure?`)) {
+      try {
+        await deleteProduct(id);
+        refetch();
+        toast.success('Product deleted');
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    }
+  };
+
   useEffect(() => {
     if (tabs) {
       tabs.scrollIntoView({
@@ -107,17 +123,30 @@ const ProductDetails = () => {
 
   return (
     <>
-      <div className='d-flex justify-content-between'>
+      <div className='d-flex justify-content-between align-items-center'>
         <BtnGoBack className='btn btn-primary my-3' to='/' />
 
         {userInfo && userInfo.isAdmin && (
-          <Link to={`/admin/product/${productId}/edit`}>
-            <Button variant='light' className='btn-sm'>
-              <FaEdit /> Edit Product
-            </Button>
-          </Link>
+          <Col md={4} className='text-end'>
+            <Link to={`/admin/product/${productId}/edit`}>
+              <Button variant='light' className='btn-sm'>
+                <FaEdit /> Edit Product
+              </Button>
+            </Link>
+            <Link to={`/admin/productlist`}>
+              <Button
+                variant='danger'
+                className='btn-sm'
+                onClick={() => deleteHandler(product._id)}
+              >
+                <FaTrash />
+              </Button>
+            </Link>
+          </Col>
         )}
       </div>
+
+      {loadingDelete && <Loader />}
 
       {isLoading ? (
         <Loader />
