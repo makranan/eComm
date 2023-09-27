@@ -15,7 +15,7 @@ const ProductEditScreen = () => {
   const { id: productId } = useParams();
   const { userInfo: user } = useSelector(state => state.auth);
 
-  const [name, setName] = useState(user);
+  const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState('');
   const [images, setImages] = useState();
@@ -31,7 +31,9 @@ const ProductEditScreen = () => {
     error,
   } = useGetProductDetailsQuery(productId);
 
-  const [updateProduct, { isLoading: loadingUpdate }] =
+  console.log(product);
+
+  const [updateProduct, { isLoading: loadingUpdate, error: err }] =
     useUpdateProductMutation();
 
   const [uploadProductImage, { isLoading: loadingUpload }] =
@@ -55,7 +57,7 @@ const ProductEditScreen = () => {
     }
   }, [product]);
 
-  const submitHandler = async e => {
+  const submitImagesHandler = async e => {
     e.preventDefault();
     const updatedProduct = {
       productId,
@@ -71,11 +73,45 @@ const ProductEditScreen = () => {
 
     const result = await updateProduct(updatedProduct);
 
-    if (result.error) {
-      toast.error(result.error);
+    if (error) {
+      toast.error(err?.data?.message || err.error);
     } else {
       toast.success('Product Updated');
+      // navigate('/admin/productlist');
+    }
+  };
+
+  const submitHandler = async e => {
+    e.preventDefault();
+    // const updatedProduct = {
+    //   productId,
+    //   name,
+    //   price,
+    //   image,
+    //   images,
+    //   brand,
+    //   category,
+    //   countInStock,
+    //   description,
+    //   user,
+    // };
+    try {
+      await updateProduct({
+        productId,
+        name,
+        price,
+        image,
+        brand,
+        category,
+        description,
+        countInStock,
+        user,
+      }).unwrap(); // NOTE: here we need to unwrap the Promise to catch any rejection in our catch block
+      toast.success('Product updated');
+      refetch();
       navigate('/admin/productlist');
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
     }
   };
 
@@ -100,6 +136,7 @@ const ProductEditScreen = () => {
       formData.append('images', files[i]);
     }
 
+    formData.append('productId', productId);
     formData.append('user', user);
     formData.append('name', name);
     formData.append('price', price);
@@ -109,8 +146,6 @@ const ProductEditScreen = () => {
     formData.append('category', category);
     formData.append('countInStock', countInStock);
     formData.append('description', description);
-
-    // console.log(...formData);
 
     try {
       const res = await uploadProductImages(formData).unwrap();
@@ -179,43 +214,8 @@ const ProductEditScreen = () => {
                 onChange={e => setName(e.target.value)}
               ></Form.Control>
             </Form.Group>
-            <Row className='my-2'>
-              <Col xs={3}>
-                <Form.Group controlId='price'>
-                  <Form.Label>Price</Form.Label>
-                  <Form.Control
-                    type='number'
-                    placeholder='Price'
-                    value={price}
-                    onChange={priceChangeHandler}
-                  ></Form.Control>
-                </Form.Group>
-              </Col>
 
-              <Col xs={3}>
-                <Form.Group controlId='countInStock'>
-                  <Form.Label>Stock</Form.Label>
-                  <Form.Control
-                    type='number'
-                    placeholder='Stock'
-                    value={countInStock}
-                    onChange={e => setCountInStock(e.target.value)}
-                  ></Form.Control>
-                </Form.Group>
-              </Col>
-              <Col xs={6}>
-                <Form.Group controlId='image'>
-                  <Form.Label>Thumbnail</Form.Label>
-                  <Form.Control
-                    type='text'
-                    placeholder='URL'
-                    value={image}
-                    onChange={e => setImage}
-                  ></Form.Control>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
+            {/* <Row>
               <Col xs={9}>
                 <Form.Group controlId='imageUpload'>
                   <Form.Label>Pick Thumbnail</Form.Label>
@@ -240,12 +240,12 @@ const ProductEditScreen = () => {
                   />
                 )}
               </Col>
-            </Row>
+            </Row> */}
 
-            {/* <Row className='my-4'>
+            <Row className='my-4'>
               {images &&
                 images.map((image, index) => (
-                  <Col key={index} xs={3}>
+                  <Col key={index} xs={2}>
                     <Image
                       src={image.original}
                       alt={`Image ${index + 1}`}
@@ -256,10 +256,10 @@ const ProductEditScreen = () => {
                     />
                   </Col>
                 ))}
-            </Row> */}
+            </Row>
 
             <Row>
-              <Col>
+              <Col xs={9}>
                 <Form.Group controlId='imagesUpload'>
                   <Form.Label>Pick Images</Form.Label>
                   <Form.Control
@@ -271,6 +271,74 @@ const ProductEditScreen = () => {
                   ></Form.Control>
                 </Form.Group>
               </Col>
+
+              <Col xs={3}>
+                <Form.Group controlId='updateImages'>
+                  <Form.Label>-</Form.Label>
+                  <Form.Group>
+                    <Button
+                      type='button'
+                      className='btn btn-full-w'
+                      variant='info'
+                      onClick={submitImagesHandler}
+                    >
+                      Upload
+                    </Button>
+                  </Form.Group>
+                </Form.Group>
+              </Col>
+            </Row>
+
+            <Row className='my-2'>
+              <Col xs={3}>
+                <Form.Group controlId='price'>
+                  <Form.Label>Price</Form.Label>
+                  <Form.Control
+                    type='number'
+                    placeholder='Price'
+                    value={price}
+                    onChange={priceChangeHandler}
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+
+              <Col xs={3}>
+                <Form.Group controlId='countInStock'>
+                  <Form.Label>Stock</Form.Label>
+                  <Form.Control
+                    type='number'
+                    placeholder='Stock'
+                    value={countInStock}
+                    onChange={e => setCountInStock(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+
+              <Col xs={3}>
+                <Form.Group controlId='clearImages'>
+                  <Form.Label>Clear Images</Form.Label>
+                  <Form.Group>
+                    <Button
+                      type='button'
+                      className='btn btn-full-w'
+                      variant='danger'
+                    >
+                      Delete
+                    </Button>
+                  </Form.Group>
+                </Form.Group>
+              </Col>
+              {/* <Col xs={6}>
+                <Form.Group controlId='image'>
+                  <Form.Label>Thumbnail</Form.Label>
+                  <Form.Control
+                    type='text'
+                    placeholder='URL'
+                    value={image}
+                    onChange={e => setImage}
+                  ></Form.Control>
+                </Form.Group>
+              </Col> */}
             </Row>
 
             <Row className='my-2'>

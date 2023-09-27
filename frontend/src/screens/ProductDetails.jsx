@@ -1,14 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   Form,
   Row,
   Col,
-  Image,
   ListGroup,
   Card,
   Button,
-  Accordion,
   Tab,
   Tabs,
 } from 'react-bootstrap';
@@ -119,6 +117,7 @@ const ProductDetails = () => {
         block: 'start',
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -157,7 +156,7 @@ const ProductDetails = () => {
       ) : (
         <>
           <Meta title={product.name} description={product.description} />
-          <Row>
+          <Row style={{ marginBottom: '30px' }}>
             <Col md={5}>
               {/* <Image src={product.image} alt={product.name} fluid /> */}
 
@@ -297,7 +296,7 @@ const ProductDetails = () => {
                   <Tab
                     eventKey='description'
                     title='DESCRIPTION'
-                    tabClassName='tab-text-center'
+                    tabClassName='tab-text-center my-4'
                   >
                     <FormContainer>{product.description}</FormContainer>
                   </Tab>
@@ -310,8 +309,8 @@ const ProductDetails = () => {
                       {loadingReview && <Loader />}
 
                       {userInfo ? (
-                        <Form onSubmit={submitHandler} className='my-4'>
-                          <Form.Group controlId='rating' className='my-2'>
+                        <Form onSubmit={submitHandler}>
+                          <Form.Group controlId='rating'>
                             <Form.Label>Rating</Form.Label>
                             <Form.Control
                               as='select'

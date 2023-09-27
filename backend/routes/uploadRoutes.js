@@ -67,26 +67,12 @@ router.use((err, req, res, next) => {
 // });
 
 router.post('/', upload.array('images', 10), async (req, res) => {
-  // const userName = req.body.name;
-  // console.log('User Name:', userName);
+  console.log(req.body);
+  const productId = req.body.productId;
+
+  console.log(productId);
 
   try {
-    // Check if all required fields are present in the request body
-    const requiredFields = [
-      'name',
-      'image',
-      'brand',
-      'category',
-      'description',
-    ];
-    const missingFields = requiredFields.filter(field => !req.body[field]);
-
-    if (missingFields.length > 0) {
-      return res.status(400).json({
-        message: `Missing required fields: ${missingFields.join(', ')}`,
-      });
-    }
-
     // Move the userEmail variable definition outside of the try-catch block
     const userEmail = 'admin@mail.com'; // Replace with the actual email
     const user = await User.findOne({ email: userEmail }).exec();
@@ -112,17 +98,48 @@ router.post('/', upload.array('images', 10), async (req, res) => {
       })),
     };
 
-    const product = new Product(productData);
+    let savedProduct;
 
-    const savedProduct = await product.save();
+    if (productId) {
+      // If productId is provided, update the existing product
+      const existingProduct = await Product.findById(productId);
 
-    res.json({
-      message: 'Images Uploaded and Saved to Database',
+      if (!existingProduct) {
+        return res.status(404).json({ message: 'Product not found' });
+      }
+
+      // Merge existing product data with the new product data
+      const updatedProductData = {
+        ...existingProduct.toObject(),
+        ...productData,
+      };
+
+      // Update the existing product with the merged data
+      savedProduct = await Product.findByIdAndUpdate(
+        productId,
+        updatedProductData,
+        { new: true }
+      );
+
+      if (!savedProduct) {
+        return res
+          .status(404)
+          .json({ message: 'Product not found or could not be updated' });
+      }
+    } else {
+      // Handle the case where productId is not provided
+      return res
+        .status(400)
+        .json({ message: 'productId is required for updating a product' });
+    }
+
+    res.send({
+      message: 'Product Updated',
       product: savedProduct,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error uploading images' });
+    res.status(500).json({ message: 'Error updating product' });
   }
 });
 

@@ -43,7 +43,10 @@ const HeaderSwiper = () => {
                 transform: 'translate(-50%, -50%)',
               }}
             >
-              <Loader />
+              <>
+                <Loader />
+                <h6>Loading ...</h6>
+              </>
             </div>
           )}
 

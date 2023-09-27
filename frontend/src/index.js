@@ -10,10 +10,12 @@ import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import store from './store';
-// eslint-disable-next-line
-import 'bootswatch/dist/lux/bootstrap.min.css';
-// import 'bootstrap/dist/css/bootstrap.css';
-// import './assets/styles/bootstrap.custom.css';
+
+import 'bootstrap/dist/css/bootstrap.css';
+import './assets/styles/bootstrap.custom.css';
+// import 'bootswatch/dist/lux/bootstrap.min.css';
+import './assets/styles/lux.css';
+
 import './assets/styles/index.css';
 import './assets/styles/custom.css';
 import App from './App';

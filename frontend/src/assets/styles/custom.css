@@ -8,9 +8,6 @@ html {
   background: #ffffff;
 }
 
-body {
-}
-
 .btn {
   transition: all 0.1s ease-in;
 }
@@ -90,12 +87,12 @@ input[type='number'] {
   max-width: calc(100% - 5px);
 }
 
-.no-spinners {
+/* .no-spinners {
   -webkit-appearance: none !important;
   -moz-appearance: textfield !important;
   appearance: textfield !important;
   width: auto;
-}
+} */
 
 .no-pd-mr {
   padding: 0;
@@ -111,7 +108,7 @@ input[type='number'] {
 }
 
 /* .card-body {
-  background-color: #f8f9fa;
+  background-color: #faf8f8;
   border: 1px solid #dcdcdc;
   border-radius: 5px 5px 0 0;
 } */
@@ -143,17 +140,8 @@ input[type='number'] {
   transition: 0.4s ease;
 }
 
-.carousel-caption {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-}
-
 .nav-tabs {
-  background: #f3f3f3;
+  background: transparent;
   width: 100%;
 }
 
@@ -177,4 +165,18 @@ input[type='number'] {
 
 .footer-social-text:hover {
   color: var(--line-border-fill);
+}
+
+.svg-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.svg-center svg {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  transform: translateX(20%);
 }

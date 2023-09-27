@@ -29,6 +29,7 @@ const Product = ({ product, value, text }) => {
             </div>
           )}
           <Card.Img
+            // FIXME: Change to images.original when fetching from DB
             src={product.image}
             variant='top'
             onLoad={handleImageLoad}

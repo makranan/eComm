@@ -71,9 +71,10 @@ const createProduct = asyncHandler(async (req, res) => {
 // @route   PUT /api/products/:id
 // @access  Private/Admin
 const updateProduct = asyncHandler(async (req, res) => {
-  console.log('Request Body:', req.body);
+  // console.log('Request Body:', req.body);
 
   const {
+    productId,
     user,
     name,
     price,
@@ -87,6 +88,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   if (product) {
+    product._id = productId;
     product.user = user;
     product.name = name;
     product.price = price;
@@ -97,14 +99,8 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.category = category;
     product.countInStock = countInStock;
 
-    try {
-      const updatedProduct = await product.save();
-      res.json(updatedProduct);
-    } catch (error) {
-      res
-        .status(400)
-        .json({ message: 'Invalid product data', error: error.message });
-    }
+    const updatedProduct = await product.save();
+    res.json(updatedProduct);
   } else {
     res.status(404).json({ message: 'Product not found' });
   }
