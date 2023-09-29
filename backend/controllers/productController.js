@@ -1,5 +1,6 @@
 import asyncHandler from '../middleware/asyncHandler.js';
 import Product from '../models/productModel.js';
+import Order from '../models/orderModel.js';
 
 // @desc    Fetch all products
 // @route   GET /api/products
@@ -129,6 +130,18 @@ const createProductReview = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   if (product) {
+    const userOrder = await Order.findOne({
+      user: req.user._id,
+      'orderItems.product': product._id,
+      isPaid: true,
+      isDelivered: true,
+    });
+
+    if (!userOrder) {
+      res.status(400);
+      throw new Error("You haven't ordered this product yet.");
+    }
+
     const alreadyReviewed = product.reviews.find(
       review => review.user.toString() === req.user._id.toString()
     );
