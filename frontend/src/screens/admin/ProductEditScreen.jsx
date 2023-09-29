@@ -101,6 +101,7 @@ const ProductEditScreen = () => {
         name,
         price,
         image,
+        images,
         brand,
         category,
         description,
@@ -149,16 +150,21 @@ const ProductEditScreen = () => {
 
     try {
       const res = await uploadProductImages(formData).unwrap();
-      toast.success(res.message);
+      // toast.success(res.message);
 
-      const imagePaths = res.images;
+      // const imagePaths = res.images;
 
-      const imagesArray = imagePaths.map(path => ({
-        original: path,
-        thumbnail: path,
-      }));
+      // const imagesArray = imagePaths.map(path => ({
+      //   original: path,
+      //   thumbnail: path,
+      // }));
 
-      setImages(imagesArray);
+      // setImages(imagesArray);
+
+      setImages(res.images.map(path => ({ original: path, thumbnail: path })));
+
+      // Clear the file input to allow uploading the same images again
+      e.target.value = '';
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
