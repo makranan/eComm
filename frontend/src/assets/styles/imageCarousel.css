@@ -72,8 +72,8 @@
   max-height: 80vh;
 }
 
-.image-gallery-image {
-  padding-bottom: 2rem;
+.image-gallery-thumbnails-container {
+  margin-top: 2rem;
 }
 
 .image-gallery.fullscreen-modal {

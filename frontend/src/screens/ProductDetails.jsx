@@ -67,19 +67,23 @@ const ProductDetails = () => {
   const submitHandler = async e => {
     e.preventDefault();
 
-    try {
-      await createReview({
-        productId,
-        rating,
-        comment,
-      }).unwrap();
-      refetch();
-      toast.success('Review submitted');
-      setRating(0);
-      setComment('');
-      setActiveTab('reviews');
-    } catch (err) {
-      toast.error(err?.data?.message || err.error);
+    if (rating >= 1 && rating <= 5) {
+      try {
+        await createReview({
+          productId,
+          rating,
+          comment,
+        }).unwrap();
+        refetch();
+        toast.success('Review submitted');
+        setRating(0);
+        setComment('');
+        setActiveTab('reviews');
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    } else {
+      toast.error('Please select a rating between 1 and 5.');
     }
   };
 
@@ -296,7 +300,7 @@ const ProductDetails = () => {
                   <Tab
                     eventKey='description'
                     title='DESCRIPTION'
-                    tabClassName='tab-text-center my-4'
+                    tabClassName='tab-text-center'
                   >
                     <FormContainer>{product.description}</FormContainer>
                   </Tab>
@@ -341,6 +345,7 @@ const ProductDetails = () => {
                             disabled={loadingReview}
                             type='submit'
                             variant='primary'
+                            className='mb-4'
                           >
                             Submit
                           </Button>
