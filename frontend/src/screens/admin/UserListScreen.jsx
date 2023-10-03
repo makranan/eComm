@@ -5,7 +5,9 @@ import { Message, Loader } from '../../components';
 import {
   useGetUsersQuery,
   useDeleteUserMutation,
+  // eslint-disable-next-line no-unused-vars
   useGetUserDetailsQuery,
+  // eslint-disable-next-line no-unused-vars
   useUpdateUserMutation,
 } from '../../slices/usersApiSlice';
 import { toast } from 'react-toastify';
@@ -15,7 +17,7 @@ const UserListScreen = () => {
 
   const [deleteUser, { isLoading: loadingDelete }] = useDeleteUserMutation();
 
-  const deleteHandler = async id => {
+  const deleteHandler = async (id) => {
     if (window.confirm('Are you sure?')) {
       try {
         await deleteUser(id);
@@ -27,7 +29,7 @@ const UserListScreen = () => {
     }
   };
 
-  const userEditHandler = async id => {};
+  const userEditHandler = async (id) => {};
 
   return (
     <>
@@ -51,7 +53,7 @@ const UserListScreen = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map(user => (
+            {users.map((user) => (
               <tr key={user._id} style={{ verticalAlign: 'middle' }}>
                 <td>{user._id}</td>
                 <td>{user.user || user.name}</td>

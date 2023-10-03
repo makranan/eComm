@@ -17,7 +17,7 @@ const ProfileScreen = () => {
 
   const dispatch = useDispatch();
 
-  const { userInfo } = useSelector(state => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
 
   const [updateProfile, { isLoading: loadingUpdateProfile }] =
     useProfileMutation();
@@ -31,7 +31,7 @@ const ProfileScreen = () => {
     }
   }, [userInfo, userInfo.name, userInfo.email]);
 
-  const submitHandler = async e => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -54,24 +54,6 @@ const ProfileScreen = () => {
     }
   };
 
-  const circleContainerStyle = {
-    display: 'flex',
-
-    alignItems: 'center',
-    width: '20px', // Set the desired width
-    height: '20px', // Set the desired height
-  };
-
-  const circleStyle = {
-    background: '#e7e8e5',
-    borderRadius: '50%',
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  };
-
   return (
     <Row>
       <Col md={3}>
@@ -84,7 +66,7 @@ const ProfileScreen = () => {
               type='name'
               placeholder='Enter Name'
               value={name}
-              onChange={e => setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
             ></Form.Control>
           </Form.Group>
 
@@ -94,7 +76,7 @@ const ProfileScreen = () => {
               type='email'
               placeholder='Enter Email'
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
           </Form.Group>
 
@@ -104,7 +86,7 @@ const ProfileScreen = () => {
               type='password'
               placeholder='Enter Password'
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
 
@@ -114,7 +96,7 @@ const ProfileScreen = () => {
               type='password'
               placeholder='Confirm Password'
               value={password}
-              onChange={e => setConfirmPassword(e.target.value)}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
 
@@ -147,7 +129,7 @@ const ProfileScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.map(order => (
+              {orders.map((order) => (
                 <tr key={order._id} style={{ verticalAlign: 'middle' }}>
                   <td>{order._id}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>

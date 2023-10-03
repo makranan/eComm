@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { FormContainer, CheckoutSteps, BtnGoBack } from '../components';
+import { FormContainer, CheckoutSteps } from '../components';
 // import CheckoutSteps from '../components/CheckoutSteps';
 import { saveShippingAddress } from '../slices/cartSlice';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
 const ShippingScreen = () => {
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
   const [address, setAddress] = useState(shippingAddress.address || '');
@@ -21,7 +21,7 @@ const ShippingScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const submitHandler = e => {
+  const submitHandler = (e) => {
     e.preventDefault();
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
     navigate('/payment');
@@ -41,7 +41,7 @@ const ShippingScreen = () => {
             placeholder='Enter address'
             value={address}
             required
-            onChange={e => setAddress(e.target.value)}
+            onChange={(e) => setAddress(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
@@ -52,7 +52,7 @@ const ShippingScreen = () => {
             placeholder='Enter city'
             value={city}
             required
-            onChange={e => setCity(e.target.value)}
+            onChange={(e) => setCity(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
@@ -63,7 +63,7 @@ const ShippingScreen = () => {
             placeholder='Enter postal code'
             value={postalCode}
             required
-            onChange={e => setPostalCode(e.target.value)}
+            onChange={(e) => setPostalCode(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
@@ -74,7 +74,7 @@ const ShippingScreen = () => {
             placeholder='Enter country'
             value={country}
             required
-            onChange={e => setCountry(e.target.value)}
+            onChange={(e) => setCountry(e.target.value)}
           ></Form.Control>
         </Form.Group>
         <Row className='d-flex align-items-center mt-4'>

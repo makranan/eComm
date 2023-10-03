@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaChevronLeft } from 'react-icons/fa';
 
 const BtnGoBack = () => {

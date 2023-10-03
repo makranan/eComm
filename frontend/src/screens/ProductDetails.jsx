@@ -57,14 +57,14 @@ const ProductDetails = () => {
   const [deleteProduct, { isLoading: loadingDelete }] =
     useDeleteProductMutation();
 
-  const { userInfo } = useSelector(state => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
 
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
     navigate('/cart');
   };
 
-  const submitHandler = async e => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     if (rating >= 1 && rating <= 5) {
@@ -87,7 +87,7 @@ const ProductDetails = () => {
     }
   };
 
-  const calculateTaxPrice = productPrice => {
+  const calculateTaxPrice = (productPrice) => {
     return addDecimals(Number((0.23 * productPrice).toFixed(2)));
   };
 
@@ -102,7 +102,7 @@ const ProductDetails = () => {
 
   const tabs = document.getElementById('product-tabs');
 
-  const deleteHandler = async id => {
+  const deleteHandler = async (id) => {
     if (window.confirm(`Your gonna delete ${id}. Are you sure?`)) {
       try {
         await deleteProduct(id);
@@ -246,7 +246,7 @@ const ProductDetails = () => {
                           <div className='d-flex flex-column align-items-center'>
                             <StyledNumberInput
                               value={qty}
-                              onChange={newValue => {
+                              onChange={(newValue) => {
                                 setQty(newValue); // Update local state
                               }}
                               min={1}
@@ -257,7 +257,7 @@ const ProductDetails = () => {
                               <BtnCount
                                 initialValue={qty}
                                 maxValue={product.countInStock}
-                                onCountChange={newCount => {
+                                onCountChange={(newCount) => {
                                   setQty(newCount); // Update local state
                                 }}
                                 step={1}
@@ -291,7 +291,7 @@ const ProductDetails = () => {
               <Tabs
                 defaultActiveKey='description'
                 activeKey={activeTab}
-                onSelect={k => setActiveTab(k)}
+                onSelect={(k) => setActiveTab(k)}
                 className='my-3'
                 justify
               >
@@ -317,7 +317,7 @@ const ProductDetails = () => {
                           <Form.Control
                             as='select'
                             value={rating}
-                            onChange={e => setRating(Number(e.target.value))}
+                            onChange={(e) => setRating(Number(e.target.value))}
                           >
                             <option value=''>Select...</option>
                             <option value='1'>1 - Poor</option>
@@ -335,7 +335,7 @@ const ProductDetails = () => {
                             rows={3}
                             value={comment}
                             placeholder='Write a review'
-                            onChange={e => setComment(e.target.value)}
+                            onChange={(e) => setComment(e.target.value)}
                           ></Form.Control>
                         </Form.Group>
 
@@ -361,7 +361,7 @@ const ProductDetails = () => {
                         <Message>No reviews</Message>
                       )}
 
-                      {product.reviews.map(review => (
+                      {product.reviews.map((review) => (
                         <ListGroup.Item key={review._id}>
                           <Row>
                             <Col xs={12} sm={4}>

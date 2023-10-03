@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Form, Button, FormGroup, Row, Col, Image } from 'react-bootstrap';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 import { Message, Loader, FormContainer } from '../../components';
 import { toast } from 'react-toastify';
 import {
@@ -26,7 +26,7 @@ const UserEditScreen = () => {
 
   const navigate = useNavigate();
 
-  const submitHandler = async e => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
@@ -77,7 +77,7 @@ const UserEditScreen = () => {
                 type='text'
                 placeholder='Enter Product Name'
                 value={name}
-                onChange={e => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               ></Form.Control>
             </Form.Group>
             <Row className='my-2'>
@@ -88,7 +88,7 @@ const UserEditScreen = () => {
                     type='text'
                     placeholder='Email'
                     value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
               </Col>
@@ -102,7 +102,7 @@ const UserEditScreen = () => {
                     type='checkbox'
                     label={isAdmin ? 'True' : 'False'}
                     checked={isAdmin}
-                    onChange={e => setIsAdmin(e.target.checked)}
+                    onChange={(e) => setIsAdmin(e.target.checked)}
                   />
                 </Form.Group>
               </Col>

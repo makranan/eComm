@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Form, Button, FormGroup, Row, Col, Image } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Form, Button, Row, Col, Image } from 'react-bootstrap';
 import { Message, Loader, FormContainer, BtnGoBack } from '../../components';
 import { toast } from 'react-toastify';
 import {
@@ -13,7 +13,7 @@ import {
 
 const ProductEditScreen = () => {
   const { id: productId } = useParams();
-  const { userInfo: user } = useSelector(state => state.auth);
+  const { userInfo: user } = useSelector((state) => state.auth);
 
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
@@ -35,10 +35,10 @@ const ProductEditScreen = () => {
 
   const [updateProduct, { isLoading: loadingUpdate, error: err }] =
     useUpdateProductMutation();
-
+  // eslint-disable-next-line no-unused-vars
   const [uploadProductImage, { isLoading: loadingUpload }] =
     useUploadProductImageMutation(productId);
-
+  // eslint-disable-next-line no-unused-vars
   const [uploadProductImages, { isLoading: loadingUploadImages }] =
     useUploadProductImagesMutation(productId);
 
@@ -57,21 +57,21 @@ const ProductEditScreen = () => {
     }
   }, [product]);
 
-  const submitImagesHandler = async e => {
+  const submitImagesHandler = async (e) => {
     e.preventDefault();
-    const updatedProduct = {
-      productId,
-      name,
-      price,
-      image,
-      images,
-      brand,
-      category,
-      countInStock,
-      description,
-    };
+    // const updatedProduct = {
+    //   productId,
+    //   name,
+    //   price,
+    //   image,
+    //   images,
+    //   brand,
+    //   category,
+    //   countInStock,
+    //   description,
+    // };
 
-    const result = await updateProduct(updatedProduct);
+    // const result = await updateProduct(updatedProduct);
 
     if (error) {
       toast.error(err?.data?.message || err.error);
@@ -81,7 +81,7 @@ const ProductEditScreen = () => {
     }
   };
 
-  const submitHandler = async e => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     // const updatedProduct = {
     //   productId,
@@ -116,20 +116,20 @@ const ProductEditScreen = () => {
     }
   };
 
-  const uploadImageHandler = async e => {
-    const formData = new FormData();
-    formData.append('image', e.target.files[0]);
+  // const uploadImageHandler = async (e) => {
+  //   const formData = new FormData();
+  //   formData.append('image', e.target.files[0]);
 
-    try {
-      const res = await uploadProductImage(formData).unwrap();
-      toast.success(res.message);
-      setImage(res.image);
-    } catch (err) {
-      toast.error(err?.data?.message || err.error);
-    }
-  };
+  //   try {
+  //     const res = await uploadProductImage(formData).unwrap();
+  //     toast.success(res.message);
+  //     setImage(res.image);
+  //   } catch (err) {
+  //     toast.error(err?.data?.message || err.error);
+  //   }
+  // };
 
-  const uploadImagesHandler = async e => {
+  const uploadImagesHandler = async (e) => {
     const files = e.target.files;
     const formData = new FormData();
 
@@ -161,7 +161,9 @@ const ProductEditScreen = () => {
 
       // setImages(imagesArray);
 
-      setImages(res.images.map(path => ({ original: path, thumbnail: path })));
+      setImages(
+        res.images.map((path) => ({ original: path, thumbnail: path }))
+      );
 
       // Clear the file input to allow uploading the same images again
       e.target.value = '';
@@ -170,7 +172,7 @@ const ProductEditScreen = () => {
     }
   };
 
-  const priceChangeHandler = e => {
+  const priceChangeHandler = (e) => {
     // Extract the entered value as a number
     const enteredValue = parseFloat(e.target.value);
 
@@ -217,7 +219,7 @@ const ProductEditScreen = () => {
                 type='text'
                 placeholder='Enter Product Name'
                 value={name}
-                onChange={e => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -315,7 +317,7 @@ const ProductEditScreen = () => {
                     type='number'
                     placeholder='Stock'
                     value={countInStock}
-                    onChange={e => setCountInStock(e.target.value)}
+                    onChange={(e) => setCountInStock(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
               </Col>
@@ -355,7 +357,7 @@ const ProductEditScreen = () => {
                     type='text'
                     placeholder='Product Category'
                     value={category}
-                    onChange={e => setCategory(e.target.value)}
+                    onChange={(e) => setCategory(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
               </Col>
@@ -367,7 +369,7 @@ const ProductEditScreen = () => {
                     type='text'
                     placeholder='Product Brand'
                     value={brand}
-                    onChange={e => setBrand(e.target.value)}
+                    onChange={(e) => setBrand(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
               </Col>
@@ -379,7 +381,7 @@ const ProductEditScreen = () => {
                 placeholder='Description'
                 value={description}
                 style={{ height: '200px' }}
-                onChange={e => setDescription(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
               ></Form.Control>
             </Form.Group>
 

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Badge, Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,8 +10,8 @@ import { CheckoutStepsCircles, SearchBox } from '.';
 import logo from '../assets/logo.svg';
 
 const Header = () => {
-  const { cartItems } = useSelector(state => state.cart);
-  const { userInfo } = useSelector(state => state.auth);
+  const { cartItems } = useSelector((state) => state.cart);
+  const { userInfo } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

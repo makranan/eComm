@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Row, Col } from 'react-bootstrap';
-import { FaTimes, FaCheck, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Message, Loader, Paginate } from '../../components';
 import { toast } from 'react-toastify';
 import {
@@ -9,7 +9,6 @@ import {
   useCreateProductMutation,
   useDeleteProductMutation,
 } from '../../slices/productsApiSlice';
-import { useGetOrderDetailsQuery } from '../../slices/orderApiSlice';
 
 const ProductListScreen = () => {
   const { pageNumber } = useParams();
@@ -34,7 +33,7 @@ const ProductListScreen = () => {
     }
   };
 
-  const deleteHandler = async id => {
+  const deleteHandler = async (id) => {
     if (window.confirm(`Your gonna delete ${id}. Are you sure?`)) {
       try {
         await deleteProduct(id);
@@ -83,7 +82,7 @@ const ProductListScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {data.products.map(product => (
+              {data.products.map((product) => (
                 <tr key={product._id} style={{ verticalAlign: 'middle' }}>
                   <td>{product._id}</td>
                   <td>

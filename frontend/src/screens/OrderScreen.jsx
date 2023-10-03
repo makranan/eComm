@@ -41,7 +41,7 @@ const OrderScreen = () => {
     isLoading: loadingPayPal,
     error: errorPayPal,
   } = useGetPayPalClientIdQuery();
-  const { userInfo } = useSelector(state => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (!errorPayPal && !loadingPayPal && paypal.clientId) {
@@ -99,7 +99,7 @@ const OrderScreen = () => {
           },
         ],
       })
-      .then(orderId => {
+      .then((orderId) => {
         return orderId;
       });
   }

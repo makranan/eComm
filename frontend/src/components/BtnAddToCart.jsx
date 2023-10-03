@@ -7,7 +7,9 @@ import { MdOutlineAddShoppingCart } from 'react-icons/md';
 
 const BtnAddToCart = ({ product, onAddToCart }) => {
   const dispatch = useDispatch();
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
+  // eslint-disable-next-line no-unused-vars
   const [qty, setQty] = useState(1);
 
   const addToCartHandler = () => {

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { Product, Loader, Message, Paginate, BtnGoBack } from '../components';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
 
@@ -26,7 +26,7 @@ const HomeScreen = () => {
           {keyword && <BtnGoBack />}
           <h1>Latest Products</h1>
           <Row>
-            {data.products.map(product => (
+            {data.products.map((product) => (
               <Col key={product._id} xs={6} sm={6} md={4} lg={4} xl={2}>
                 <Product product={product} />
               </Col>

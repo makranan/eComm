@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { Form, Button, Col, Row } from 'react-bootstrap';
-import { FormContainer, CheckoutSteps, BtnGoBack } from '../components';
+import { FormContainer, CheckoutSteps } from '../components';
 import { savePaymentMethod } from '../slices/cartSlice';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
@@ -12,10 +12,10 @@ const PaymentScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
-  const submitHandler = e => {
+  const submitHandler = (e) => {
     e.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
     navigate('/placeorder');
@@ -46,7 +46,7 @@ const PaymentScreen = () => {
                 className=''
                 type='radio'
                 label='PayPal or Credit Card'
-                onChange={e => setPaymentMethod(e.target.value)}
+                onChange={(e) => setPaymentMethod(e.target.value)}
                 checked
               ></Form.Check>
               <br />

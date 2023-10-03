@@ -8,6 +8,7 @@ const SearchBox = () => {
   const { keyword: urlKeyword } = useParams();
 
   const [keyword, setKeyword] = useState(urlKeyword || '');
+  // eslint-disable-next-line no-unused-vars
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [formControlClass, setFormControlClass] = useState('');
 
@@ -35,7 +36,7 @@ const SearchBox = () => {
     };
   }, []);
 
-  const submitHandler = e => {
+  const submitHandler = (e) => {
     e.preventDefault();
 
     if (keyword.trim()) {
@@ -51,7 +52,7 @@ const SearchBox = () => {
       <Form.Control
         type='text'
         name='q'
-        onChange={e => setKeyword(e.target.value)}
+        onChange={(e) => setKeyword(e.target.value)}
         value={keyword}
         placeholder='Search...'
         className='mr-sm-2 ml-sm-5'
