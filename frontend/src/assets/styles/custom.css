@@ -71,6 +71,10 @@ html {
   align-items: center;
 }
 
+.navbar .nav-link {
+  margin-top: 5px;
+}
+
 .unselectable {
   user-select: none;
 }
@@ -204,13 +208,8 @@ input[type='number'] {
   transition: all 0.2s ease-in-out;
 }
 
-/* .modal-backdrop,
+.modal-backdrop,
 .show {
   opacity: 1;
-  backdrop-filter: blur(20px);
-} */
-
-.header-hidden {
-  transform: translateY(-100%);
-  transition: transform 0.3s ease-in-out;
+  backdrop-filter: blur(2px);
 }

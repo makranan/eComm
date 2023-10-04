@@ -24,6 +24,7 @@ const ProductEditScreen = () => {
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
+  const [details, setDetails] = useState('');
 
   const {
     data: product,
@@ -61,6 +62,7 @@ const ProductEditScreen = () => {
       setCategory(product.category);
       setCountInStock(product.countInStock);
       setDescription(product.description);
+      setDetails(product.details);
     }
   }, [product]);
 
@@ -112,12 +114,13 @@ const ProductEditScreen = () => {
         brand,
         category,
         description,
+        details,
         countInStock,
         user,
       }).unwrap(); // NOTE: here we need to unwrap the Promise to catch any rejection in our catch block
       toast.success('Product updated');
       refetch();
-      navigate('/admin/productlist');
+      navigate(`/product/${productId}`);
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
@@ -154,6 +157,7 @@ const ProductEditScreen = () => {
     formData.append('category', category);
     formData.append('countInStock', countInStock);
     formData.append('description', description);
+    formData.append('details', details);
 
     try {
       const res = await uploadProductImages(formData).unwrap();
@@ -365,7 +369,7 @@ const ProductEditScreen = () => {
                 ))}
             </Row>
 
-            <Row>
+            <Row className='mb-3'>
               <Col xs={7}>
                 <Form.Group controlId='imagesUpload'>
                   <Form.Label>Pick Images</Form.Label>
@@ -422,7 +426,7 @@ const ProductEditScreen = () => {
               </Col>
             </Row> */}
 
-            <Form.Group controlId='description'>
+            <Form.Group className='mb-3' controlId='description'>
               <Form.Label>Description</Form.Label>
               <Form.Control
                 as='textarea'
@@ -430,6 +434,17 @@ const ProductEditScreen = () => {
                 value={description}
                 style={{ height: '200px' }}
                 onChange={(e) => setDescription(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='details'>
+              <Form.Label>Details</Form.Label>
+              <Form.Control
+                as='textarea'
+                placeholder='Details'
+                value={details}
+                style={{ height: '200px' }}
+                onChange={(e) => setDetails(e.target.value)}
               ></Form.Control>
             </Form.Group>
 

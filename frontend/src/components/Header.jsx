@@ -41,17 +41,11 @@ const Header = () => {
     <>
       <CheckoutStepsCircles />
       <header>
-        <Navbar
-          bg='primary'
-          variant='dark'
-          expand='md'
-          sticky='top'
-          collapseOnSelect
-        >
+        <Navbar bg='primary' variant='dark' expand='md' collapseOnSelect>
           <Container>
             <LinkContainer to='/'>
               <Navbar.Brand>
-                <img src={logo} alt='Tech World' style={{ height: '40px' }} />{' '}
+                <img src={logo} alt='Tech World' style={{ height: '2.5rem' }} />{' '}
                 <strong style={{ fontSize: '1rem' }}>TechWorld</strong>
               </Navbar.Brand>
             </LinkContainer>
@@ -66,7 +60,6 @@ const Header = () => {
                     Cart
                     {cartItems.length > 0 && (
                       <Badge className='bg-warning' pill>
-                        {' '}
                         {cartItems.reduce((a, c) => a + c.qty, 0)}
                       </Badge>
                     )}

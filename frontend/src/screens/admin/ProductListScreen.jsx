@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Table, Button, Row, Col } from 'react-bootstrap';
+import { Table, Button, Row, Col, FormCheck } from 'react-bootstrap';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Message, Loader, Paginate, DeleteModal } from '../../components';
 import { toast } from 'react-toastify';
@@ -108,6 +108,9 @@ const ProductListScreen = () => {
             <tbody>
               {data.products.map((product) => (
                 <tr key={product._id} style={{ verticalAlign: 'middle' }}>
+                  <td>
+                    <FormCheck type='switch' id='custom-switch'></FormCheck>
+                  </td>
                   <td>{product._id}</td>
                   <td>
                     <Link

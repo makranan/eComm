@@ -19,11 +19,9 @@ const DeleteModal = ({ product, showModal, setShowModal, onDelete }) => {
 
   const deleteHandler = async () => {
     try {
-      console.log('deleteHandler called');
       await onDelete(product._id); // Call onDelete, which is deleteProduct from ProductDetails
 
       toast.success('Product deleted');
-      console.log('Navigating to /productlist'); // Add this line for debugging
       navigate('/admin/productlist');
     } catch (err) {
       toast.error(err?.data?.message || err.error);

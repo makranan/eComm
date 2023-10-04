@@ -394,6 +394,7 @@ const ProductDetails = () => {
                   title='DETAILS'
                   tabClassName='tab-text-center'
                 >
+                  <p>{product.details}</p>
                   {/* <FormContainer>
                     {loadingReview && <Loader />}
 
