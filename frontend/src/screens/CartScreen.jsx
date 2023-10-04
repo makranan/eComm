@@ -21,13 +21,13 @@ const CartScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
   const addToCartHandler = async (product, qty) => {
     dispatch(addToCart({ ...product, qty }));
   };
 
-  const removeFromCartHandler = async id => {
+  const removeFromCartHandler = async (id) => {
     dispatch(removeFromCart(id));
   };
 
@@ -79,7 +79,7 @@ const CartScreen = () => {
                     <Col md={2} xs={2}>
                       <Link to={`/product/${item._id}`}>
                         <Image
-                          src={item.image}
+                          src={item.images[0].original}
                           alt={item.name}
                           fluid
                           rounded
@@ -95,7 +95,7 @@ const CartScreen = () => {
                           <div className='d-flex align-items-center'>
                             <StyledNumberInput
                               value={item.qty}
-                              onChange={newValue => {
+                              onChange={(newValue) => {
                                 addToCartHandler(item, newValue);
                               }}
                               min={1}
@@ -105,7 +105,7 @@ const CartScreen = () => {
                             <BtnCount
                               initialValue={item.qty}
                               maxValue={item.countInStock}
-                              onCountChange={newCount =>
+                              onCountChange={(newCount) =>
                                 addToCartHandler(item, newCount)
                               }
                               step={1}

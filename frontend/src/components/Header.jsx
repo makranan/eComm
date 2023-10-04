@@ -41,7 +41,13 @@ const Header = () => {
     <>
       <CheckoutStepsCircles />
       <header>
-        <Navbar bg='primary' variant='dark' expand='md' collapseOnSelect>
+        <Navbar
+          bg='primary'
+          variant='dark'
+          expand='md'
+          sticky='top'
+          collapseOnSelect
+        >
           <Container>
             <LinkContainer to='/'>
               <Navbar.Brand>
@@ -60,6 +66,7 @@ const Header = () => {
                     Cart
                     {cartItems.length > 0 && (
                       <Badge className='bg-warning' pill>
+                        {' '}
                         {cartItems.reduce((a, c) => a + c.qty, 0)}
                       </Badge>
                     )}

@@ -86,6 +86,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     category,
     countInStock,
   } = req.body;
+
   const product = await Product.findById(req.params.id);
 
   if (product) {
@@ -143,7 +144,7 @@ const createProductReview = asyncHandler(async (req, res) => {
     }
 
     const alreadyReviewed = product.reviews.find(
-      review => review.user.toString() === req.user._id.toString()
+      (review) => review.user.toString() === req.user._id.toString()
     );
 
     if (alreadyReviewed) {

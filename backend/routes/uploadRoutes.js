@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
 });
 
 function checkFileType(file, cb) {
-  const filetypes = /jpg|jpeg|png|svg/;
+  const filetypes = /jpg|jpeg|png|svg|webp/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   const mimetype = filetypes.test(file.mimetype);
 
@@ -67,10 +67,10 @@ router.use((err, req, res, next) => {
 // });
 
 router.post('/', upload.array('images', 10), async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const productId = req.body.productId;
 
-  console.log(productId);
+  // console.log(productId);
 
   try {
     // Move the userEmail variable definition outside of the try-catch block
@@ -92,7 +92,7 @@ router.post('/', upload.array('images', 10), async (req, res) => {
       image: req.body.image,
       brand: req.body.brand,
       category: req.body.category,
-      images: req.files.map(file => ({
+      images: req.files.map((file) => ({
         original: `/${file.path}`,
         thumbnail: `/${file.path}`,
       })),

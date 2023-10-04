@@ -11,8 +11,8 @@ import { BsPaypal } from 'react-icons/bs';
 const PlaceOrderScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cart = useSelector(state => state.cart);
-  const user = useSelector(state => state.auth.userInfo);
+  const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.auth.userInfo);
   const [createOrder, { isLoading, error }] = useCreateOrderMutation();
 
   useEffect(() => {
@@ -81,7 +81,7 @@ const PlaceOrderScreen = () => {
                       <Row className='d-flex align-items-center'>
                         <Col md={3} xs={3}>
                           <Image
-                            src={item.image}
+                            src={item.images[0].original}
                             alt={item.name}
                             fluid
                             rounded

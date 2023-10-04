@@ -21,6 +21,7 @@ import {
   StyledNumberInput,
   FormContainer,
   Meta,
+  DeleteModal,
 } from '../components';
 import {
   useGetProductDetailsQuery,
@@ -32,8 +33,6 @@ import { FaPlus, FaMinus, FaEdit, FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { addDecimals } from '../utils/cartUtils';
 
-// import '../assets/styles/custom.css';
-
 const ProductDetails = () => {
   const { id: productId } = useParams();
   const dispatch = useDispatch();
@@ -43,6 +42,8 @@ const ProductDetails = () => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [activeTab, setActiveTab] = useState('description');
+
+  const [showModal, setShowModal] = useState(false);
 
   const {
     data: product,
@@ -102,16 +103,8 @@ const ProductDetails = () => {
 
   const tabs = document.getElementById('product-tabs');
 
-  const deleteHandler = async (id) => {
-    if (window.confirm(`Your gonna delete ${id}. Are you sure?`)) {
-      try {
-        await deleteProduct(id);
-        refetch();
-        toast.success('Product deleted');
-      } catch (err) {
-        toast.error(err?.data?.message || err.error);
-      }
-    }
+  const openModal = () => {
+    setShowModal(true);
   };
 
   useEffect(() => {
@@ -124,8 +117,21 @@ const ProductDetails = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const navigateToProductList = () => {
+    navigate('/admin/productlist');
+  };
+
   return (
     <>
+      {product && (
+        <DeleteModal
+          product={product}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          onDelete={deleteProduct}
+        />
+      )}
+
       <div className='d-flex justify-content-between align-items-center'>
         <BtnGoBack className='btn btn-primary my-3' to='/' />
 
@@ -136,15 +142,15 @@ const ProductDetails = () => {
                 <FaEdit /> Edit Product
               </Button>
             </Link>
-            <Link to={`/admin/productlist`}>
-              <Button
-                variant='danger'
-                className='btn-sm'
-                onClick={() => deleteHandler(product._id)}
-              >
-                <FaTrash />
-              </Button>
-            </Link>
+            {/* <Link to={`/admin/productlist`}> */}
+            <Button
+              variant='danger'
+              className='btn-sm'
+              onClick={() => openModal()}
+            >
+              <FaTrash />
+            </Button>
+            {/* </Link> */}
           </Col>
         )}
       </div>

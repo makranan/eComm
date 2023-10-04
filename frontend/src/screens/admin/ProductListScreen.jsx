@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Row, Col } from 'react-bootstrap';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import { Message, Loader, Paginate } from '../../components';
+import { Message, Loader, Paginate, DeleteModal } from '../../components';
 import { toast } from 'react-toastify';
 import {
   useGetProductsQuery,
+  useGetProductDetailsQuery,
   useCreateProductMutation,
   useDeleteProductMutation,
 } from '../../slices/productsApiSlice';
@@ -15,6 +17,12 @@ const ProductListScreen = () => {
   const { data, isLoading, error, refetch } = useGetProductsQuery({
     pageNumber,
   });
+
+  // const { data: product, isLoading: productLoading } =
+  //   useGetProductDetailsQuery(productId);
+
+  const [showModal, setShowModal] = useState(false);
+  const [productIdToDelete, setProductIdToDelete] = useState(null);
 
   const [createProduct, { isLoading: loadingCreate }] =
     useCreateProductMutation();
@@ -33,16 +41,32 @@ const ProductListScreen = () => {
     }
   };
 
-  const deleteHandler = async (id) => {
-    if (window.confirm(`Your gonna delete ${id}. Are you sure?`)) {
-      try {
-        await deleteProduct(id);
-        refetch();
-        toast.success('Product deleted');
-      } catch (err) {
-        toast.error(err?.data?.message || err.error);
-      }
+  // const deleteHandler = async (id) => {
+  //   if (window.confirm(`Your gonna delete ${id}. Are you sure?`)) {
+  //     try {
+  //       await deleteProduct(id);
+  //       refetch();
+  //       toast.success('Product deleted');
+  //     } catch (err) {
+  //       toast.error(err?.data?.message || err.error);
+  //     }
+  //   }
+  // };
+
+  const openModal = (productId) => {
+    setProductIdToDelete(productId);
+    setShowModal(true);
+  };
+
+  const deleteHandler = async (productId) => {
+    try {
+      await deleteProduct(productIdToDelete);
+      refetch();
+      toast.success('Product deleted');
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
     }
+    setShowModal(false);
   };
 
   return (
@@ -118,7 +142,8 @@ const ProductListScreen = () => {
                       <Button
                         variant='danger'
                         className='btn-sm'
-                        onClick={() => deleteHandler(product._id)}
+                        // onClick={() => deleteHandler(product._id)}
+                        onClick={() => openModal(product._id)}
                       >
                         <FaTrash />
                       </Button>
@@ -130,6 +155,14 @@ const ProductListScreen = () => {
           </Table>
           <Paginate pages={data.pages} page={data.page} isAdmin={true} />
         </>
+      )}
+      {showModal && (
+        <DeleteModal
+          product={productIdToDelete}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          onDelete={deleteHandler}
+        />
       )}
     </>
   );

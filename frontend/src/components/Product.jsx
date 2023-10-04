@@ -1,18 +1,38 @@
 import { useState } from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Card, Row, Col, Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+// eslint-disable-next-line no-unused-vars
+import { Link, useParams } from 'react-router-dom';
+
 import { Rating, Loader, BtnAddToCart, MyModal } from './';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 const Product = ({ product, value, text }) => {
+  // const { id: productId } = useParams();
+
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+
+  const { userInfo } = useSelector((state) => state.auth);
 
   const handleImageLoad = () => {
     setLoading(false);
   };
 
   return (
-    <Card className='my-3'>
+    <Card className='my-3 card-shadow'>
+      {userInfo && userInfo.isAdmin && (
+        <Col className='text-end'>
+          <Link to={`/admin/product/${product._id}/edit`}>
+            <Button variant='light' className='btn-sm'>
+              <FaEdit />
+            </Button>
+          </Link>
+          <Button variant='danger' className='btn-sm'>
+            <FaTrash />
+          </Button>
+        </Col>
+      )}
       <Link to={`/product/${product._id}`}>
         <div>
           {loading && (
@@ -29,7 +49,6 @@ const Product = ({ product, value, text }) => {
             </div>
           )}
           <Card.Img
-            // FIXME: Change to images.original when fetching from DB
             src={product.images[0].original}
             variant='top'
             onLoad={handleImageLoad}

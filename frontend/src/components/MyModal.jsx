@@ -17,7 +17,7 @@ const MyModal = ({ product }) => {
         <Modal.Body>
           <Row>
             <Col md={4} xs={2}>
-              <Image src={product.image} fluid />
+              <Image src={product.images[0].original} fluid />
             </Col>
             <Col>
               <Link to={`/product/${product._id}`}>

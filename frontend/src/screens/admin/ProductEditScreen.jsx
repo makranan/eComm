@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Form, Button, Row, Col, Image } from 'react-bootstrap';
 import { Message, Loader, FormContainer, BtnGoBack } from '../../components';
 import { toast } from 'react-toastify';
+import { FaTrash } from 'react-icons/fa';
 import {
   useUpdateProductMutation,
   useGetProductDetailsQuery,
@@ -18,7 +19,7 @@ const ProductEditScreen = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState('');
-  const [images, setImages] = useState();
+  const [images, setImages] = useState([]);
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
@@ -31,7 +32,13 @@ const ProductEditScreen = () => {
     error,
   } = useGetProductDetailsQuery(productId);
 
-  console.log(product);
+  // console.log(product);
+
+  // Function to delete a single image by its index
+  const deleteImageHandler = (indexToDelete) => {
+    const updatedImages = images.filter((_, index) => index !== indexToDelete);
+    setImages(updatedImages);
+  };
 
   const [updateProduct, { isLoading: loadingUpdate, error: err }] =
     useUpdateProductMutation();
@@ -161,9 +168,8 @@ const ProductEditScreen = () => {
 
       // setImages(imagesArray);
 
-      setImages(
-        res.images.map((path) => ({ original: path, thumbnail: path }))
-      );
+      setImages([...images, ...res.images.map((path) => ({ original: path }))]);
+      refetch();
 
       // Clear the file input to allow uploading the same images again
       e.target.value = '';
@@ -186,6 +192,15 @@ const ProductEditScreen = () => {
     }
     // If not valid, you can choose to do nothing or show an error message
   };
+
+  const ScrollToTop = () => {
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
+    return null;
+  };
+  ScrollToTop();
 
   return (
     <>
@@ -223,6 +238,82 @@ const ProductEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
+            <Row className='my-2'>
+              <Col xs={6} sm={6} md={3} className='mb-2'>
+                <Form.Group controlId='price'>
+                  <Form.Label>Price</Form.Label>
+                  <Form.Control
+                    type='number'
+                    placeholder='Price'
+                    value={price}
+                    onChange={priceChangeHandler}
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+
+              <Col xs={6} sm={6} md={3}>
+                <Form.Group controlId='countInStock'>
+                  <Form.Label>Stock</Form.Label>
+                  <Form.Control
+                    type='number'
+                    placeholder='Stock'
+                    value={countInStock}
+                    onChange={(e) => setCountInStock(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+
+              <Col xs={12} sm={6} md={3}>
+                <Form.Group controlId='category'>
+                  <Form.Label>Category</Form.Label>
+                  <Form.Control
+                    type='text'
+                    placeholder='Product Category'
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+
+              <Col xs={12} sm={6} md={3}>
+                <Form.Group controlId='brand'>
+                  <Form.Label>Brand</Form.Label>
+                  <Form.Control
+                    type='text'
+                    placeholder='Product Brand'
+                    value={brand}
+                    onChange={(e) => setBrand(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+
+              {/* <Col xs={3}>
+                <Form.Group controlId='clearImages'>
+                  <Form.Label>Clear Images</Form.Label>
+                  <Form.Group>
+                    <Button
+                      type='button'
+                      className='btn btn-full-w'
+                      variant='danger'
+                    >
+                      Delete
+                    </Button>
+                  </Form.Group>
+                </Form.Group>
+              </Col> */}
+              {/* <Col xs={6}>
+                <Form.Group controlId='image'>
+                  <Form.Label>Thumbnail</Form.Label>
+                  <Form.Control
+                    type='text'
+                    placeholder='URL'
+                    value={image}
+                    onChange={e => setImage}
+                  ></Form.Control>
+                </Form.Group>
+              </Col> */}
+            </Row>
+
             {/* <Row>
               <Col xs={9}>
                 <Form.Group controlId='imageUpload'>
@@ -253,21 +344,29 @@ const ProductEditScreen = () => {
             <Row className='my-4'>
               {images &&
                 images.map((image, index) => (
-                  <Col key={index} xs={2}>
+                  <Col key={index} md={2} xs={3}>
                     <Image
                       src={image.original}
                       alt={`Image ${index + 1}`}
                       style={{
-                        height: '80px',
+                        height: '120px',
+                        objectFit: 'contain',
                       }}
                       fluid
                     />
+                    <Button
+                      className='btn-full-w'
+                      variant='danger'
+                      onClick={() => deleteImageHandler(index)}
+                    >
+                      <FaTrash />
+                    </Button>
                   </Col>
                 ))}
             </Row>
 
             <Row>
-              <Col xs={9}>
+              <Col xs={7}>
                 <Form.Group controlId='imagesUpload'>
                   <Form.Label>Pick Images</Form.Label>
                   <Form.Control
@@ -280,7 +379,7 @@ const ProductEditScreen = () => {
                 </Form.Group>
               </Col>
 
-              <Col xs={3}>
+              <Col xs={5}>
                 <Form.Group controlId='updateImages'>
                   <Form.Label>-</Form.Label>
                   <Form.Group>
@@ -297,59 +396,7 @@ const ProductEditScreen = () => {
               </Col>
             </Row>
 
-            <Row className='my-2'>
-              <Col xs={3}>
-                <Form.Group controlId='price'>
-                  <Form.Label>Price</Form.Label>
-                  <Form.Control
-                    type='number'
-                    placeholder='Price'
-                    value={price}
-                    onChange={priceChangeHandler}
-                  ></Form.Control>
-                </Form.Group>
-              </Col>
-
-              <Col xs={3}>
-                <Form.Group controlId='countInStock'>
-                  <Form.Label>Stock</Form.Label>
-                  <Form.Control
-                    type='number'
-                    placeholder='Stock'
-                    value={countInStock}
-                    onChange={(e) => setCountInStock(e.target.value)}
-                  ></Form.Control>
-                </Form.Group>
-              </Col>
-
-              <Col xs={3}>
-                <Form.Group controlId='clearImages'>
-                  <Form.Label>Clear Images</Form.Label>
-                  <Form.Group>
-                    <Button
-                      type='button'
-                      className='btn btn-full-w'
-                      variant='danger'
-                    >
-                      Delete
-                    </Button>
-                  </Form.Group>
-                </Form.Group>
-              </Col>
-              {/* <Col xs={6}>
-                <Form.Group controlId='image'>
-                  <Form.Label>Thumbnail</Form.Label>
-                  <Form.Control
-                    type='text'
-                    placeholder='URL'
-                    value={image}
-                    onChange={e => setImage}
-                  ></Form.Control>
-                </Form.Group>
-              </Col> */}
-            </Row>
-
-            <Row className='my-2'>
+            {/* <Row className='my-2'>
               <Col>
                 <Form.Group controlId='category'>
                   <Form.Label>Category</Form.Label>
@@ -373,7 +420,8 @@ const ProductEditScreen = () => {
                   ></Form.Control>
                 </Form.Group>
               </Col>
-            </Row>
+            </Row> */}
+
             <Form.Group controlId='description'>
               <Form.Label>Description</Form.Label>
               <Form.Control
