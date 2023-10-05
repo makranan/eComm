@@ -42,11 +42,11 @@ const Product = ({ product, value, text }) => {
             </Button>
           </Link>
           <Button
-            variant='danger'
+            variant='light'
             className='btn-sm'
             onClick={() => openDeleteModal()}
           >
-            <FaTrash />
+            <FaTrash style={{ color: 'red' }} />
           </Button>
         </Col>
       )}
