@@ -16,10 +16,10 @@ import AdminRoute from './AdminRoute';
 import CheckoutSteps from './CheckoutSteps';
 import CheckoutStepsCircles from './CheckoutStepsCircles';
 import ProductImageGallery from './ProductImageGallery';
-
 import StyledNumberInput from './StyledNumberInput';
 import Paginate from './Paginate';
 import SearchBox from './SearchBox';
+import SearchResult from './SearchResult';
 import ProductCarousel from './ProductCarousel';
 import Meta from './Meta';
 
@@ -45,6 +45,7 @@ export {
   StyledNumberInput,
   Paginate,
   SearchBox,
+  SearchResult,
   ProductCarousel,
   Meta,
 };
