@@ -21,8 +21,8 @@ import {
   StyledNumberInput,
   FormContainer,
   Meta,
-  DeleteModal,
 } from '../components';
+import { DeleteModal } from '../components/modals';
 import {
   useGetProductDetailsQuery,
   useCreateReviewMutation,

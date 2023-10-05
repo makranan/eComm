@@ -3,20 +3,33 @@ import { Card, Row, Col, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import { Link, useParams } from 'react-router-dom';
-
-import { Rating, Loader, BtnAddToCart, MyModal } from './';
+import { useDeleteProductMutation } from '../slices/productsApiSlice';
+import { Rating, Loader, BtnAddToCart } from './';
+import { AddToCartModal, DeleteModal } from './modals';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
 const Product = ({ product, value, text }) => {
   // const { id: productId } = useParams();
 
   const [loading, setLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showAddToCartModal, setShowAddToCartModal] = useState(false);
 
   const { userInfo } = useSelector((state) => state.auth);
 
+  const [deleteProduct, { isLoading: loadingDelete }] =
+    useDeleteProductMutation();
+
   const handleImageLoad = () => {
     setLoading(false);
+  };
+
+  const openDeleteModal = () => {
+    setShowDeleteModal(true);
+  };
+
+  const openAddToCartModal = () => {
+    setShowAddToCartModal(true);
   };
 
   return (
@@ -28,11 +41,33 @@ const Product = ({ product, value, text }) => {
               <FaEdit />
             </Button>
           </Link>
-          <Button variant='danger' className='btn-sm'>
+          <Button
+            variant='danger'
+            className='btn-sm'
+            onClick={() => openDeleteModal()}
+          >
             <FaTrash />
           </Button>
         </Col>
       )}
+
+      {product && (
+        <AddToCartModal
+          product={product}
+          showModal={showAddToCartModal}
+          setShowModal={setShowAddToCartModal}
+        />
+      )}
+
+      {product && (
+        <DeleteModal
+          product={product}
+          showModal={showDeleteModal}
+          setShowModal={setShowDeleteModal}
+          onDelete={deleteProduct}
+        />
+      )}
+
       <Link to={`/product/${product._id}`}>
         <div>
           {loading && (
@@ -98,16 +133,16 @@ const Product = ({ product, value, text }) => {
             <div className='text-end' style={{ transform: 'translateX(2px)' }}>
               <BtnAddToCart
                 product={product}
-                onAddToCart={() => setShowModal(true)}
+                onAddToCart={() => openAddToCartModal()}
               />
             </div>
           </Col>
         </Row>
       </Card.Body>
       {/* Render the MyModal component with product information */}
-      {showModal && (
+      {/* {showModal && (
         <MyModal product={product} handleClose={() => setShowModal(false)} />
-      )}
+      )} */}
     </Card>
   );
 };

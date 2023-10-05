@@ -213,3 +213,7 @@ input[type='number'] {
   opacity: 1;
   backdrop-filter: blur(2px);
 }
+
+.card {
+  border-color: #ededed;
+}

@@ -16,8 +16,7 @@ import AdminRoute from './AdminRoute';
 import CheckoutSteps from './CheckoutSteps';
 import CheckoutStepsCircles from './CheckoutStepsCircles';
 import ProductImageGallery from './ProductImageGallery';
-import MyModal from './MyModal';
-import DeleteModal from './DeleteModal';
+
 import StyledNumberInput from './StyledNumberInput';
 import Paginate from './Paginate';
 import SearchBox from './SearchBox';
@@ -43,8 +42,6 @@ export {
   CheckoutSteps,
   CheckoutStepsCircles,
   ProductImageGallery,
-  MyModal,
-  DeleteModal,
   StyledNumberInput,
   Paginate,
   SearchBox,

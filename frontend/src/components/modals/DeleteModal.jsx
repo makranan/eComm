@@ -4,7 +4,7 @@ import { Button, Modal, Col, Row, Image } from 'react-bootstrap';
 import {
   useDeleteProductMutation,
   useGetProductDetailsQuery,
-} from '../slices/productsApiSlice';
+} from '../../slices/productsApiSlice';
 import { toast } from 'react-toastify';
 
 const DeleteModal = ({ product, showModal, setShowModal, onDelete }) => {
@@ -34,7 +34,7 @@ const DeleteModal = ({ product, showModal, setShowModal, onDelete }) => {
     <>
       <Modal show={showModal} onHide={handleClose} animation={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Your gonna delete:</Modal.Title>
+          <Modal.Title>Your about to delete:</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row>

@@ -3,7 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Row, Col, FormCheck } from 'react-bootstrap';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import { Message, Loader, Paginate, DeleteModal } from '../../components';
+import { Message, Loader, Paginate } from '../../components';
+import { DeleteModal } from '../../components/modals';
 import { toast } from 'react-toastify';
 import {
   useGetProductsQuery,

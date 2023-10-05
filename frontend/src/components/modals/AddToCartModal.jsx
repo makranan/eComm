@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Modal, Col, Row, Image } from 'react-bootstrap';
 
-const MyModal = ({ product }) => {
-  const [show, setShow] = useState(true);
+const AddToCartModal = ({ product, showModal, setShowModal }) => {
+  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShow(true);
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} animation={true} centered>
+      <Modal show={showModal} onHide={handleClose} animation={true} centered>
         <Modal.Header closeButton>
           <Modal.Title>Item was added to your cart.</Modal.Title>
         </Modal.Header>
@@ -46,4 +46,4 @@ const MyModal = ({ product }) => {
   );
 };
 
-export default MyModal;
+export default AddToCartModal;
