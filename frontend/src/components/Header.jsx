@@ -28,6 +28,10 @@ const Header = () => {
     }
   };
 
+  const customDropdownStyle = {
+    transform: 'translateX(-20%)', // Shift 20% to the left
+  };
+
   // Conditionally render CheckoutStepsCircles based on the current route
   // const location = useLocation();
   // const showCheckoutSteps = [

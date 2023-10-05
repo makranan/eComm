@@ -19,10 +19,13 @@ const DeleteModal = ({ product, showModal, setShowModal, onDelete }) => {
 
   const deleteHandler = async () => {
     try {
-      await onDelete(product._id); // Call onDelete, which is deleteProduct from ProductDetails
-
-      toast.success('Product deleted');
-      navigate('/admin/productlist');
+      if (product && product._id) {
+        await onDelete(product._id);
+        toast.success('Product deleted');
+        navigate('/admin/productlist');
+      } else {
+        toast.error('Invalid product data.');
+      }
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
@@ -37,21 +40,44 @@ const DeleteModal = ({ product, showModal, setShowModal, onDelete }) => {
           <Modal.Title>Your about to delete:</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Row>
-            <Col md={4} xs={2}>
-              <Image src={product.images[0].original} fluid />
-            </Col>
-            <Col>
-              <Link to={`/product/${product._id}`}>
-                <h5>{product.name}</h5>
-              </Link>
-              <Row className='my-4'>
-                <Col>
-                  <strong>{product._id}</strong>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+          {product ? ( // Check if product is not null/undefined
+            <Row>
+              <Col md={4} xs={2}>
+                {product.images && product.images[0] ? ( // Check if images is an array and has at least one element
+                  <Image src={product.images[0].original} fluid />
+                ) : (
+                  <p>No image available</p>
+                )}
+              </Col>
+              <Col>
+                <Link to={`/product/${product._id}`}>
+                  <h5>{product.name}</h5>
+                </Link>
+                <Row className='my-4'>
+                  <Col>
+                    <h6>ID:</h6>
+                    <strong>{product._id}</strong>
+                    <h6
+                      className='mt-3'
+                      style={{
+                        backgroundColor:
+                          product.countInStock > 0 ? 'lightgreen' : 'orangered',
+                        color: product.countInStock > 0 ? 'black' : 'white',
+                        fontWeight: '900',
+                        padding: '5px',
+                        borderRadius: '5px',
+                      }}
+                    >
+                      Stock: <span>{product.countInStock}</span>
+                    </h6>
+                    <strong></strong>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          ) : (
+            <p>Invalid product data.</p>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant='danger' onClick={deleteHandler}>

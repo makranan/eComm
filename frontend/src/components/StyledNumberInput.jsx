@@ -1,16 +1,16 @@
-// NumberInput.js
-
 const customInputStyle = {
+  backgroundColor: '#fff',
+  color: '#000',
   padding: '10px',
   border: '1px solid #ccc',
-  borderRadius: '4px',
+  borderRadius: '5px',
   width: 'auto',
   maxWidth: 'calc(50% - 5px)',
   textAlign: 'center',
 };
 
 function StyledNumberInput({ value, onChange, min, max }) {
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     let newValue = parseInt(event.target.value, 10);
     if (isNaN(newValue)) {
       newValue = min || 0; // Default to min value if input is not a number

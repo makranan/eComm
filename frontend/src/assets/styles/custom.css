@@ -208,11 +208,11 @@ input[type='number'] {
   transition: all 0.2s ease-in-out;
 }
 
-.modal-backdrop,
+/* .modal-backdrop,
 .show {
   opacity: 1;
   backdrop-filter: blur(2px);
-}
+} */
 
 .card {
   border-color: #ededed;
