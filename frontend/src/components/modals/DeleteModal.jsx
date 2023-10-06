@@ -35,7 +35,7 @@ const DeleteModal = ({ product, showModal, setShowModal, onDelete }) => {
 
   return (
     <>
-      <Modal show={showModal} onHide={handleClose} animation={true} centered>
+      <Modal show={showModal} onHide={handleClose} animation={true}>
         <Modal.Header closeButton>
           <Modal.Title>Your about to delete:</Modal.Title>
         </Modal.Header>

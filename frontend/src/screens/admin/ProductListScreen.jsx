@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Table, Button, Row, Col, FormCheck } from 'react-bootstrap';
+import { Table, Button, Row, Col, FormCheck, Spinner } from 'react-bootstrap';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Message, Loader, Paginate } from '../../components';
 import { DeleteModal, CreateProductModal } from '../../components/modals';
@@ -32,14 +32,15 @@ const ProductListScreen = () => {
     useDeleteProductMutation();
 
   const createProductHandler = async () => {
-    if (window.confirm('Are you sure you want to create a new product?')) {
-      try {
-        await createProduct();
-        refetch();
-      } catch (err) {
-        toast.error(err?.data?.message || err.error);
-      }
+    // if (window.confirm('Are you sure you want to create a new product?')) {
+    try {
+      await createProduct();
+      refetch();
+      toast.success('Product created');
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
     }
+    // }
   };
 
   // const deleteHandler = async (id) => {
@@ -54,8 +55,7 @@ const ProductListScreen = () => {
   //   }
   // };
 
-  const openModal = (productId) => {
-    setProductIdToDelete(productId);
+  const openModal = () => {
     setShowModal(true);
   };
 
@@ -78,15 +78,25 @@ const ProductListScreen = () => {
         </Col>
         <Col className='d-flex justify-content-end '>
           <Button
+            type='button'
             className='d-flex align-items-center btn btn-sm'
-            onClick={createProductHandler}
+            onClick={() => createProductHandler()}
+            disabled={loadingCreate}
           >
-            <FaEdit /> &nbsp;&nbsp;Create Product
+            {loadingCreate ? (
+              <div className='d-flex align-items-center'>
+                <Spinner />
+              </div>
+            ) : (
+              <>
+                <FaEdit /> &nbsp;&nbsp;Create Product
+              </>
+            )}
           </Button>
         </Col>
       </Row>
 
-      {loadingCreate && <Loader />}
+      {/* {loadingCreate && <Loader />} */}
       {loadingDelete && <Loader />}
 
       {isLoading ? (

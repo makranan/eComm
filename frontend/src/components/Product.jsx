@@ -56,7 +56,7 @@ const Product = ({ product, value, text }) => {
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
     setShowAddToCart(false);
-    toast.success('Item added to cart');
+    toast.success(qty === 1 ? 'Item added to cart' : "Item's added to cart");
   };
 
   const deleteHandler = async () => {
@@ -138,6 +138,8 @@ const Product = ({ product, value, text }) => {
             showAdditionalContent ? 'show-additional-content' : ''
           }`}
         >
+          <MdOutlineAddShoppingCart size={46} />
+          <h5 className='text-center px-5 my-2'>Add item to cart</h5>
           <FaTimes
             className='fatimes-position'
             onClick={() => setShowAddToCart(false)}

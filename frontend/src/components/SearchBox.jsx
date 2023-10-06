@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
-import { SearchResult } from './';
 
 const SearchBox = () => {
   const navigate = useNavigate();
@@ -42,31 +41,27 @@ const SearchBox = () => {
     e.preventDefault();
 
     if (keyword.trim()) {
+      setKeyword('');
       navigate(`/search/${keyword}`);
-      setShowResults(true); // Show search results when there is a keyword
     } else {
       navigate('/');
-      setShowResults(false); // Hide search results when there is no keyword
     }
   };
 
   return (
-    <div>
-      <Form onSubmit={submitHandler} className={`d-flex ${formControlClass}`}>
-        <Form.Control
-          type='text'
-          name='q'
-          onChange={(e) => setKeyword(e.target.value)}
-          value={keyword}
-          placeholder='Search...'
-          className='mr-sm-2 ml-sm-5'
-        ></Form.Control>
-        <Button type='submit' className='p-2 mx-2'>
-          <FaSearch style={{ fontSize: '1rem' }} />
-        </Button>
-      </Form>
-      {showResults && <SearchResult keyword={keyword} />}
-    </div>
+    <Form onSubmit={submitHandler} className={`d-flex ${formControlClass}`}>
+      <Form.Control
+        type='text'
+        name='q'
+        onChange={(e) => setKeyword(e.target.value)}
+        value={keyword}
+        placeholder='Search...'
+        className='mr-sm-2 ml-sm-5'
+      ></Form.Control>
+      <Button type='submit' className='p-2 mx-2'>
+        <FaSearch style={{ fontSize: '1rem' }} />
+      </Button>
+    </Form>
   );
 };
 
