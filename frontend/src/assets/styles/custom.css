@@ -221,4 +221,44 @@ input[type='number'] {
 .container {
   max-width: 2400px;
   padding: 0 10vw 0 10vw;
+  z-index: 3;
+}
+
+.additional-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2; /* Ensure it's on top of the main content */
+  opacity: 1; /* Initially hidden */
+  animation: fade-in 0.1s ease-in-out both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.show-additional-content {
+  animation: none; /* Disable animation when already shown */
+  opacity: 1 !important; /* Ensure it's fully visible */
+}
+
+.fatimes-position {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #fff;
+  cursor: pointer;
 }

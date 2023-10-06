@@ -22,7 +22,7 @@ const DeleteModal = ({ product, showModal, setShowModal, onDelete }) => {
       if (product && product._id) {
         await onDelete(product._id);
         toast.success('Product deleted');
-        navigate('/admin/productlist');
+        // navigate('/admin/productlist');
       } else {
         toast.error('Invalid product data.');
       }

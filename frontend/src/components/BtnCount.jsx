@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 
 function BtnCount({
   initialValue,
@@ -7,6 +8,7 @@ function BtnCount({
   step,
   increaseIcon,
   decreaseIcon,
+  variant,
 }) {
   const [count, setCount] = useState(initialValue);
 
@@ -26,20 +28,22 @@ function BtnCount({
 
   return (
     <div>
-      <button
+      <Button
         type='button'
         onClick={handleDecrement}
-        className='btn btn-light btn-sm'
+        className='btn btn-light btn-sm mx-1'
+        variant={variant}
       >
         {decreaseIcon}
-      </button>
-      <button
+      </Button>
+      <Button
         type='button'
         onClick={handleIncrement}
-        className='btn btn-light btn-sm'
+        className='btn btn-light btn-sm mx-1'
+        variant={variant}
       >
         {increaseIcon}
-      </button>
+      </Button>
     </div>
   );
 }

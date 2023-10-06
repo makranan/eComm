@@ -144,11 +144,11 @@ const ProductDetails = () => {
             </Link>
             {/* <Link to={`/admin/productlist`}> */}
             <Button
-              variant='danger'
+              variant='light'
               className='btn-sm'
               onClick={() => openModal()}
             >
-              <FaTrash />
+              <FaTrash style={{ color: 'red' }} />
             </Button>
             {/* </Link> */}
           </Col>

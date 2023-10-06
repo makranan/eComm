@@ -1,19 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, Row, Col, Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import { Link, useParams } from 'react-router-dom';
 import { useDeleteProductMutation } from '../slices/productsApiSlice';
-import { Rating, Loader, BtnAddToCart } from './';
+import { addToCart } from '../slices/cartSlice';
+import { Rating, Loader, BtnAddToCart, BtnGoBack } from './';
 import { AddToCartModal, DeleteModal } from './modals';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaPlus, FaMinus, FaTimes } from 'react-icons/fa';
+import { MdOutlineAddShoppingCart } from 'react-icons/md';
+import { StyledNumberInput, BtnCount } from './';
+import { toast } from 'react-toastify';
 
 const Product = ({ product, value, text }) => {
   // const { id: productId } = useParams();
+  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(true);
+  const [qty, setQty] = useState(1);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showAddToCartModal, setShowAddToCartModal] = useState(false);
+  const [showDeleteCard, setShowDeleteCard] = useState(false);
+  const [showAddToCart, setShowAddToCart] = useState(false);
+  const [showAdditionalContent, setShowAdditionalContent] = useState(false);
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -24,6 +33,18 @@ const Product = ({ product, value, text }) => {
     setLoading(false);
   };
 
+  const toggleAdditionalContent = () => {
+    setShowAdditionalContent(!showAdditionalContent);
+  };
+
+  const toggleDeleteCard = () => {
+    setShowDeleteCard(!showDeleteCard);
+  };
+
+  const toggleAddToCard = () => {
+    setShowAddToCart(!showAddToCart);
+  };
+
   const openDeleteModal = () => {
     setShowDeleteModal(true);
   };
@@ -31,6 +52,42 @@ const Product = ({ product, value, text }) => {
   const openAddToCartModal = () => {
     setShowAddToCartModal(true);
   };
+
+  const addToCartHandler = () => {
+    dispatch(addToCart({ ...product, qty }));
+    setShowAddToCart(false);
+    toast.success('Item added to cart');
+  };
+
+  const deleteHandler = async () => {
+    try {
+      if (product && product._id) {
+        await deleteProduct(product._id);
+        toast.success('Product deleted');
+        // navigate('/admin/productlist');
+      } else {
+        toast.error('Invalid product data.');
+      }
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
+  };
+
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === 'Escape') {
+        setShowAddToCart(false); // Close the additional content
+      }
+    };
+
+    // Attach the event listener when the component mounts
+    window.addEventListener('keydown', handleEscKey);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('keydown', handleEscKey);
+    };
+  }, []); // The empty dependency array means this effect runs once when the component mounts
 
   return (
     <Card className='my-3 card-shadow'>
@@ -44,14 +101,76 @@ const Product = ({ product, value, text }) => {
           <Button
             variant='light'
             className='btn-sm'
-            onClick={() => openDeleteModal()}
+            // onClick={() => openDeleteModal()}
+            onClick={() => toggleDeleteCard()}
           >
             <FaTrash style={{ color: 'red' }} />
           </Button>
         </Col>
       )}
 
-      {product && (
+      {showDeleteCard && userInfo && userInfo.isAdmin && (
+        <div
+          className={`additional-content ${
+            showAdditionalContent ? 'show-additional-content' : ''
+          }`}
+        >
+          <FaTimes
+            className='fatimes-position'
+            onClick={() => setShowDeleteCard(false)}
+          />
+          <h5>Delete?</h5>
+          <p className='text-center px-4'>Item will be deleted from database</p>
+          <Button
+            variant='danger'
+            className='my-4'
+            onClick={() => deleteHandler()}
+          >
+            Yes
+          </Button>
+          <Button onClick={() => setShowDeleteCard(false)}>No</Button>
+        </div>
+      )}
+
+      {showAddToCart && (
+        <div
+          className={`additional-content ${
+            showAdditionalContent ? 'show-additional-content' : ''
+          }`}
+        >
+          <FaTimes
+            className='fatimes-position'
+            onClick={() => setShowAddToCart(false)}
+          />
+          <Row className='d-flex justify-content-center mb-3'>
+            <StyledNumberInput
+              value={qty}
+              onChange={(newValue) => {
+                setQty(newValue); // Update local state
+              }}
+              min={1}
+              max={product.countInStock}
+            />
+          </Row>
+          <BtnCount
+            variant='dark'
+            initialValue={qty}
+            maxValue={product.countInStock}
+            onCountChange={(newCount) => {
+              setQty(newCount); // Update local state
+            }}
+            step={1}
+            increaseIcon={<FaPlus />}
+            decreaseIcon={<FaMinus />}
+          />
+          <Button className='my-3' variant='dark' onClick={addToCartHandler}>
+            Add
+          </Button>
+          {/* <Button onClick={() => setShowAddToCart(false)}>Close</Button> */}
+        </div>
+      )}
+
+      {/* {product && (
         <AddToCartModal
           product={product}
           showModal={showAddToCartModal}
@@ -66,7 +185,7 @@ const Product = ({ product, value, text }) => {
           setShowModal={setShowDeleteModal}
           onDelete={deleteProduct}
         />
-      )}
+      )} */}
 
       <Link to={`/product/${product._id}`}>
         <div>
@@ -131,10 +250,18 @@ const Product = ({ product, value, text }) => {
           </Col>
           <Col>
             <div className='text-end' style={{ transform: 'translateX(2px)' }}>
-              <BtnAddToCart
+              {/* <BtnAddToCart
                 product={product}
-                onAddToCart={() => openAddToCartModal()}
-              />
+                onAddToCart={() => toggleAddToCard()}
+              /> */}
+              <Button
+                type='button'
+                className='btn-sm'
+                onClick={() => toggleAddToCard()}
+                disabled={product.countInStock === 0}
+              >
+                <MdOutlineAddShoppingCart size={20} />
+              </Button>
             </div>
           </Col>
         </Row>
