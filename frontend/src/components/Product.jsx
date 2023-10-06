@@ -138,8 +138,8 @@ const Product = ({ product, value, text }) => {
             showAdditionalContent ? 'show-additional-content' : ''
           }`}
         >
-          <MdOutlineAddShoppingCart size={46} />
-          <h5 className='text-center px-5 my-2'>Add item to cart</h5>
+          <MdOutlineAddShoppingCart size={40} />
+          <h5 className='text-center px-5 my-4'>Add item to cart</h5>
           <FaTimes
             className='fatimes-position'
             onClick={() => setShowAddToCart(false)}

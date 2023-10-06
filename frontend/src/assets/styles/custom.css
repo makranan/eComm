@@ -263,3 +263,8 @@ input[type='number'] {
   background-color: #fff;
   cursor: pointer;
 }
+
+.btn-loading {
+  width: 140px;
+  height: 40px;
+}

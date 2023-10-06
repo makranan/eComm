@@ -1,8 +1,8 @@
 import { Container } from 'react-bootstrap';
 import { Outlet, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { Header, Footer, HeaderSwiper } from './components';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const location = useLocation();
@@ -11,7 +11,7 @@ const App = () => {
   return (
     <>
       <Header />
-      {isHomeScreen && <HeaderSwiper />}
+      {/* {isHomeScreen && <HeaderSwiper />} */}
       <main className='py-3'>
         <Container>
           <Outlet />

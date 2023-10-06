@@ -79,13 +79,21 @@ const ProductListScreen = () => {
         <Col className='d-flex justify-content-end '>
           <Button
             type='button'
-            className='d-flex align-items-center btn btn-sm'
+            className='d-flex align-items-center btn btn-sm btn-loading'
             onClick={() => createProductHandler()}
             disabled={loadingCreate}
           >
             {loadingCreate ? (
-              <div className='d-flex align-items-center'>
-                <Spinner />
+              <div className='spinner-container'>
+                <div className='d-flex align-items-center justify-content-center'>
+                  <Spinner
+                    role='status'
+                    size='sm'
+                    className='d-flex justify-content-center'
+                  >
+                    <span className='visually-hidden'>Loading...</span>
+                  </Spinner>
+                </div>
               </div>
             ) : (
               <>
