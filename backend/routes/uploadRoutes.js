@@ -89,6 +89,7 @@ router.post('/', upload.array('images', 10), async (req, res) => {
       name: req.body.name,
       price: req.body.price,
       description: req.body.description,
+      details: req.body.details,
       image: req.body.image,
       brand: req.body.brand,
       category: req.body.category,

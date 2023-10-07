@@ -121,7 +121,10 @@ const OrderScreen = () => {
     <>
       <h1 className='mb-4' style={{ marginTop: '60px' }}>
         <span className='unselectable'>Order </span>
-        <strong className='text-white ' style={{ background: 'grey' }}>
+        <strong
+          className='text-white '
+          style={{ background: 'grey', fontWeight: '700' }}
+        >
           {order._id}
         </strong>
       </h1>

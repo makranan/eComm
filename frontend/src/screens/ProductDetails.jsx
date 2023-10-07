@@ -73,6 +73,7 @@ const ProductDetails = () => {
         await createReview({
           productId,
           rating,
+
           comment,
         }).unwrap();
         refetch();

@@ -50,7 +50,9 @@ const Header = () => {
             <LinkContainer to='/'>
               <Navbar.Brand>
                 <img src={logo} alt='Tech World' style={{ height: '2.5rem' }} />{' '}
-                <strong style={{ fontSize: '1rem' }}>TechWorld</strong>
+                <strong style={{ fontSize: '1rem', fontWeight: '600' }}>
+                  TechWorld
+                </strong>
               </Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls='basic-navbar-bav' />
@@ -64,7 +66,9 @@ const Header = () => {
                     Cart
                     {cartItems.length > 0 && (
                       <Badge className='bg-warning' pill>
-                        {cartItems.reduce((a, c) => a + c.qty, 0)}
+                        <span style={{ color: 'black', fontWeight: '900' }}>
+                          {cartItems.reduce((a, c) => a + c.qty, 0)}
+                        </span>
                       </Badge>
                     )}
                   </Nav.Link>

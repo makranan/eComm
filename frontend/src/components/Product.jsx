@@ -168,9 +168,10 @@ const Product = ({ product, value, text }) => {
           <Button className='my-3' variant='dark' onClick={addToCartHandler}>
             Add
           </Button>
-          {/* <Button onClick={() => setShowAddToCart(false)}>Close</Button> */}
         </div>
       )}
+
+      {/* Modal */}
 
       {/* {product && (
         <AddToCartModal
@@ -213,6 +214,7 @@ const Product = ({ product, value, text }) => {
               marginTop: '0px',
               height: '100%',
               objectFit: 'cover',
+              padding: '10px',
             }}
           />
         </div>
@@ -246,7 +248,7 @@ const Product = ({ product, value, text }) => {
                   marginBottom: '5px',
                 }}
               >
-                <strong>${product.price}</strong>
+                <strong style={{ fontWeight: '600' }}>${product.price}</strong>
               </div>
             </Card.Text>
           </Col>

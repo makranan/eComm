@@ -348,7 +348,12 @@ const ProductEditScreen = () => {
             <Row className='my-4'>
               {images &&
                 images.map((image, index) => (
-                  <Col key={index} md={2} xs={3}>
+                  <Col
+                    key={index}
+                    md={2}
+                    xs={3}
+                    className='d-flex flex-column align-items-center justify-content-center'
+                  >
                     <Image
                       src={image.original}
                       alt={`Image ${index + 1}`}

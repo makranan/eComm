@@ -268,3 +268,7 @@ input[type='number'] {
   width: 140px;
   height: 40px;
 }
+
+.card-img-top {
+  user-select: none;
+}
