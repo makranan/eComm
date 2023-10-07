@@ -139,7 +139,9 @@ const Product = ({ product, value, text }) => {
           }`}
         >
           <MdOutlineAddShoppingCart size={40} />
-          <h5 className='text-center px-5 my-4'>Add item to cart</h5>
+          <h5 className='text-center px-5 my-4'>
+            {qty === 1 ? 'Add item to cart' : "Add item's to cart"}
+          </h5>
           <FaTimes
             className='fatimes-position'
             onClick={() => setShowAddToCart(false)}
