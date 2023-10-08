@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Row, Col, FormCheck, Spinner } from 'react-bootstrap';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaCheckSquare } from 'react-icons/fa';
 import { Message, Loader, Paginate } from '../../components';
 import { DeleteModal, CreateProductModal } from '../../components/modals';
 import { toast } from 'react-toastify';
@@ -24,6 +24,7 @@ const ProductListScreen = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [productIdToDelete, setProductIdToDelete] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const [createProduct, { isLoading: loadingCreate }] =
     useCreateProductMutation();
@@ -36,7 +37,12 @@ const ProductListScreen = () => {
     try {
       await createProduct();
       refetch();
-      toast.success('Product created');
+      setShowSuccess(true);
+
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 1000);
+      // toast.success('Product created');
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
@@ -84,17 +90,24 @@ const ProductListScreen = () => {
             disabled={loadingCreate}
           >
             {loadingCreate ? (
-              <div className='spinner-container'>
-                <div className='d-flex align-items-center justify-content-center'>
-                  <Spinner
-                    role='status'
-                    size='sm'
-                    className='d-flex justify-content-center'
-                  >
-                    <span className='visually-hidden'>Loading...</span>
-                  </Spinner>
-                </div>
+              <div className='spinner-container text-center'>
+                <Spinner
+                  as='span'
+                  animation='border'
+                  size='sm'
+                  role='status'
+                  aria-hidden='true'
+                >
+                  <span className='visually-hidden'>Loading...</span>
+                </Spinner>
               </div>
+            ) : showSuccess ? (
+              <>
+                <div className='spinner-container text-center'>
+                  <FaCheckSquare size={16} color='lightgreen' />{' '}
+                  &nbsp;&nbsp;Created
+                </div>
+              </>
             ) : (
               <>
                 <FaEdit /> &nbsp;&nbsp;Create Product
