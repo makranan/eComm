@@ -61,19 +61,22 @@ const ProductListScreen = () => {
   //   }
   // };
 
-  const openModal = () => {
+  const openModal = (productId) => {
+    setProductIdToDelete(productId);
     setShowModal(true);
   };
 
   const deleteHandler = async (productId) => {
+    // console.log('Deleting product with ID:', productId);
     try {
-      await deleteProduct(productIdToDelete);
+      const response = await deleteProduct(productId);
+      // console.log('Delete response:', response);
       refetch();
       toast.success('Product deleted');
     } catch (err) {
+      // console.error('Delete error:', err);
       toast.error(err?.data?.message || err.error);
     }
-    setShowModal(false);
   };
 
   return (
@@ -177,8 +180,8 @@ const ProductListScreen = () => {
                       <Button
                         variant='danger'
                         className='btn-sm'
-                        // onClick={() => deleteHandler(product._id)}
-                        onClick={() => openModal(product._id)}
+                        onClick={() => deleteHandler(product._id)}
+                        // onClick={() => openModal(product.id)}
                       >
                         <FaTrash />
                       </Button>
@@ -196,7 +199,10 @@ const ProductListScreen = () => {
           product={productIdToDelete}
           showModal={showModal}
           setShowModal={setShowModal}
-          onDelete={deleteHandler}
+          onDelete={(productId) => {
+            deleteHandler(productId);
+            setShowModal(false);
+          }}
         />
       )}
     </>

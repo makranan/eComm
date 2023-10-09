@@ -8,7 +8,6 @@ const SearchBox = () => {
   const { keyword: urlKeyword } = useParams();
 
   const [keyword, setKeyword] = useState(urlKeyword || '');
-  const [showResults, setShowResults] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [formControlClass, setFormControlClass] = useState('');
@@ -52,7 +51,7 @@ const SearchBox = () => {
     <Form onSubmit={submitHandler} className={`d-flex ${formControlClass}`}>
       <Form.Control
         type='text'
-        name='q'
+        name='keyword'
         onChange={(e) => setKeyword(e.target.value)}
         value={keyword}
         placeholder='Search...'

@@ -95,7 +95,7 @@ const ProductDetails = () => {
 
   const ScrollToTop = () => {
     useEffect(() => {
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }, []);
 
     return null;

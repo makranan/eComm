@@ -22,6 +22,8 @@ import SearchBox from './SearchBox';
 import SearchResult from './SearchResult';
 import ProductCarousel from './ProductCarousel';
 import Meta from './Meta';
+import ProductFilter from './ProductFilter';
+import FilterMenu from './FilterMenu';
 
 export {
   Header,
@@ -48,4 +50,6 @@ export {
   SearchResult,
   ProductCarousel,
   Meta,
+  ProductFilter,
+  FilterMenu,
 };

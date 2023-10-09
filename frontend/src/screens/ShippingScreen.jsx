@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
@@ -26,6 +26,15 @@ const ShippingScreen = () => {
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
     navigate('/payment');
   };
+
+  const ScrollToTop = () => {
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, []);
+
+    return null;
+  };
+  ScrollToTop();
 
   return (
     <FormContainer>

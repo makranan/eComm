@@ -27,6 +27,15 @@ const PaymentScreen = () => {
     }
   }, [shippingAddress, navigate]);
 
+  const ScrollToTop = () => {
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, []);
+
+    return null;
+  };
+  ScrollToTop();
+
   return (
     <>
       <FormContainer>

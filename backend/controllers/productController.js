@@ -14,8 +14,32 @@ const getProducts = asyncHandler(async (req, res) => {
     ? { name: { $regex: req.query.keyword, $options: 'i' } }
     : {};
 
-  const count = await Product.countDocuments({ ...keyword });
-  const products = await Product.find({ ...keyword })
+  // Define filters
+  const filters = {};
+
+  if (req.query.keyword) {
+    filters.name = { $regex: req.query.keyword, $options: 'i' };
+  }
+
+  if (req.query.category) {
+    filters.category = { $regex: req.query.category, $options: 'i' };
+  }
+
+  if (req.query.brand) {
+    filters.brand = { $regex: req.query.brand, $options: 'i' };
+  }
+
+  const category = req.query.category;
+  const brand = req.query.brand;
+
+  console.log('Received Keyword:', keyword);
+  console.log('Received Category:', category);
+  console.log('Received Brand:', brand);
+
+  // Perform filtering logic here
+
+  const count = await Product.countDocuments({ ...keyword, ...filters });
+  const products = await Product.find({ ...keyword, ...filters })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
   res.json({ products, page, pages: Math.ceil(count / pageSize) });

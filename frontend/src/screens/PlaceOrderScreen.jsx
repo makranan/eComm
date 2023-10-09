@@ -44,6 +44,15 @@ const PlaceOrderScreen = () => {
     }
   };
 
+  const ScrollToTop = () => {
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, []);
+
+    return null;
+  };
+  ScrollToTop();
+
   return (
     <>
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>

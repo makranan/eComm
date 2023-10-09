@@ -324,3 +324,38 @@ input[type='number'] {
   top: 40%;
   left: 42%;
 }
+
+.container-dashboard .nav-pills .nav-link {
+  margin: 0px;
+  /* padding: 0px; */
+}
+
+.container-dashboard .tab-content {
+  margin: 0px;
+  padding: 0px;
+}
+
+.container-dashboard {
+  width: 100%;
+}
+
+/* Default padding for screens wider than 2400px */
+.container {
+  max-width: 2400px;
+  padding: 0 10vw;
+  z-index: 3;
+}
+
+/* Media query for screens between 1200px and 2400px wide */
+@media (min-width: 1200px) and (max-width: 2400px) {
+  .container {
+    padding: 0 5vw;
+  }
+}
+
+/* Media query for screens narrower than 1200px */
+@media (max-width: 1199px) {
+  .container {
+    padding: 0 2vw;
+  }
+}
