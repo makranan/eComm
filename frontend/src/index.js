@@ -52,6 +52,15 @@ const router = createBrowserRouter(
         element={<HomeScreen />}
       />
 
+      <Route
+        path='/search/:keyword/category/:category/brand/:brand'
+        element={<HomeScreen />}
+      />
+      <Route
+        path='/search/:keyword/category/:category/brand/:brand/page/:pageNumber'
+        element={<HomeScreen />}
+      />
+
       <Route path='/search/brand/:brand' element={<HomeScreen />} />
       <Route
         path='/search/brand/:brand/page/:pageNumber'
@@ -61,6 +70,15 @@ const router = createBrowserRouter(
       <Route path='/search/category/:category' element={<HomeScreen />} />
       <Route
         path='/search/category/:category/page/:pageNumber'
+        element={<HomeScreen />}
+      />
+
+      <Route
+        path='/search/category/:category/brand/:brand'
+        element={<HomeScreen />}
+      />
+      <Route
+        path='/search/category/:category/brand/:brand/page/:pageNumber'
         element={<HomeScreen />}
       />
 
