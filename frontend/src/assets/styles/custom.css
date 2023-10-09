@@ -6,6 +6,7 @@
 
 html {
   background: #ffffff;
+  scroll-behavior: auto;
 }
 
 .btn {
@@ -128,6 +129,20 @@ input[type='number'] {
 
 .card .btn-full-w:hover {
   background: #007bff;
+}
+
+.filter-btn {
+  position: fixed;
+  top: 70px;
+  padding: 10px 10px;
+  z-index: 5;
+  background-color: #727272;
+  opacity: 0.4;
+  transition: all 0.2s ease-in;
+}
+
+.filter-btn:hover {
+  opacity: 1;
 }
 
 /* .card-body {

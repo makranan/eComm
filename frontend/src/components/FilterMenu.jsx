@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
 import { Button, Offcanvas, Form } from 'react-bootstrap';
 import { ProductFilter } from '../components';
+import { FaFilter } from 'react-icons/fa';
 
 function FilterMenu({ name, ...props }) {
   const [show, setShow] = useState(false);
@@ -41,8 +42,8 @@ function FilterMenu({ name, ...props }) {
 
   return (
     <>
-      <Button variant='light' onClick={handleShow} className='filter-btn me-2'>
-        Filters
+      <Button variant='info' onClick={handleShow} className='filter-btn me-2'>
+        <FaFilter />
       </Button>
       <Offcanvas show={show} onHide={handleClose} {...props}>
         <Offcanvas.Header closeButton>

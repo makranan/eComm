@@ -32,9 +32,9 @@ const getProducts = asyncHandler(async (req, res) => {
   const category = req.query.category;
   const brand = req.query.brand;
 
-  console.log('Received Keyword:', keyword);
-  console.log('Received Category:', category);
-  console.log('Received Brand:', brand);
+  // console.log('Received Keyword:', keyword);
+  // console.log('Received Category:', category);
+  // console.log('Received Brand:', brand);
 
   // Perform filtering logic here
 
