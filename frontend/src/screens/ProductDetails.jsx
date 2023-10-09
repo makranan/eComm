@@ -111,7 +111,7 @@ const ProductDetails = () => {
   useEffect(() => {
     if (tabs) {
       tabs.scrollIntoView({
-        behavior: 'smooth',
+        behavior: 'instant',
         block: 'start',
       });
     }
@@ -307,14 +307,14 @@ const ProductDetails = () => {
                   title='DESCRIPTION'
                   tabClassName='tab-text-center'
                 >
-                  <FormContainer>{product.description}</FormContainer>
+                  <FormContainer md={10}>{product.description}</FormContainer>
                 </Tab>
                 <Tab
                   eventKey='reviews'
                   title='REVIEWS'
                   tabClassName='tab-text-center'
                 >
-                  <FormContainer>
+                  <FormContainer md={8}>
                     {loadingReview && <Loader />}
 
                     {userInfo ? (
@@ -362,7 +362,7 @@ const ProductDetails = () => {
                       </Message>
                     )}
                   </FormContainer>
-                  <FormContainer>
+                  <FormContainer md={8}>
                     <ListGroup variant='flush'>
                       {product.reviews.length === 0 && (
                         <Message>No reviews</Message>
@@ -395,7 +395,9 @@ const ProductDetails = () => {
                   title='DETAILS'
                   tabClassName='tab-text-center'
                 >
-                  <p>{product.details}</p>
+                  <FormContainer md={10}>
+                    <p>{product.details}</p>
+                  </FormContainer>
                   {/* <FormContainer>
                     {loadingReview && <Loader />}
 

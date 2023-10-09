@@ -6,7 +6,7 @@
 
 html {
   background: #ffffff;
-  scroll-behavior: auto;
+  scroll-behavior: instant;
 }
 
 .btn {

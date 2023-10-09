@@ -132,6 +132,7 @@ const ProductListScreen = () => {
           <Table striped hover responsive className='table-sm'>
             <thead>
               <tr>
+                <th></th>
                 <th>ID</th>
                 <th>NAME</th>
                 <th>PRICE</th>

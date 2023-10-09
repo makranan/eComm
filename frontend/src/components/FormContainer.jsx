@@ -1,10 +1,10 @@
 import { Container, Row, Col } from 'react-bootstrap';
 
-const FormContainer = ({ children }) => {
+const FormContainer = ({ children, sm = 12, md = 6 }) => {
   return (
     <Container>
       <Row className='justify-content-center'>
-        <Col sm={12} md={10}>
+        <Col sm={sm} md={md}>
           {children}
         </Col>
       </Row>

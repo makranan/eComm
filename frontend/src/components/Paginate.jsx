@@ -13,12 +13,12 @@ const Paginate = ({
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: 'instant',
     });
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, [page]);
 
   // Memoize the array of page numbers

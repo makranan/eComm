@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <footer className='bg-primary mt-4' bg='dark' variant='dark'>
       <Container fluid>
-        <FormContainer>
+        <FormContainer sm={12} md={8}>
           <Row className='d-flex align-items-center'>
             <Col lg={3} xs={5} className='my-4 mx-0'>
               <img src={logo} alt='Tech World' style={{ height: '40px' }} />{' '}
@@ -37,7 +37,7 @@ const Footer = () => {
           </Row>
           <Row>
             {footerLinks.map((footerLinkGroup, index) => (
-              <Col md={4} key={index}>
+              <Col sm={6} md={4} key={index}>
                 <div className='my-4'>
                   <h4 className='text-white '>{footerLinkGroup.title}</h4>
                   <ul className='mt-4 '>
