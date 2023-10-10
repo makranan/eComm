@@ -11,9 +11,10 @@ import {
   Button,
   Card,
 } from 'react-bootstrap';
-import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
+import { FaTrash, FaPlus, FaMinus, FaChevronLeft } from 'react-icons/fa';
 import { BtnGoBack, BtnCount, Message, StyledNumberInput } from '../components';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const CartScreen = () => {
   // eslint-disable-next-line no-unused-vars
@@ -60,7 +61,7 @@ const CartScreen = () => {
     <>
       <BtnGoBack />
       <Row>
-        <Col md={8}>
+        <Col md={12}>
           <h1 style={{ marginBottom: '20px' }}>Shopping Cart</h1>
           {cartItems.length === 0 ? (
             <Message>
@@ -68,6 +69,20 @@ const CartScreen = () => {
             </Message>
           ) : (
             <ListGroup variant='flush'>
+              {/* LABELS */}
+              <Row
+                className='mb-2'
+                style={{ borderBottom: '1px solid lightgray' }}
+              >
+                <Col xs={2}></Col>
+                <Col xs={5}>
+                  <h6 className='mx-2'>Quantity</h6>
+                </Col>
+                <Col>
+                  <h6>Price</h6>
+                </Col>
+                <Col></Col>
+              </Row>
               {cartItems.map((item, index) => (
                 <ListGroup.Item
                   key={item._id}
@@ -81,6 +96,7 @@ const CartScreen = () => {
                         <Image
                           src={item.images[0].original}
                           alt={item.name}
+                          style={{ maxHeight: '150px' }}
                           fluid
                           rounded
                         ></Image>
@@ -102,7 +118,7 @@ const CartScreen = () => {
                               max={item.countInStock}
                             />
 
-                            <BtnCount
+                            {/* <BtnCount
                               initialValue={item.qty}
                               maxValue={item.countInStock}
                               onCountChange={(newCount) =>
@@ -111,7 +127,7 @@ const CartScreen = () => {
                               step={1}
                               increaseIcon={<FaPlus />}
                               decreaseIcon={<FaMinus />}
-                            />
+                            /> */}
                           </div>
                         </Col>
                         <Col
@@ -121,7 +137,7 @@ const CartScreen = () => {
                             window.innerWidth <= 768 ? 'mt-2 ' : 'mt-2 '
                           }
                         >
-                          <strong>${item.price}</strong>
+                          <h4>${item.price}</h4>
                         </Col>
 
                         <Col md={2} xs={2} className='text-end'>
@@ -150,21 +166,40 @@ const CartScreen = () => {
             </ListGroup>
           )}
         </Col>
-        <Col md={4}>
+
+        <Col></Col>
+
+        <Col md={8} lg={6} xl={6} xxl={5}>
           <Card>
             <ListGroup variant='flush'>
               <ListGroup.Item>
-                <h2>
-                  Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}
-                  ) items
-                </h2>
+                <Row className='d-flex align-items-center'>
+                  <Col
+                    md={5}
+                    sm={6}
+                    xs={6}
+                    style={{
+                      verticalAlign: 'center',
+                      padding: '0px',
+                      marginTop: '10px',
+                    }}
+                  >
+                    <h2 style={{ marginLeft: '10px' }}>
+                      Subtotal:
+                      {/* Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                  ) items */}
+                    </h2>
+                  </Col>
 
-                <strong style={{ fontSize: '2rem' }}>
-                  $
-                  {cartItems
-                    .reduce((acc, item) => acc + item.qty * item.price, 0)
-                    .toFixed(2)}
-                </strong>
+                  <Col md={7} sm={6} xs={6} className='text-end'>
+                    <strong style={{ fontSize: '2rem' }}>
+                      $
+                      {cartItems
+                        .reduce((acc, item) => acc + item.qty * item.price, 0)
+                        .toFixed(2)}
+                    </strong>
+                  </Col>
+                </Row>
               </ListGroup.Item>
               <ListGroup.Item className='no-pd-mr'>
                 <Button
@@ -175,6 +210,15 @@ const CartScreen = () => {
                 >
                   Proceed to Checkout
                 </Button>
+                <LinkContainer to='/'>
+                  <Button
+                    type='button'
+                    variant='light'
+                    className='btn-block btn-lg btn-full-w'
+                  >
+                    <FaChevronLeft /> Continue Shopping
+                  </Button>
+                </LinkContainer>
               </ListGroup.Item>
             </ListGroup>
           </Card>

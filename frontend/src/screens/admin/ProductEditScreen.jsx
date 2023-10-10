@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Form, Button, Row, Col, Image } from 'react-bootstrap';
+import { Form, Button, Row, Col, Image, Badge } from 'react-bootstrap';
 import { Message, Loader, FormContainer, BtnGoBack } from '../../components';
 import { toast } from 'react-toastify';
 import { FaTrash } from 'react-icons/fa';
@@ -26,12 +26,56 @@ const ProductEditScreen = () => {
   const [description, setDescription] = useState('');
   const [details, setDetails] = useState('');
 
+  const [categoryInput, setCategoryInput] = useState('');
+  const [categoryArray, setCategoryArray] = useState([]);
+
+  const handleCategoryInputChange = (e) => {
+    setCategoryInput(e.target.value);
+  };
+
+  const handleCategoryInputKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const categories = categoryInput.split(',').map((cat) => cat.trim());
+      setCategoryArray([...categoryArray, ...categories]);
+      setCategoryInput('');
+    }
+  };
+
+  const addCategoryToTags = () => {
+    if (categoryInput.trim() !== '') {
+      setCategoryArray([...categoryArray, categoryInput.trim()]);
+      setCategoryInput('');
+    }
+  };
+
+  const removeCategoryFromTags = (indexToRemove) => {
+    const updatedCategoryArray = categoryArray.filter(
+      (_, index) => index !== indexToRemove
+    );
+    setCategoryArray(updatedCategoryArray);
+  };
+
   const {
     data: product,
     isLoading,
     refetch,
     error,
   } = useGetProductDetailsQuery(productId);
+
+  // Check if product data is available and contains a category array
+  if (!isLoading && !error && product) {
+    const categoryArray = product.category; // Assuming 'category' is an array in your product data
+
+    // Now you can use the 'categoryArray' in your component
+    console.log('Category Array:', categoryArray);
+  }
+
+  useEffect(() => {
+    if (product && product.category) {
+      setCategoryArray(product.category);
+    }
+  }, [product]);
 
   // console.log(product);
 
@@ -112,7 +156,7 @@ const ProductEditScreen = () => {
         image,
         images,
         brand,
-        category,
+        category: categoryArray,
         description,
         details,
         countInStock,
@@ -208,7 +252,7 @@ const ProductEditScreen = () => {
 
   return (
     <>
-      <FormContainer>
+      <FormContainer md={10}>
         {/* <Link
           to={'/admin/productlist'}
           className='btn btn-light my-3'
@@ -242,6 +286,30 @@ const ProductEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
+            <Col xs={12}>
+              <Form.Group controlId='category'>
+                <Form.Label>Category</Form.Label>
+                <Form.Control
+                  type='text'
+                  placeholder='Input Category, separated by comma'
+                  value={categoryInput}
+                  onChange={handleCategoryInputChange}
+                  onKeyDown={handleCategoryInputKeyDown}
+                />
+              </Form.Group>
+              {categoryArray.map((category, index) => (
+                <Badge
+                  key={index}
+                  pill
+                  variant='primary'
+                  className='mr-1'
+                  onClick={() => removeCategoryFromTags(index)}
+                >
+                  {category} <span>&times;</span>
+                </Badge>
+              ))}
+            </Col>
+
             <Row className='my-2'>
               <Col xs={6} sm={6} md={3} className='mb-2'>
                 <Form.Group controlId='price'>
@@ -267,7 +335,7 @@ const ProductEditScreen = () => {
                 </Form.Group>
               </Col>
 
-              <Col xs={12} sm={6} md={3}>
+              {/* <Col xs={12} sm={6} md={3}>
                 <Form.Group controlId='category'>
                   <Form.Label>Category</Form.Label>
                   <Form.Control
@@ -277,7 +345,7 @@ const ProductEditScreen = () => {
                     onChange={(e) => setCategory(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
-              </Col>
+              </Col> */}
 
               <Col xs={12} sm={6} md={3}>
                 <Form.Group controlId='brand'>

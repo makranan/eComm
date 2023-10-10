@@ -10,25 +10,19 @@ function FilterMenu({ name, ...props }) {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('');
   const { keyword, category, brand, pageNumber } = useParams();
-  const { data, isLoading, error } = useGetProductsQuery({
-    keyword,
-    category,
-    brand,
-    pageNumber,
-  });
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  if (isLoading) {
-    // Loading state
-  } else if (error) {
-    // Error state
-    console.error('Error fetching products:', error);
-  } else if (data) {
-    // Data fetched successfully
-    console.log('Fetched products data:', data);
-  }
+  // if (isLoading) {
+  //   // Loading state
+  // } else if (error) {
+  //   // Error state
+  //   console.error('Error fetching products:', error);
+  // } else if (data) {
+  //   // Data fetched successfully
+  //   console.log('Fetched products data:', data);
+  // }
 
   const handleFilter = (selectedCategory, selectedBrand) => {
     // Update state or make an API request to filter products

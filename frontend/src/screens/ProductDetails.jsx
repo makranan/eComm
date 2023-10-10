@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, useLocation, Link } from 'react-router-dom';
 import {
   Form,
   Row,
@@ -35,6 +35,7 @@ import { addDecimals } from '../utils/cartUtils';
 
 const ProductDetails = () => {
   const { id: productId } = useParams();
+  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -260,7 +261,7 @@ const ProductDetails = () => {
                               max={product.countInStock}
                             />
 
-                            <div style={{ marginTop: '5px' }}>
+                            {/* <div style={{ marginTop: '5px' }}>
                               <BtnCount
                                 initialValue={qty}
                                 maxValue={product.countInStock}
@@ -271,7 +272,7 @@ const ProductDetails = () => {
                                 increaseIcon={<FaPlus />}
                                 decreaseIcon={<FaMinus />}
                               />
-                            </div>
+                            </div> */}
                           </div>
                         </Col>
                       </Row>

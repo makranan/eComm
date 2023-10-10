@@ -45,6 +45,14 @@ html {
   margin-bottom: -8px;
 }
 
+.reviews-position {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
 .list-group-item {
   border-color: var(--borderTopColor);
 }
@@ -84,13 +92,13 @@ html {
   width: 100vw;
 }
 
-input[type='number'] {
+/* input[type='number'] {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   width: auto;
   max-width: calc(100% - 5px);
-}
+} */
 
 /* .no-spinners {
   -webkit-appearance: none !important;
@@ -234,8 +242,8 @@ input[type='number'] {
 }
 
 .container {
-  max-width: 2400px;
-  padding: 0 10vw 0 10vw;
+  /* max-width: 2400px; */
+  /* padding: 0 10vw 0 10vw; */
   z-index: 3;
 }
 
@@ -371,6 +379,6 @@ input[type='number'] {
 /* Media query for screens narrower than 1200px */
 @media (max-width: 1199px) {
   .container {
-    padding: 0 2vw;
+    padding: 0 3vw;
   }
 }

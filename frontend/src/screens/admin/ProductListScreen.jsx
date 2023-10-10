@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Row, Col, FormCheck, Spinner } from 'react-bootstrap';
 import { FaEdit, FaTrash, FaCheckSquare } from 'react-icons/fa';
-import { Message, Loader, Paginate } from '../../components';
+import { Message, Loader, Paginate, FormContainer } from '../../components';
 import { DeleteModal, CreateProductModal } from '../../components/modals';
 import { toast } from 'react-toastify';
 import {

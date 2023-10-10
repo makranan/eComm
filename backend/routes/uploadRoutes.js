@@ -34,7 +34,7 @@ function checkFileType(file, cb) {
 const upload = multer({
   storage,
   fileFilter(req, file, cb) {
-    const filetypes = /jpg|jpeg|png|svg/;
+    const filetypes = /jpg|jpeg|png|svg|webp/;
     const extname = filetypes.test(
       path.extname(file.originalname).toLowerCase()
     );

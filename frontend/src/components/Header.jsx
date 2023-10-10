@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 import { LinkContainer } from 'react-router-bootstrap';
-import { CheckoutStepsCircles, SearchBox } from '.';
+import { CheckoutStepsCircles, SearchBox, FilterMenu } from '.';
 import logo from '../assets/logo.svg';
 
 const Header = () => {
@@ -44,6 +44,7 @@ const Header = () => {
   return (
     <>
       <CheckoutStepsCircles />
+      <FilterMenu />
       <header>
         <Navbar bg='primary' variant='dark' expand='md' collapseOnSelect>
           <Container>

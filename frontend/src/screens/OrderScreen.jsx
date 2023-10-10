@@ -10,6 +10,7 @@ import {
   useGetPayPalClientIdQuery,
   useDeliverOrderMutation,
 } from '../slices/orderApiSlice';
+import { useGetProductDetailsQuery } from '../slices/productsApiSlice';
 import { toast } from 'react-toastify';
 
 const OrderScreen = () => {
@@ -173,7 +174,11 @@ const OrderScreen = () => {
                 <ListGroup.Item key={index}>
                   <Row className='d-flex align-items-center'>
                     <Col md={2} xs={3}>
-                      <Image src={item.image} alt={item.name} fluid />
+                      <Image
+                        src={item.images[0].thumbnail}
+                        alt={item.name}
+                        fluid
+                      />
                     </Col>
 
                     <Col>

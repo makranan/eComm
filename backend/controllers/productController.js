@@ -7,7 +7,6 @@ import Order from '../models/orderModel.js';
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
   const pageSize = process.env.PAGINATION_LIMIT;
-
   const page = Number(req.query.pageNumber) || 1;
 
   const keyword = req.query.keyword
@@ -21,20 +20,33 @@ const getProducts = asyncHandler(async (req, res) => {
     filters.name = { $regex: req.query.keyword, $options: 'i' };
   }
 
+  // Adjust category filtering to split categories
   if (req.query.category) {
-    filters.category = { $regex: req.query.category, $options: 'i' };
+    const categories = req.query.category.split('&'); // Split categories
+    filters.category = {
+      $in: categories.map((category) => new RegExp(category, 'i')),
+    };
   }
 
   if (req.query.brand) {
     filters.brand = { $regex: req.query.brand, $options: 'i' };
   }
 
-  const category = req.query.category;
-  const brand = req.query.brand;
-
-  // console.log('Received Keyword:', keyword);
-  // console.log('Received Category:', category);
-  // console.log('Received Brand:', brand);
+  // Add price filtering if req.query.minPrice and req.query.maxPrice are provided
+  if (req.query.minPrice && req.query.maxPrice) {
+    filters.price = {
+      $gte: parseFloat(req.query.minPrice),
+      $lte: parseFloat(req.query.maxPrice),
+    };
+  } else if (req.query.minPrice) {
+    filters.price = {
+      $gte: parseFloat(req.query.minPrice),
+    };
+  } else if (req.query.maxPrice) {
+    filters.price = {
+      $lte: parseFloat(req.query.maxPrice),
+    };
+  }
 
   // Perform filtering logic here
 

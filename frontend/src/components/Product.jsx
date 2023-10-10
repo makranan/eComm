@@ -77,8 +77,8 @@ const Product = ({ product, value, text }) => {
 
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
-    toggleSuccessCard();
     setShowAddToCart(false);
+    toggleSuccessCard();
     // toast.success(qty === 1 ? 'Item added to cart' : "Item's added to cart");
   };
 
@@ -210,7 +210,7 @@ const Product = ({ product, value, text }) => {
               />
             </Row>
 
-            <BtnCount
+            {/* <BtnCount
               variant='dark'
               initialValue={qty}
               maxValue={product.countInStock}
@@ -220,7 +220,7 @@ const Product = ({ product, value, text }) => {
               step={1}
               increaseIcon={<FaPlus />}
               decreaseIcon={<FaMinus />}
-            />
+            /> */}
             <Button className='my-3' variant='dark' onClick={addToCartHandler}>
               Add
             </Button>
@@ -304,21 +304,18 @@ const Product = ({ product, value, text }) => {
         </Link>
         <Card.Body>
           <Link to={`/product/${product._id}`}>
-            <Card.Title as='div' className='product-title'>
+            <Card.Title as='div' className='product-title mb-2'>
               <strong>
                 <h6>{product.name}</h6>
               </strong>
             </Card.Title>
           </Link>
-          <Card.Text as='div'>
-            <Rating
-              value={product.rating}
-              text={`${product.numReviews} reviews`}
-            />
+          <Card.Text as='div' className='reviews-position'>
+            <Rating value={product.rating} />
           </Card.Text>
           <Row className='d-flex align-items-center'>
             <Col lg={6} md={7} sm={7} xs={6}>
-              <Card.Text as='h5' style={{ marginTop: '10px' }}>
+              <Card.Text as='h4' style={{ marginTop: '10px' }}>
                 <div
                   style={{
                     whiteSpace: 'nowrap',
@@ -331,7 +328,13 @@ const Product = ({ product, value, text }) => {
                     marginBottom: '5px',
                   }}
                 >
-                  <strong style={{ fontWeight: '600' }}>
+                  <strong
+                    style={{
+                      fontWeight: '600',
+                      textAlign: 'center',
+                      verticalAlign: 'center',
+                    }}
+                  >
                     ${product.price}
                   </strong>
                 </div>
