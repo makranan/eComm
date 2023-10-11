@@ -31,6 +31,7 @@ const ProductFilter = ({ onFilter }) => {
     keyword: keywordUrl,
     category: categoryUrl,
     brand: brandUrl,
+
     pageNumber,
   } = useParams();
 
@@ -50,54 +51,87 @@ const ProductFilter = ({ onFilter }) => {
     }
   }, [categoryUrl]);
 
-  const handleFilter = () => {
-    // Call the onFilter function passed from the parent component
-    onFilter(selectedCategories, brand);
-  };
+  // const handleFilter = () => {
+  //   // Call the onFilter function passed from the parent component
+  //   onFilter(selectedCategories, brand, maxPrice, minPrice, keyword, price);
+  // };
 
   const clearFilters = () => {
     setKeyword('');
     setBrand('');
     setSelectedCategories([]);
-    // navigate('/');
+    setMinPrice('');
+    setMaxPrice('');
+    navigate('/');
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
 
+    console.log('Min Price:', minPrice);
+    console.log('Max Price:', maxPrice);
+
     // Construct the URL based on the provided values
-    let url = '/';
+    let url = '/search';
 
     if (keyword) {
-      url = `/search/${keyword}`;
-      if (selectedCategories.length > 0) {
-        url += `/category/${selectedCategories.join('&')}`;
-        if (brand) {
-          url += `/brand/${brand}`;
-        }
-      } else if (brand) {
-        url += `/brand/${brand}`;
-      }
-    } else if (selectedCategories.length > 0) {
-      url = `/search/category/${selectedCategories.join('&')}`;
-      if (brand) {
-        url += `/brand/${brand}`;
-      }
-    } else if (brand) {
-      url = `/search/brand/${brand}`;
+      url += `/${keyword}`;
+    }
+
+    // Check if any category is selected
+    if (selectedCategories.length > 0) {
+      url += `/category/${selectedCategories.join('&')}`;
+    }
+
+    if (brand) {
+      url += `/brand/${brand}`;
     }
 
     // Add price parameters to the URL
     if (minPrice && maxPrice) {
-      url = `/search/price/${minPrice}-${maxPrice}`;
+      url += `/price/${minPrice}-${maxPrice}`;
     } else if (minPrice) {
-      url = `/search/price/${minPrice}-`;
+      url += `/price/${minPrice}-`;
     } else if (maxPrice) {
-      url = `/search/price/-${maxPrice}`;
+      url += `/price/-${maxPrice}`;
     }
 
     // Navigate to the constructed URL
     navigate(url);
+
+    // // Construct the URL based on the provided values
+    // let url = '/';
+
+    // if (keyword) {
+    //   url = `/search/${keyword}`;
+    //   if (selectedCategories.length > 0) {
+    //     url += `/category/${selectedCategories.join('&')}`;
+    //     if (brand) {
+    //       url += `/brand/${brand}`;
+    //     }
+    //   } else if (brand) {
+    //     url += `/brand/${brand}`;
+    //   }
+    // } else if (selectedCategories.length > 0) {
+    //   url = `/search/category/${selectedCategories.join('&')}`;
+    //   if (brand) {
+    //     url += `/brand/${brand}`;
+    //   }
+    // } else if (brand) {
+    //   url = `/search/brand/${brand}`;
+    // }
+
+    // // Add price parameters to the URL
+    // if (minPrice && maxPrice) {
+    //   url = `/search/price/${minPrice}-${maxPrice}`;
+    // } else if (minPrice) {
+    //   url = `/search/price/${minPrice}-`;
+    // } else if (maxPrice) {
+    //   url = `/search/price/-${maxPrice}`;
+    // }
+
+    // // Navigate to the constructed URL
+    // navigate(url);
   };
 
   const handleCategoryClick = (clickedCategory) => {
@@ -200,7 +234,7 @@ const ProductFilter = ({ onFilter }) => {
           className='mt-3'
           type='submit'
           variant='primary'
-          onClick={handleFilter}
+          // onClick={handleFilter}
         >
           Apply Filters
         </Button>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Offcanvas, Button, Form } from 'react-bootstrap';
 import {
@@ -10,37 +10,53 @@ import {
   ProductFilter,
   FilterMenu,
 } from '../components';
+import PageSizeDropdown from '../components/PageSizeDropdown';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
 
 const HomeScreen = () => {
+  const [pageSize, setPageSize] = useState(() => {
+    // Initialize with the pageSize value from localStorage, or a default value if it doesn't exist
+    return sessionStorage.getItem('pageSize') || '24';
+  });
+
+  // When the pageSize changes, update it in localStorage
+  useEffect(() => {
+    sessionStorage.setItem('pageSize', pageSize);
+  }, [pageSize]);
+
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('');
-  const { keyword, pageNumber, category, brand } = useParams();
+  const { keyword, pageNumber, category, brand, minPrice, maxPrice, price } =
+    useParams();
   const { data, isLoading, error } = useGetProductsQuery({
     keyword,
     pageNumber,
+    pageSize: pageSize,
     category,
     brand,
+    minPrice,
+    maxPrice,
+    price,
   });
 
-  if (isLoading) {
-    // Loading state
-  } else if (error) {
-    // Error state
-    console.error('Error fetching products:', error);
-  } else if (data) {
-    // Data fetched successfully
-    console.log('Fetched products data:', data);
-  }
+  // if (isLoading) {
+  //   // Loading state
+  // } else if (error) {
+  //   // Error state
+  //   console.error('Error fetching products:', error);
+  // } else if (data) {
+  //   // Data fetched successfully
+  //   console.log('Fetched products data:', data);
+  // }
 
-  const handleFilter = (selectedCategory, selectedBrand) => {
-    // Update state or make an API request to filter products
-    // For example, update state to store the selected filters
-    console.log('Selected Category:', selectedCategory);
-    console.log('Selected Brand:', selectedBrand);
-    setSelectedCategory(selectedCategory);
-    setSelectedBrand(selectedBrand);
-  };
+  // const handleFilter = (selectedCategory, selectedBrand) => {
+  //   // Update state or make an API request to filter products
+  //   // For example, update state to store the selected filters
+  //   console.log('Selected Category:', selectedCategory);
+  //   console.log('Selected Brand:', selectedBrand);
+  //   setSelectedCategory(selectedCategory);
+  //   setSelectedBrand(selectedBrand);
+  // };
 
   return (
     <>
@@ -55,7 +71,7 @@ const HomeScreen = () => {
         </Message>
       ) : (
         <>
-          {keyword && <BtnGoBack />}
+          {(keyword || category || brand) && <BtnGoBack />}
 
           {/* <FilterMenu /> */}
           <h1>Latest Products</h1>
@@ -75,6 +91,8 @@ const HomeScreen = () => {
             ))}
           </Row>
           <Paginate
+            pageSize={pageSize}
+            setPageSize={setPageSize}
             pages={data.pages}
             page={data.page}
             keyword={keyword ? keyword : ''}

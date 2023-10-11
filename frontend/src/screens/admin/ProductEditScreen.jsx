@@ -286,29 +286,32 @@ const ProductEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
-            <Col xs={12}>
-              <Form.Group controlId='category'>
-                <Form.Label>Category</Form.Label>
-                <Form.Control
-                  type='text'
-                  placeholder='Input Category, separated by comma'
-                  value={categoryInput}
-                  onChange={handleCategoryInputChange}
-                  onKeyDown={handleCategoryInputKeyDown}
-                />
-              </Form.Group>
-              {categoryArray.map((category, index) => (
-                <Badge
-                  key={index}
-                  pill
-                  variant='primary'
-                  className='mr-1'
-                  onClick={() => removeCategoryFromTags(index)}
-                >
-                  {category} <span>&times;</span>
-                </Badge>
-              ))}
-            </Col>
+            <Form.Group controlId='category'>
+              <Form.Label className='mt-2'>Categories</Form.Label>
+              <Col xs={12}>
+                {categoryArray.map((category, index) => (
+                  <Badge
+                    key={index}
+                    bg='light'
+                    style={{
+                      cursor: 'pointer',
+                      marginRight: '4px',
+                      marginBottom: '4px',
+                    }}
+                    onClick={() => removeCategoryFromTags(index)}
+                  >
+                    {category} <span style={{ color: 'red' }}>&times;</span>
+                  </Badge>
+                ))}
+              </Col>
+              <Form.Control
+                type='text'
+                placeholder='Input categories, separated by comma'
+                value={categoryInput}
+                onChange={handleCategoryInputChange}
+                onKeyDown={handleCategoryInputKeyDown}
+              />
+            </Form.Group>
 
             <Row className='my-2'>
               <Col xs={6} sm={6} md={3} className='mb-2'>
@@ -414,6 +417,7 @@ const ProductEditScreen = () => {
             </Row> */}
 
             <Row className='my-4'>
+              <Form.Label>Pick Images</Form.Label>
               {images &&
                 images.map((image, index) => (
                   <Col
@@ -422,22 +426,41 @@ const ProductEditScreen = () => {
                     xs={3}
                     className='d-flex flex-column align-items-center justify-content-center'
                   >
-                    <Image
-                      src={image.original}
-                      alt={`Image ${index + 1}`}
-                      style={{
-                        height: '120px',
-                        objectFit: 'contain',
-                      }}
-                      fluid
-                    />
-                    <Button
+                    <div
+                      style={{ position: 'relative', display: 'inline-block' }}
+                    >
+                      <Image
+                        src={image.original}
+                        alt={`Image ${index + 1}`}
+                        style={{
+                          height: '120px',
+                          objectFit: 'contain',
+                          cursor: 'pointer',
+                        }}
+                        onClick={() => deleteImageHandler(index)}
+                        fluid
+                      />
+                      <span
+                        style={{
+                          position: 'absolute',
+                          top: 0,
+                          right: 0,
+                          color: 'red',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {' '}
+                        &times;{' '}
+                      </span>
+                    </div>
+
+                    {/* <Button
                       className='btn-full-w'
-                      variant='danger'
+                      variant='light'
                       onClick={() => deleteImageHandler(index)}
                     >
-                      <FaTrash />
-                    </Button>
+                      <FaTrash style={{ color: 'red' }} />
+                    </Button> */}
                   </Col>
                 ))}
             </Row>
@@ -445,7 +468,6 @@ const ProductEditScreen = () => {
             <Row className='mb-3'>
               <Col xs={7}>
                 <Form.Group controlId='imagesUpload'>
-                  <Form.Label>Pick Images</Form.Label>
                   <Form.Control
                     type='file'
                     label='Choose files'
@@ -458,7 +480,6 @@ const ProductEditScreen = () => {
 
               <Col xs={5}>
                 <Form.Group controlId='updateImages'>
-                  <Form.Label>-</Form.Label>
                   <Form.Group>
                     <Button
                       type='button'

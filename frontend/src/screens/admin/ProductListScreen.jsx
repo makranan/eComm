@@ -14,9 +14,12 @@ import {
 } from '../../slices/productsApiSlice';
 
 const ProductListScreen = () => {
-  const { pageNumber } = useParams();
+  const { keyword, pageNumber, category, brand } = useParams();
   const { data, isLoading, error, refetch } = useGetProductsQuery({
+    keyword,
     pageNumber,
+    category,
+    brand,
   });
 
   // const { data: product, isLoading: productLoading } =
@@ -192,7 +195,14 @@ const ProductListScreen = () => {
               ))}
             </tbody>
           </Table>
-          <Paginate pages={data.pages} page={data.page} isAdmin={true} />
+          {/* <Paginate
+            pages={data.pages}
+            page={data.page}
+            isAdmin={true}
+            keyword={keyword ? keyword : ''}
+            category={category ? category : ''}
+            brand={brand ? brand : ''}
+          /> */}
         </>
       )}
       {showModal && (

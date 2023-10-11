@@ -10,7 +10,6 @@ import {
   useGetPayPalClientIdQuery,
   useDeliverOrderMutation,
 } from '../slices/orderApiSlice';
-import { useGetProductDetailsQuery } from '../slices/productsApiSlice';
 import { toast } from 'react-toastify';
 
 const OrderScreen = () => {

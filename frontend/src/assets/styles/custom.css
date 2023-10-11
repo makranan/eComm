@@ -382,3 +382,45 @@ html {
     padding: 0 3vw;
   }
 }
+
+.pagination {
+  flex-wrap: wrap;
+  vertical-align: middle;
+}
+
+.page-size-dropdown {
+  display: flex;
+  align-items: center;
+}
+
+/* Style for the select element */
+.page-size-dropdown select {
+  /* Define the width and padding */
+  /* width: 100%; */
+  padding: 0.5rem;
+  text-align: center;
+
+  /* Define border styles */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  /* Define background and text color */
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+
+  /* Define cursor style */
+  cursor: pointer;
+
+  /* Remove default styles */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.page-size-dropdown select option {
+  /* Define background and text color for options */
+  /* background-color: white; */
+  color: black;
+  border-radius: 5px; /* Added border-radius */
+  text-align: center;
+}

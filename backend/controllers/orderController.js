@@ -1,6 +1,7 @@
 import { raw } from 'express';
 import asyncHandler from '../middleware/asyncHandler.js';
 import Order from '../models/orderModel.js';
+import Product from '../models/productModel.js';
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -21,7 +22,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
     throw new Error('No items in Cart');
   } else {
     const order = new Order({
-      orderItems: orderItems.map(x => ({
+      orderItems: orderItems.map((x) => ({
         ...x,
         product: x._id,
         _id: undefined,
@@ -81,14 +82,24 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
       update_time: req.body.update_time,
       email_address: req.body.email_address,
     };
+
+    // Iterate through orderItems and update the countInStock for each product
+    for (const item of order.orderItems) {
+      const product = await Product.findById(item.product);
+
+      if (product) {
+        product.countInStock -= item.qty;
+        await product.save();
+      }
+    }
+
+    const updateOrder = await order.save();
+
+    res.status(200).json(updateOrder);
   } else {
     res.status(404);
     throw new Error('Order not found');
   }
-
-  const updateOrder = await order.save();
-
-  res.status(200).json(updateOrder);
 });
 
 // @desc    Update order to delivered

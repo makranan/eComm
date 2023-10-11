@@ -1,7 +1,7 @@
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 
-const Rating = ({ value, text }) => (
-  <div className='rating'>
+const Rating = ({ value, text, style }) => (
+  <div className='rating' style={style}>
     <span>
       {value >= 1 ? (
         <FaStar />

@@ -6,8 +6,13 @@ import Order from '../models/orderModel.js';
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = process.env.PAGINATION_LIMIT;
-  const page = Number(req.query.pageNumber) || 1;
+  const pageSizeFromQuery = (query) => {
+    const pageSize = Number(query.pageSize) || '32'; // Default to 32 if pageSize is not provided
+    return pageSize;
+  };
+
+  const pageSize = pageSizeFromQuery(req.query);
+  const page = Number(req.query.pageNumber);
 
   const keyword = req.query.keyword
     ? { name: { $regex: req.query.keyword, $options: 'i' } }
@@ -50,8 +55,14 @@ const getProducts = asyncHandler(async (req, res) => {
 
   // Perform filtering logic here
 
-  const count = await Product.countDocuments({ ...keyword, ...filters });
-  const products = await Product.find({ ...keyword, ...filters })
+  const count = await Product.countDocuments({
+    ...keyword,
+    ...filters,
+  });
+  const products = await Product.find({
+    ...keyword,
+    ...filters,
+  })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
   res.json({ products, page, pages: Math.ceil(count / pageSize) });
@@ -78,20 +89,20 @@ const createProduct = asyncHandler(async (req, res) => {
   const product = new Product({
     user: req.user._id,
     name: 'Product Name',
-    image: '/images/sample.jpg',
+    // image: '/images/sample.webp',
     images: [
       {
-        original: '/images/sample.jpg',
-        thumbnail: '/images/sample.jpg',
+        original: '/images/sample.webp',
+        thumbnail: '/images/sample.webp',
       },
-      {
-        original: '/images/sample2.jpg',
-        thumbnail: '/images/sample2.jpg',
-      },
-      {
-        original: '/images/sample3.jpg',
-        thumbnail: '/images/sample3.jpg',
-      },
+      // {
+      //   original: '/images/sample2.webp',
+      //   thumbnail: '/images/sample2.webp',
+      // },
+      // {
+      //   original: '/images/sample3.webp',
+      //   thumbnail: '/images/sample3.webp',
+      // },
     ],
     brand: 'Brand',
     category: 'Category',

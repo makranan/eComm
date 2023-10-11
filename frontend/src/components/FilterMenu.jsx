@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
-import { Button, Offcanvas, Form } from 'react-bootstrap';
+import { Button, Offcanvas, Form, Badge } from 'react-bootstrap';
 import { ProductFilter } from '../components';
 import { FaFilter } from 'react-icons/fa';
 
 function FilterMenu({ name, ...props }) {
   const [show, setShow] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedBrand, setSelectedBrand] = useState('');
-  const { keyword, category, brand, pageNumber } = useParams();
+  // const [selectedBrand, setSelectedBrand] = useState('');
+  // const { keyword, category, brand, pageNumber } = useParams();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -24,27 +24,32 @@ function FilterMenu({ name, ...props }) {
   //   console.log('Fetched products data:', data);
   // }
 
-  const handleFilter = (selectedCategory, selectedBrand) => {
-    // Update state or make an API request to filter products
-    // For example, update state to store the selected filters
-    console.log('Selected Category:', selectedCategory);
-    console.log('Selected Brand:', selectedBrand);
-    setSelectedCategory(selectedCategory);
-    setSelectedBrand(selectedBrand);
-    handleClose();
-  };
+  // const handleFilter = (selectedCategory, selectedBrand) => {
+  //   // Update state or make an API request to filter products
+  //   // For example, update state to store the selected filters
+  //   // console.log('Selected Category:', selectedCategory);
+  //   // console.log('Selected Brand:', selectedBrand);
+  //   // setSelectedCategory(selectedCategory);
+  //   // setSelectedBrand(selectedBrand);
+  //   handleClose();
+  // };
 
   return (
     <>
       <Button variant='info' onClick={handleShow} className='filter-btn me-2'>
         <FaFilter />
       </Button>
-      <Offcanvas show={show} onHide={handleClose} {...props}>
+      <Offcanvas
+        show={show}
+        onHide={handleClose}
+        {...props}
+        style={{ opacity: '0.5' }}
+      >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Filter Menu</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <ProductFilter onFilter={handleFilter} />
+          <ProductFilter onFilter={handleClose} />
         </Offcanvas.Body>
       </Offcanvas>
     </>
