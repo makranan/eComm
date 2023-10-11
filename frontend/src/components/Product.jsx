@@ -294,7 +294,7 @@ const Product = ({ product, value, text }) => {
               onLoad={handleImageLoad}
               style={{
                 display: loading ? 'none' : 'flex',
-                marginTop: '0px',
+                marginTop: '10px',
                 height: '100%',
                 objectFit: 'cover',
                 padding: '10px',
