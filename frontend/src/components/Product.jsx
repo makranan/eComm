@@ -289,12 +289,12 @@ const Product = ({ product, value, text }) => {
               </div>
             )}
             <Card.Img
-              src={product.images[0].original}
+              src={product.images[0]?.original || 'N/A'}
               variant='top'
               onLoad={handleImageLoad}
               style={{
                 display: loading ? 'none' : 'flex',
-                marginTop: '10px',
+                marginTop: '0px',
                 height: '100%',
                 objectFit: 'cover',
                 padding: '10px',

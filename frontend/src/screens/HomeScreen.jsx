@@ -74,7 +74,7 @@ const HomeScreen = () => {
           {(keyword || category || brand) && <BtnGoBack />}
 
           {/* <FilterMenu /> */}
-          <h1>Latest Products</h1>
+          {/* <h1>Latest Products</h1> */}
           <Row>
             {data.products.map((product) => (
               <Col
