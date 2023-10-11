@@ -31,7 +31,13 @@ const Paginate = ({
     pages > 1 && (
       <div
         className='d-flex justify-content-center align-items-center'
-        style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          borderTop: '1px solid #eaeaea',
+          paddingTop: '20px',
+        }}
       >
         <Pagination>
           <Pagination.First />
