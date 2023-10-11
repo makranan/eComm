@@ -305,9 +305,7 @@ const Product = ({ product, value, text }) => {
         <Card.Body>
           <Link to={`/product/${product._id}`}>
             <Card.Title as='div' className='product-title mb-2'>
-              <strong>
-                <h6>{product.name}</h6>
-              </strong>
+              <h6 style={{ lineHeight: '1.4' }}>{product.name}</h6>
             </Card.Title>
           </Link>
           <Card.Text as='div' className='reviews-position'>
