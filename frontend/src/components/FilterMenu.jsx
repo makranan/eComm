@@ -43,7 +43,7 @@ function FilterMenu({ name, ...props }) {
         show={show}
         onHide={handleClose}
         {...props}
-        style={{ opacity: '0.5' }}
+        style={{ opacity: '1', background: '' }}
       >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Filter Menu</Offcanvas.Title>

@@ -424,3 +424,7 @@ html {
   border-radius: 5px; /* Added border-radius */
   text-align: center;
 }
+
+.offcanvas-backdrop.show {
+  opacity: 0;
+}
