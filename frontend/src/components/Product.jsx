@@ -132,12 +132,7 @@ const Product = ({ product, value, text }) => {
   return (
     <>
       <Card className='my-3 card-shadow'>
-        {loadingDelete && (
-          <Spinner
-            className='delete-spinner delete-spinner-background'
-            style={{ zIndex: '9999' }}
-          />
-        )}
+        {loadingDelete && <Spinner style={{ zIndex: '9999' }} />}
         {userInfo && userInfo.isAdmin && (
           <Col className='text-end'>
             <Link to={`/admin/product/${product._id}/edit`}>
@@ -158,27 +153,49 @@ const Product = ({ product, value, text }) => {
 
         {showDeleteCard && userInfo && userInfo.isAdmin && (
           <div
-            className={`additional-content ${
+            className={`delete-content ${
               showAdditionalContent ? 'show-additional-content' : ''
             }`}
           >
             <FaTimes
+              style={{ backgroundColor: '#ffffff', borderRadius: '50%' }}
               className='fatimes-position'
               onClick={() => setShowDeleteCard(false)}
             />
-            <h5>Delete?</h5>
-            <p className='text-center px-4'>
+            <h5
+              style={{
+                backgroundColor: 'white',
+                padding: '10px',
+                borderRadius: '5px',
+              }}
+            >
+              Delete?
+            </h5>
+            <p
+              className='text-center px-4'
+              style={{
+                backgroundColor: 'white',
+                padding: '10px',
+                borderRadius: '5px',
+              }}
+            >
               Item will be deleted from database
             </p>
             <Button
-              variant='danger'
+              variant='dark'
+              style={{ color: 'white' }}
               className='my-4'
               onClick={() => deleteHandler()}
               ref={yesButtonRef}
             >
               Yes
             </Button>
-            <Button onClick={() => setShowDeleteCard(false)}>No</Button>
+            <Button
+              onClick={() => setShowDeleteCard(false)}
+              style={{ backgroundColor: 'lightgreen', color: 'black' }}
+            >
+              No
+            </Button>
           </div>
         )}
 
@@ -189,13 +206,14 @@ const Product = ({ product, value, text }) => {
             }`}
           >
             <FaTimes
+              style={{ backgroundColor: 'transparent' }}
               className='fatimes-position'
               onClick={() => setShowAddToCart(false)}
             />
 
             <MdOutlineAddShoppingCart size={40} />
 
-            <h5 className='text-center px-5 my-4'>
+            <h5 className='text-center px-5 my-4' style={{ color: 'white' }}>
               {qty === 1 ? 'Add item to cart' : "Add item's to cart"}
             </h5>
 
@@ -234,6 +252,7 @@ const Product = ({ product, value, text }) => {
             }`}
           >
             <FaTimes
+              style={{ backgroundColor: 'transparent' }}
               className='fatimes-position'
               onClick={() => setShowSuccessCard(false)}
             />
@@ -305,7 +324,7 @@ const Product = ({ product, value, text }) => {
         <Card.Body>
           <Link to={`/product/${product._id}`}>
             <Card.Title as='div' className='product-title mb-2'>
-              <h6 style={{ lineHeight: '1.4' }}>{product.name}</h6>
+              <h6 style={{ lineHeight: '2' }}>{product.name}</h6>
             </Card.Title>
           </Link>
           <Card.Text as='div' className='reviews-position'>
@@ -359,6 +378,7 @@ const Product = ({ product, value, text }) => {
                 <Button
                   type='button'
                   className='btn-sm'
+                  // style={ { showAddToCart? { display: 'none' } : { display: 'block' } } }
                   onClick={() => toggleAddToCard()}
                   disabled={product.countInStock === 0}
                 >

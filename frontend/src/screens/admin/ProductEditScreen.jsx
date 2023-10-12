@@ -33,6 +33,14 @@ const ProductEditScreen = () => {
     setCategoryInput(e.target.value);
   };
 
+  const styles = {
+    backgroundColor: '#fff',
+    border: '1px solid #eaeaea',
+    padding: '10px',
+    borderRadius: '5px',
+    marginBottom: '10px',
+  };
+
   const handleCategoryInputKeyDown = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -276,7 +284,7 @@ const ProductEditScreen = () => {
           </Message>
         ) : (
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name'>
+            <Form.Group controlId='name' style={styles}>
               <Form.Label>Product Name</Form.Label>
               <Form.Control
                 type='text'
@@ -286,7 +294,7 @@ const ProductEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='category'>
+            <Form.Group controlId='category' style={styles}>
               <Form.Label className='mt-2'>Categories</Form.Label>
               <Col xs={12}>
                 {categoryArray.map((category, index) => (
@@ -315,7 +323,7 @@ const ProductEditScreen = () => {
 
             <Row className='my-2'>
               <Col xs={6} sm={6} md={3} className='mb-2'>
-                <Form.Group controlId='price'>
+                <Form.Group controlId='price' style={styles}>
                   <Form.Label>Price</Form.Label>
                   <Form.Control
                     type='number'
@@ -327,7 +335,7 @@ const ProductEditScreen = () => {
               </Col>
 
               <Col xs={6} sm={6} md={3}>
-                <Form.Group controlId='countInStock'>
+                <Form.Group controlId='countInStock' style={styles}>
                   <Form.Label>Stock</Form.Label>
                   <Form.Control
                     type='number'
@@ -351,7 +359,7 @@ const ProductEditScreen = () => {
               </Col> */}
 
               <Col xs={12} sm={6} md={3}>
-                <Form.Group controlId='brand'>
+                <Form.Group controlId='brand' style={styles}>
                   <Form.Label>Brand</Form.Label>
                   <Form.Control
                     type='text'
@@ -520,7 +528,7 @@ const ProductEditScreen = () => {
               </Col>
             </Row> */}
 
-            <Form.Group className='mb-3' controlId='description'>
+            <Form.Group className='mb-3' controlId='description' style={styles}>
               <Form.Label>Description</Form.Label>
               <Form.Control
                 as='textarea'
@@ -531,7 +539,7 @@ const ProductEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='details'>
+            <Form.Group controlId='details' style={styles}>
               <Form.Label>Details</Form.Label>
               <Form.Control
                 as='textarea'
