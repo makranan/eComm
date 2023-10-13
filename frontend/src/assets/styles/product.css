@@ -1,0 +1,101 @@
+.product-title {
+  height: 2.6em; /* Set a fixed height */
+  line-height: 1.2;
+  overflow: hidden; /* Hide overflow content */
+  /* margin-bottom: -8px; */
+  /* text-overflow: ellipsis; */
+  /* white-space: nowrap; Prevent wrapping */
+}
+
+.success-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2; /* Ensure it's on top of the main content */
+  opacity: 1; /* Initially hidden */
+  /* animation: fade-in 0.15s ease-in-out both; */
+  backdrop-filter: blur(4px);
+}
+
+.additional-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent background */
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2; /* Ensure it's on top of the main content */
+  opacity: 0.5; /* Initially hidden */
+  animation: fade-in 0.15s ease-in-out both;
+  backdrop-filter: blur(1px);
+  /* background-color: #4141412b; */
+}
+
+.delete-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2; /* Ensure it's on top of the main content */
+  opacity: 1; /* Initially hidden */
+  animation: fade-in 0.15s ease-in-out both;
+  backdrop-filter: blur(1px);
+  background-color: #4400002c;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.success-content.hide {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all 0.15s ease-in-out;
+}
+
+.success-content.slide {
+  transform: translateY(-100%);
+  transition: transform 0.15s ease-in-out;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fatimes-position {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  /* background-color: #fff; */
+  cursor: pointer;
+}

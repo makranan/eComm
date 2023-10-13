@@ -134,7 +134,14 @@ const Product = ({ product, value, text }) => {
       <Card className='my-3 card-shadow'>
         {loadingDelete && <Spinner style={{ zIndex: '9999' }} />}
         {userInfo && userInfo.isAdmin && (
-          <Col className='text-end'>
+          <Col
+            className='text-end'
+            style={
+              showDeleteCard || showAddToCart
+                ? { opacity: '0' }
+                : { opacity: '1' }
+            }
+          >
             <Link to={`/admin/product/${product._id}/edit`}>
               <Button variant='light' className='btn-sm'>
                 <FaEdit />
@@ -158,7 +165,7 @@ const Product = ({ product, value, text }) => {
             }`}
           >
             <FaTimes
-              style={{ backgroundColor: '#ffffff', borderRadius: '50%' }}
+              style={{ color: '#ffffff', cursor: 'pointer' }}
               className='fatimes-position'
               onClick={() => setShowDeleteCard(false)}
             />
@@ -206,7 +213,7 @@ const Product = ({ product, value, text }) => {
             }`}
           >
             <FaTimes
-              style={{ backgroundColor: 'transparent' }}
+              style={{ backgroundColor: 'transparent', color: '#ffffff' }}
               className='fatimes-position'
               onClick={() => setShowAddToCart(false)}
             />
@@ -239,7 +246,12 @@ const Product = ({ product, value, text }) => {
               increaseIcon={<FaPlus />}
               decreaseIcon={<FaMinus />}
             /> */}
-            <Button className='my-3' variant='dark' onClick={addToCartHandler}>
+            <Button
+              className='my-3'
+              bg='info'
+              variant='info'
+              onClick={addToCartHandler}
+            >
               Add
             </Button>
           </div>
@@ -378,7 +390,11 @@ const Product = ({ product, value, text }) => {
                 <Button
                   type='button'
                   className='btn-sm'
-                  // style={ { showAddToCart? { display: 'none' } : { display: 'block' } } }
+                  style={
+                    showAddToCart || showDeleteCard || showSuccessCard
+                      ? { display: 'none' }
+                      : { display: 'inline' }
+                  }
                   onClick={() => toggleAddToCard()}
                   disabled={product.countInStock === 0}
                 >

@@ -2,31 +2,6 @@ main {
   min-height: 80vh;
 }
 
-.rating span {
-  margin: 0.1rem;
-}
-
-.rating svg {
-  color: #71797d;
-  background-color: #fff;
-  border-radius: 5px;
-}
-
-.rating-text {
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding-left: 0.5rem;
-  /* display: none; */
-}
-
-.product-title {
-  height: 1.9em; /* Set a fixed height */
-  line-height: 1.2;
-  overflow: hidden; /* Hide overflow content */
-  /* text-overflow: ellipsis; */
-  /* white-space: nowrap; Prevent wrapping */
-}
-
 table td,
 table th {
   text-align: center;
@@ -54,21 +29,4 @@ table th {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-}
-
-.rating span {
-  margin: 0.1rem;
-}
-
-.rating svg {
-  color: #71797d;
-  background-color: #fff;
-  border-radius: 5px;
-}
-
-.rating-text {
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding-left: 0.5rem;
-  /* display: none; */
 }

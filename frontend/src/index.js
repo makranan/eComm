@@ -13,13 +13,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import store from './store';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import './assets/styles/bootstrap.custom.css';
-// import 'bootswatch/dist/lux/bootstrap.min.css';
-import './assets/styles/lux.css';
-
-import './assets/styles/index.css';
-import './assets/styles/custom.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
@@ -43,6 +36,15 @@ import {
   DashboardScreen,
 } from './screens/admin';
 import { PrivateRoute, AdminRoute } from './components';
+import 'bootstrap/dist/css/bootstrap.css';
+import './assets/styles/bootstrap.custom.css';
+// import 'bootswatch/dist/lux/bootstrap.min.css';
+import './assets/styles/lux.css';
+
+import './assets/styles/index.css';
+import './assets/styles/custom.css';
+import './assets/styles/rating.css';
+import './assets/styles/product.css';
 
 const routeConfigurations = [
   { path: '/', element: <HomeScreen /> },
