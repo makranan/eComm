@@ -140,7 +140,7 @@ const CartScreen = () => {
                           <h4>${item.price}</h4>
                         </Col>
 
-                        <Col md={2} xs={2} className='text-end'>
+                        <Col md={2} xs={12} className='text-end'>
                           <Button
                             type='button'
                             variant='danger'

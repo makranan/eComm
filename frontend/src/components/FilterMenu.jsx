@@ -36,9 +36,9 @@ function FilterMenu({ name, ...props }) {
 
   return (
     <>
-      <Button variant='info' onClick={handleShow} className='filter-btn me-2'>
+      {/* <Button variant='info' onClick={handleShow} className='filter-btn me-2'>
         <FaFilter />
-      </Button>
+      </Button> */}
       <Offcanvas
         show={show}
         onHide={handleClose}

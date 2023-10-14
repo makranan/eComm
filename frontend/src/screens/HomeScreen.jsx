@@ -9,6 +9,7 @@ import {
   BtnGoBack,
   ProductFilter,
   FilterMenu,
+  ProductCarousel,
 } from '../components';
 import PageSizeDropdown from '../components/PageSizeDropdown';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
@@ -73,8 +74,10 @@ const HomeScreen = () => {
         <>
           {(keyword || category || brand) && <BtnGoBack />}
 
+          {/* <ProductCarousel /> */}
+
           {/* <FilterMenu /> */}
-          {/* <h1>Latest Products</h1> */}
+          <h1>Latest Products</h1>
           <Row>
             {data.products.map((product) => (
               <Col

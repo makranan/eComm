@@ -123,7 +123,14 @@ const OrderScreen = () => {
         <span className='unselectable'>Order </span>
         <strong
           className='text-white '
-          style={{ background: 'grey', fontWeight: '700' }}
+          style={{
+            background: 'grey',
+            fontWeight: '700',
+            fontSize: '1em',
+            textWrap: 'wrap',
+            whiteSpace: 'normal', // This property controls text wrapping
+            overflowWrap: 'break-word', // This property ensures word breaks when needed
+          }}
         >
           {order._id}
         </strong>

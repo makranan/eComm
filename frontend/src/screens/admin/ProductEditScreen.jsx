@@ -76,7 +76,7 @@ const ProductEditScreen = () => {
     const categoryArray = product.category; // Assuming 'category' is an array in your product data
 
     // Now you can use the 'categoryArray' in your component
-    console.log('Category Array:', categoryArray);
+    // console.log('Category Array:', categoryArray);
   }
 
   useEffect(() => {
@@ -322,7 +322,7 @@ const ProductEditScreen = () => {
             </Form.Group>
 
             <Row className='my-2'>
-              <Col xs={6} sm={6} md={3} className='mb-2'>
+              <Col xs={12} sm={6} md={4} className='mb-2'>
                 <Form.Group controlId='price' style={styles}>
                   <Form.Label>Price</Form.Label>
                   <Form.Control
@@ -334,7 +334,7 @@ const ProductEditScreen = () => {
                 </Form.Group>
               </Col>
 
-              <Col xs={6} sm={6} md={3}>
+              <Col xs={12} sm={6} md={4}>
                 <Form.Group controlId='countInStock' style={styles}>
                   <Form.Label>Stock</Form.Label>
                   <Form.Control
@@ -358,7 +358,7 @@ const ProductEditScreen = () => {
                 </Form.Group>
               </Col> */}
 
-              <Col xs={12} sm={6} md={3}>
+              <Col xs={12} sm={12} md={4}>
                 <Form.Group controlId='brand' style={styles}>
                   <Form.Label>Brand</Form.Label>
                   <Form.Control

@@ -31,7 +31,6 @@ const ProductFilter = ({ onFilter }) => {
     keyword: keywordUrl,
     category: categoryUrl,
     brand: brandUrl,
-
     pageNumber,
   } = useParams();
 
@@ -39,6 +38,7 @@ const ProductFilter = ({ onFilter }) => {
   const [brand, setBrand] = useState(brandUrl || '');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
+  const [price, setPrice] = useState([minPrice, maxPrice]);
 
   const [selectedCategories, setSelectedCategories] = useState(
     categoryUrl ? categoryUrl.split('&') : []
@@ -51,10 +51,10 @@ const ProductFilter = ({ onFilter }) => {
     }
   }, [categoryUrl]);
 
-  // const handleFilter = () => {
-  //   // Call the onFilter function passed from the parent component
-  //   onFilter(selectedCategories, brand, maxPrice, minPrice, keyword, price);
-  // };
+  const handleFilter = () => {
+    // Call the onFilter function passed from the parent component
+    onFilter(selectedCategories, brand, maxPrice, minPrice, keyword, price);
+  };
 
   const clearFilters = () => {
     setKeyword('');
@@ -234,7 +234,7 @@ const ProductFilter = ({ onFilter }) => {
           className='mt-3'
           type='submit'
           variant='primary'
-          // onClick={handleFilter}
+          onClick={handleFilter}
         >
           Apply Filters
         </Button>

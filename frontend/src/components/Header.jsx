@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Badge, Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
@@ -10,6 +10,7 @@ import { CheckoutStepsCircles, SearchBox, FilterMenu } from '.';
 import logo from '../assets/logo.svg';
 
 const Header = () => {
+  const [show, setShow] = useState(false);
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -28,6 +29,14 @@ const Header = () => {
     }
   };
 
+  const filterMenuHandler = (e) => {
+    setShow(true);
+  };
+
+  const handleClose = (e) => {
+    setShow(false);
+  };
+
   const customDropdownStyle = {
     transform: 'translateX(-20%)', // Shift 20% to the left
   };
@@ -44,7 +53,7 @@ const Header = () => {
   return (
     <>
       <CheckoutStepsCircles />
-      <FilterMenu />
+      <FilterMenu show={show} onHide={handleClose} />
       <header>
         <Navbar bg='primary' variant='dark' expand='md' collapseOnSelect>
           <Container>
@@ -58,9 +67,10 @@ const Header = () => {
             </LinkContainer>
             <Navbar.Toggle aria-controls='basic-navbar-bav' />
             <Navbar.Collapse id='basic-navbar-nav'>
-              <Nav className='ms-auto' navbarScroll>
-                <SearchBox />
-
+              <div className='ms-auto'>
+                <SearchBox openSearchHandler={filterMenuHandler} />
+              </div>
+              <Nav className='ms-auto ' navbarScroll>
                 <LinkContainer to='/cart'>
                   <Nav.Link className='mb-1'>
                     <FaShoppingCart style={{ marginRight: '5px' }} />
@@ -74,7 +84,6 @@ const Header = () => {
                     )}
                   </Nav.Link>
                 </LinkContainer>
-
                 {userInfo ? (
                   <NavDropdown
                     title={userInfo.name}
@@ -95,7 +104,6 @@ const Header = () => {
                     </Nav.Link>
                   </LinkContainer>
                 )}
-
                 {userInfo && userInfo.isAdmin && (
                   <NavDropdown title='Admin' id='adminmenu' drop='start'>
                     <LinkContainer to='/admin/'>

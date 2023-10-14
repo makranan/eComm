@@ -6,6 +6,7 @@
   "dependencies": {
     "@blacklab/react-image-magnify": "^4.1.1",
     "@paypal/react-paypal-js": "^8.1.3",
+    "@react-oauth/google": "^0.11.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -50,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-objects": "^7.0.0"
   }
 }

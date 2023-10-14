@@ -8,17 +8,19 @@ import { FormContainer, Loader } from '../components';
 import { toast } from 'react-toastify';
 
 const RegisterScreen = () => {
+  const [validated, setValidated] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [register, { isLoading }] = useRegisterMutation();
 
-  const { userInfo } = useSelector(state => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const redirect = searchParams.get('redirect') || '/';
@@ -40,6 +42,10 @@ const RegisterScreen = () => {
       toast.error('Passwords do not match');
       return false;
     }
+    if (!acceptTerms) {
+      toast.error('Please accept the terms and services');
+      return false;
+    }
     return true;
   };
 
@@ -49,8 +55,24 @@ const RegisterScreen = () => {
     }
   }, [userInfo, redirect, navigate]);
 
-  const submitHandler = async e => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    setValidated(true);
+
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+    }
+
+    if (
+      !email ||
+      !password ||
+      // password !== confirmPassword ||
+      name.trim() === ''
+    ) {
+      // Do not trigger validation when either field is empty
+      return;
+    }
 
     if (validateForm()) {
       try {
@@ -69,15 +91,15 @@ const RegisterScreen = () => {
 
   return (
     <FormContainer>
-      <h1>Sign Up</h1>
-      <Form onSubmit={submitHandler}>
+      <h1>Register</h1>
+      <Form onSubmit={submitHandler} noValidate validated={validated}>
         <Form.Group controlId='name' className='my-3'>
           <Form.Label>Your Name</Form.Label>
           <Form.Control
             type='text'
             placeholder='Enter Your Name'
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             required
           ></Form.Control>
         </Form.Group>
@@ -88,7 +110,7 @@ const RegisterScreen = () => {
             type='email'
             placeholder='Enter Email'
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
           ></Form.Control>
         </Form.Group>
@@ -99,7 +121,7 @@ const RegisterScreen = () => {
             type='password'
             placeholder='Enter Password'
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
           ></Form.Control>
         </Form.Group>
@@ -110,21 +132,22 @@ const RegisterScreen = () => {
             type='password'
             placeholder='Confirm Password'
             value={confirmPassword}
-            onChange={e => setConfirmPassword(e.target.value)}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             required
           ></Form.Control>
         </Form.Group>
 
         <Form.Group controlId='acceptTerms' className='my-4'>
-          <Form.Check // prettier-ignore
+          <Form.Check
             type='checkbox'
-            id='custom-switch'
             label={
               <>
                 <span style={{ color: 'red' }}>*</span> Accept our{' '}
                 <Link> Terms and Services </Link>
               </>
             }
+            checked={acceptTerms}
+            onChange={(e) => setAcceptTerms(e.target.checked)}
             required
           />
         </Form.Group>

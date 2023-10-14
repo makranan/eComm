@@ -11,9 +11,9 @@ const App = () => {
   return (
     <>
       <Header />
-      {/* {isHomeScreen && <HeaderSwiper />} */}
-      <main className='py-3'>
+      <main className=''>
         <Container>
+          {isHomeScreen && <HeaderSwiper />}
           <Outlet />
         </Container>
       </main>

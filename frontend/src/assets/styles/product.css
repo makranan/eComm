@@ -13,7 +13,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -22,7 +22,8 @@
   z-index: 2; /* Ensure it's on top of the main content */
   opacity: 1; /* Initially hidden */
   /* animation: fade-in 0.15s ease-in-out both; */
-  backdrop-filter: blur(4px);
+  transform: scale(1.006);
+  backdrop-filter: blur(1px);
 }
 
 .additional-content {
@@ -31,7 +32,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.3);
+  /* border: 1px solid #b1b1b1; */
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -41,6 +43,7 @@
   opacity: 0.5; /* Initially hidden */
   animation: fade-in 0.15s ease-in-out both;
   backdrop-filter: blur(1px);
+  transform: scale(1.006);
   /* background-color: #4141412b; */
 }
 
@@ -50,7 +53,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  /* background-color: rgba(255, 255, 255, 0.9); */
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -60,7 +63,8 @@
   opacity: 1; /* Initially hidden */
   animation: fade-in 0.15s ease-in-out both;
   backdrop-filter: blur(1px);
-  background-color: #4400002c;
+  transform: scale(1.006);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 @keyframes fade-in {

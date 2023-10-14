@@ -236,6 +236,10 @@ html {
 .card {
   border-color: #ededed;
 }
+.card-img-top {
+  user-select: none;
+  margin-top: 20px;
+}
 
 .container {
   /* max-width: 2400px; */
@@ -246,10 +250,6 @@ html {
 .btn-loading {
   width: 140px;
   height: 40px;
-}
-
-.card-img-top {
-  user-select: none;
 }
 
 .svg-success {
@@ -351,3 +351,34 @@ html {
 .offcanvas-backdrop.show {
   opacity: 0;
 }
+
+/* .custom-google-button {
+  background-color: #4285f4; 
+  color: #fff; 
+  border: none; 
+  padding: 10px 20px; 
+  font-size: 16px; 
+  border-radius: 5px; 
+  cursor: pointer; 
+}
+
+.custom-google-button:hover {
+  background-color: #357abd; 
+}
+
+.checkmark {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+}
+
+.checkmark-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: green; 
+  font-size: 16px; 
+} */

@@ -5,8 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { useDeleteProductMutation } from '../slices/productsApiSlice';
 import { addToCart } from '../slices/cartSlice';
+
+// eslint-disable-next-line no-unused-vars
 import { Rating, Loader, BtnAddToCart, BtnGoBack } from './';
-import { AddToCartModal, DeleteModal } from './modals';
+// import { AddToCartModal, DeleteModal } from './modals';
 import {
   FaEdit,
   FaTrash,
@@ -63,7 +65,7 @@ const Product = ({ product, value, text }) => {
       setTimeout(() => {
         // successCard.classList.remove('hide'); // Remove the 'hide' class after a short delay
         setShowSuccessCard(false); // Close the card
-      }, 950); // Adjust the delay as needed
+      }, 150); // Adjust the delay as needed
     }, 3000);
   };
 
@@ -137,7 +139,7 @@ const Product = ({ product, value, text }) => {
           <Col
             className='text-end'
             style={
-              showDeleteCard || showAddToCart
+              showDeleteCard || showAddToCart || showSuccessCard
                 ? { opacity: '0' }
                 : { opacity: '1' }
             }
@@ -171,25 +173,27 @@ const Product = ({ product, value, text }) => {
             />
             <h5
               style={{
-                backgroundColor: 'white',
+                // backgroundColor: 'white',
+                color: '#ffffff',
                 padding: '10px',
                 borderRadius: '5px',
               }}
             >
               Delete?
             </h5>
-            <p
+            <h6
               className='text-center px-4'
               style={{
-                backgroundColor: 'white',
-                padding: '10px',
-                borderRadius: '5px',
+                backgroundColor: 'black',
+                color: 'red',
+                padding: '10px 0 10px 0',
+                // borderRadius: '5px',
               }}
             >
               Item will be deleted from database
-            </p>
+            </h6>
             <Button
-              variant='dark'
+              variant='danger'
               style={{ color: 'white' }}
               className='my-4'
               onClick={() => deleteHandler()}
@@ -197,12 +201,7 @@ const Product = ({ product, value, text }) => {
             >
               Yes
             </Button>
-            <Button
-              onClick={() => setShowDeleteCard(false)}
-              style={{ backgroundColor: 'lightgreen', color: 'black' }}
-            >
-              No
-            </Button>
+            <Button onClick={() => setShowDeleteCard(false)}>No</Button>
           </div>
         )}
 
@@ -264,7 +263,7 @@ const Product = ({ product, value, text }) => {
             }`}
           >
             <FaTimes
-              style={{ backgroundColor: 'transparent' }}
+              style={{ color: '#ffffff', cursor: 'pointer' }}
               className='fatimes-position'
               onClick={() => setShowSuccessCard(false)}
             />
@@ -273,14 +272,16 @@ const Product = ({ product, value, text }) => {
             <img src={successSvg} alt='Success' className='svg-success' />
           )} */}
 
-            <h5 className='text-center px-5 my-4'>
+            <h5 className='text-center px-5 my-4' style={{ color: '#ffffff' }}>
               {qty === 1
                 ? 'Item added successfully'
                 : "Item's added successfully"}
             </h5>
 
             <Link to='/cart'>
-              <Button type='button'>Go to Cart</Button>
+              <Button type='button' variant='info' bg='info'>
+                Go to Cart
+              </Button>
             </Link>
           </div>
         )}
@@ -325,7 +326,7 @@ const Product = ({ product, value, text }) => {
               onLoad={handleImageLoad}
               style={{
                 display: loading ? 'none' : 'flex',
-                marginTop: '0px',
+                marginTop: '20px',
                 height: '100%',
                 objectFit: 'cover',
                 padding: '10px',

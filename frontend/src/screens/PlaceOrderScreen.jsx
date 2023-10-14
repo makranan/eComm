@@ -171,6 +171,13 @@ const PlaceOrderScreen = () => {
                 {isLoading && <Loader />}
               </ListGroup.Item>
 
+              <ListGroup.Item>
+                <p>
+                  By placing order you are accepting our{' '}
+                  <Link>Terms of Service</Link>
+                </p>
+              </ListGroup.Item>
+
               <ListGroup.Item className='no-pd-mr'>
                 <Button
                   type='button'
