@@ -11,6 +11,9 @@ import {
   deleteUser,
   getUserById,
   updateUser,
+  checkEmail,
+  updatePassword,
+  sendEmail,
 } from '../controllers/userController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 
@@ -28,5 +31,9 @@ router
   .delete(protect, admin, deleteUser)
   .get(protect, admin, getUserById)
   .put(protect, admin, updateUser);
+
+router.get('/check_email', checkEmail);
+router.put('/update-password', updatePassword);
+router.post('/send_email', sendEmail);
 
 export default router;

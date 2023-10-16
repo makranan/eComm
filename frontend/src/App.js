@@ -2,7 +2,6 @@ import { Container } from 'react-bootstrap';
 import { Outlet, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { Header, Footer, HeaderSwiper } from './components';
-import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const location = useLocation();
@@ -11,9 +10,9 @@ const App = () => {
   return (
     <>
       <Header />
-      <main className=''>
+      <main className='py-3'>
         <Container>
-          {isHomeScreen && <HeaderSwiper />}
+          {/* {isHomeScreen && <HeaderSwiper />} */}
           <Outlet />
         </Container>
       </main>

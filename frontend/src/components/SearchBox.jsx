@@ -84,7 +84,7 @@ const SearchBox = ({ openSearchHandler }) => {
           style={{
             transform: 'translateX(-50px)',
             zIndex: '100',
-            boxShadow: '-10px 0px 10px rgba(0, 0, 0, 0.5)',
+            boxShadow: '-10px 0px 10px rgba(0, 0, 0, 0.3)',
           }}
         >
           <FaSearch style={{ fontSize: '1rem' }} />

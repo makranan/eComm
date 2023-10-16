@@ -1,5 +1,8 @@
 import path from 'path';
 import express from 'express';
+import nodemailer from 'nodemailer';
+import cors from 'cors';
+
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 dotenv.config();
@@ -16,6 +19,12 @@ const port = process.env.PORT;
 connectDB(); // Connect to MongoDB
 
 const app = express();
+
+app.use(cors());
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 // Body parser middleware
 app.use(express.json());

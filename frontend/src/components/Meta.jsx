@@ -13,7 +13,7 @@ const Meta = ({ title, description, keywords }) => {
 };
 
 Meta.defaultProps = {
-  title: 'Welcome to TechWorld',
+  title: 'Welcome to TECHWORLD',
   description: 'We sell electronics',
   keywords: 'electronics, buy electronics, cheap, deals, deal',
 };

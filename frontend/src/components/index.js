@@ -24,6 +24,8 @@ import ProductCarousel from './ProductCarousel';
 import Meta from './Meta';
 import ProductFilter from './ProductFilter';
 import FilterMenu from './FilterMenu';
+import Login from './Login';
+import LoginOtherOptions from './LoginOtherOptions';
 
 export {
   Header,
@@ -52,4 +54,6 @@ export {
   Meta,
   ProductFilter,
   FilterMenu,
+  Login,
+  LoginOtherOptions,
 };
