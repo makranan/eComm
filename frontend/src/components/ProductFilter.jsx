@@ -1,13 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
-import {
-  Form,
-  Button,
-  Accordion,
-  AccordionContext,
-  useAccordionButton,
-  Card,
-} from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Form, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
+import Collapsible from 'react-collapsible';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css'; // Import the CSS for styling
 
@@ -15,21 +9,63 @@ import 'rc-slider/assets/index.css'; // Import the CSS for styling
 const categories = [
   {
     name: 'Electronics',
+    collapsible: true, // Make 'Electronics' collapsible
     subcategories: [
-      { name: 'PC', subcategories: [] },
-      { name: 'Monitor', subcategories: [] },
-      { name: 'Drone', subcategories: [] },
-      { name: 'test', subcategories: [] },
+      {
+        name: 'PC',
+        collapsible: true, // Make 'PC' collapsible
+        subcategories: [
+          {
+            name: 'Hard Drives',
+            // selectable: true, // Make 'Hard Drives' selectable as a checkbox
+            collapsible: true,
+            subcategories: [
+              {
+                name: 'HDD',
+                selectable: true, // Make 'HDD' selectable as a checkbox
+              },
+              {
+                name: 'SSD',
+                selectable: true, // Make 'SSD' selectable as a checkbox
+                subcategories: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Monitor',
+        selectable: true, // Make 'Monitor' selectable as a checkbox
+        subcategories: [],
+      },
+      {
+        name: 'Drone',
+        selectable: true, // Make 'Drone' selectable as a checkbox
+        subcategories: [],
+      },
+      {
+        name: 'test',
+        selectable: true, // Make 'test' selectable as a checkbox
+        subcategories: [],
+      },
     ],
   },
   {
     name: 'Category 2',
+    collapsible: true, // Make 'Category 2' collapsible
     subcategories: [
-      { name: 'Subcategory 2.1', subcategories: [] },
-      { name: 'Subcategory 2.2', subcategories: [] },
+      {
+        name: 'Subcategory 2.1',
+        collapsible: true, // Make 'Subcategory 2.1' collapsible
+        subcategories: [],
+      },
+      {
+        name: 'Subcategory 2.2',
+        collapsible: true, // Make 'Subcategory 2.2' collapsible
+        subcategories: [],
+      },
     ],
   },
-  // Add more categories and subcategories as needed
 ];
 
 const ProductFilter = ({ onFilter }) => {
@@ -46,15 +82,26 @@ const ProductFilter = ({ onFilter }) => {
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [price, setPrice] = useState([minPrice, maxPrice]);
-
-  const [selectedCategories, setSelectedCategories] = useState(
-    categoryUrl ? categoryUrl.split('&') : []
-  );
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedSubcategories, setSelectedSubcategories] = useState([]);
 
   // Update selectedCategories based on URL parameters
   useEffect(() => {
     if (categoryUrl) {
-      setSelectedCategories(categoryUrl.split('&'));
+      const categoryParams = categoryUrl.split('&');
+      const updatedSelectedCategories = categoryParams.filter((param) => {
+        return categories.some((category) => category.name === param);
+      });
+      setSelectedCategories(updatedSelectedCategories);
+
+      const updatedSelectedSubcategories = categoryParams.filter((param) => {
+        return categories.some((category) => {
+          return category.subcategories.some(
+            (subcategory) => subcategory.name === param
+          );
+        });
+      });
+      setSelectedSubcategories(updatedSelectedSubcategories);
     }
   }, [categoryUrl]);
 
@@ -141,14 +188,6 @@ const ProductFilter = ({ onFilter }) => {
     // navigate(url);
   };
 
-  const handleMinPriceChange = (value) => {
-    setMinPrice(value);
-  };
-
-  const handleMaxPriceChange = (value) => {
-    setMaxPrice(value);
-  };
-
   const handleCategoryClick = (clickedCategory) => {
     // Toggle the selected category
     if (selectedCategories.includes(clickedCategory)) {
@@ -160,40 +199,93 @@ const ProductFilter = ({ onFilter }) => {
     }
   };
 
-  const renderSubcategories = (subcategories, parentCategory) => {
-    if (!subcategories) {
-      return null; // Handle the case where subcategories is undefined
+  const handleSubcategoryClick = (clickedSubcategory) => {
+    // Toggle the selected subcategory
+    if (selectedSubcategories.includes(clickedSubcategory)) {
+      setSelectedSubcategories(
+        selectedSubcategories.filter(
+          (subcategory) => subcategory !== clickedSubcategory
+        )
+      );
+    } else {
+      setSelectedSubcategories([...selectedSubcategories, clickedSubcategory]);
     }
-
-    return subcategories.map((subcategory) => (
-      <Accordion.Item key={subcategory.name} eventKey={subcategory.name}>
-        <Accordion.Header as='h6'>{subcategory.name}</Accordion.Header>
-        <Accordion.Body>
-          {parentCategory && (
-            <Form.Check
-              type='checkbox'
-              label={subcategory.name}
-              checked={selectedCategories.includes(subcategory.name)}
-              onChange={() => handleCategoryClick(subcategory.name)}
-            />
-          )}
-          {renderSubcategories(subcategory.subcategories)}
-        </Accordion.Body>
-      </Accordion.Item>
-    ));
   };
 
-  const renderCategories = (categories) => {
-    return categories.map((category) => (
-      <Accordion.Item key={category.name} eventKey={category.name}>
-        <Accordion.Header as='h6'>{category.name}</Accordion.Header>
-        <Accordion.Body>
-          {category.subcategories.length > 0
-            ? renderSubcategories(category.subcategories, category.name)
-            : null}
-        </Accordion.Body>
-      </Accordion.Item>
-    ));
+  const handleMinPriceChange = (value) => {
+    setMinPrice(value);
+  };
+
+  const handleMaxPriceChange = (value) => {
+    setMaxPrice(value);
+  };
+
+  const renderSubcategories = (subcategories, depth) => {
+    if (depth >= 5) {
+      return null; // Stop rendering if depth exceeds 5
+    }
+
+    if (!subcategories || subcategories.length === 0) {
+      return null; // No subcategories to render
+    }
+
+    return subcategories.map((subcategory) => {
+      if (subcategory.selectable) {
+        const isSelected = selectedSubcategories.includes(subcategory.name);
+        return (
+          <div key={subcategory.name}>
+            <Form.Check
+              type='checkbox'
+              id={subcategory.name}
+              label={subcategory.name}
+              checked={isSelected}
+              onChange={() => handleSubcategoryClick(subcategory.name)}
+            />
+            {renderSubcategories(subcategory.subcategories, depth + 1)}
+          </div>
+        );
+      } else if (subcategory.collapsible) {
+        return (
+          <Collapsible key={subcategory.name} trigger={subcategory.name}>
+            {renderSubcategories(subcategory.subcategories, depth + 1)}
+          </Collapsible>
+        );
+      } else {
+        return null; // This subcategory won't be rendered
+      }
+    });
+  };
+
+  const renderCategories = (categories, depth) => {
+    if (depth >= 5) {
+      return null; // Stop rendering if depth exceeds 5
+    }
+
+    return categories.map((category) => {
+      if (category.selectable) {
+        const isSelected = selectedCategories.includes(category.name);
+        return (
+          <div key={category.name}>
+            <Form.Check
+              type='checkbox'
+              id={category.name}
+              label={category.name}
+              checked={isSelected}
+              onChange={() => handleCategoryClick(category.name)}
+            />
+            {renderSubcategories(category.subcategories, depth + 1)}
+          </div>
+        );
+      } else if (category.collapsible) {
+        return (
+          <Collapsible key={category.name} trigger={category.name}>
+            {renderCategories(category.subcategories, depth + 1)}
+          </Collapsible>
+        );
+      } else {
+        return null; // This category won't be rendered
+      }
+    });
   };
 
   return (
@@ -209,38 +301,10 @@ const ProductFilter = ({ onFilter }) => {
           />
         </Form.Group>
 
-        <Form.Label>Category</Form.Label>
-        {/* <Accordion defaultActiveKey='0'>
-          <Card>
-            <Card.Header>
-              <ContextAwareToggle eventKey='0'>
-                {categories[0].name}
-              </ContextAwareToggle>
-            </Card.Header>
-            <Accordion.Collapse eventKey='0'>
-              <Card.Body></Card.Body>
-            </Accordion.Collapse>
-          </Card>
-          <Card>
-            <Card.Header>
-              <ContextAwareToggle eventKey='1'>Click me!</ContextAwareToggle>
-            </Card.Header>
-            <Accordion.Collapse eventKey='1'>
-              <Card.Body>Hello! I am another body</Card.Body>
-            </Accordion.Collapse>
-          </Card>
-        </Accordion> */}
-
-        <Accordion defaultActiveKey='0' alwaysOpen>
-          {renderCategories(categories)}
-        </Accordion>
-
-        {/* WORKING CATEGORIES FILTER */}
-
-        {/* <Form.Group controlId='category'>
+        <Form.Group controlId='category'>
           <Form.Label className='mt-2'>Category</Form.Label>
-          <div>{renderCategories(categories)}</div>
-        </Form.Group> */}
+          {renderCategories(categories, 1)} {/* Start depth at 1 */}
+        </Form.Group>
 
         <Form.Group controlId='brand'>
           <Form.Label className='mt-2'>Brand</Form.Label>
