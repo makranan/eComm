@@ -26,6 +26,7 @@ import ProductFilter from './ProductFilter';
 import FilterMenu from './FilterMenu';
 import Login from './Login';
 import LoginOtherOptions from './LoginOtherOptions';
+import ForgetPassword from './ForgetPassword';
 
 export {
   Header,
@@ -56,4 +57,5 @@ export {
   FilterMenu,
   Login,
   LoginOtherOptions,
+  ForgetPassword,
 };

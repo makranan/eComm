@@ -1,5 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React, { useState, useEffect, useContext } from 'react';
+import {
+  Form,
+  Button,
+  Accordion,
+  AccordionContext,
+  useAccordionButton,
+  Card,
+} from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css'; // Import the CSS for styling
@@ -68,8 +75,8 @@ const ProductFilter = ({ onFilter }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    console.log('Min Price:', minPrice);
-    console.log('Max Price:', maxPrice);
+    // console.log('Min Price:', minPrice);
+    // console.log('Max Price:', maxPrice);
 
     // Construct the URL based on the provided values
     let url = '/search';
@@ -134,6 +141,14 @@ const ProductFilter = ({ onFilter }) => {
     // navigate(url);
   };
 
+  const handleMinPriceChange = (value) => {
+    setMinPrice(value);
+  };
+
+  const handleMaxPriceChange = (value) => {
+    setMaxPrice(value);
+  };
+
   const handleCategoryClick = (clickedCategory) => {
     // Toggle the selected category
     if (selectedCategories.includes(clickedCategory)) {
@@ -145,28 +160,39 @@ const ProductFilter = ({ onFilter }) => {
     }
   };
 
-  const handleMinPriceChange = (value) => {
-    setMinPrice(value);
-  };
+  const renderSubcategories = (subcategories, parentCategory) => {
+    if (!subcategories) {
+      return null; // Handle the case where subcategories is undefined
+    }
 
-  const handleMaxPriceChange = (value) => {
-    setMaxPrice(value);
+    return subcategories.map((subcategory) => (
+      <Accordion.Item key={subcategory.name} eventKey={subcategory.name}>
+        <Accordion.Header as='h6'>{subcategory.name}</Accordion.Header>
+        <Accordion.Body>
+          {parentCategory && (
+            <Form.Check
+              type='checkbox'
+              label={subcategory.name}
+              checked={selectedCategories.includes(subcategory.name)}
+              onChange={() => handleCategoryClick(subcategory.name)}
+            />
+          )}
+          {renderSubcategories(subcategory.subcategories)}
+        </Accordion.Body>
+      </Accordion.Item>
+    ));
   };
 
   const renderCategories = (categories) => {
     return categories.map((category) => (
-      <div key={category.name}>
-        <Form.Check
-          type='checkbox'
-          id={category.name}
-          label={category.name}
-          checked={selectedCategories.includes(category.name)}
-          onChange={() => handleCategoryClick(category.name)}
-        />
-        {category.subcategories.length > 0 && (
-          <div className='ml-3'>{renderCategories(category.subcategories)}</div>
-        )}
-      </div>
+      <Accordion.Item key={category.name} eventKey={category.name}>
+        <Accordion.Header as='h6'>{category.name}</Accordion.Header>
+        <Accordion.Body>
+          {category.subcategories.length > 0
+            ? renderSubcategories(category.subcategories, category.name)
+            : null}
+        </Accordion.Body>
+      </Accordion.Item>
     ));
   };
 
@@ -183,10 +209,38 @@ const ProductFilter = ({ onFilter }) => {
           />
         </Form.Group>
 
-        <Form.Group controlId='category'>
+        <Form.Label>Category</Form.Label>
+        {/* <Accordion defaultActiveKey='0'>
+          <Card>
+            <Card.Header>
+              <ContextAwareToggle eventKey='0'>
+                {categories[0].name}
+              </ContextAwareToggle>
+            </Card.Header>
+            <Accordion.Collapse eventKey='0'>
+              <Card.Body></Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <Card>
+            <Card.Header>
+              <ContextAwareToggle eventKey='1'>Click me!</ContextAwareToggle>
+            </Card.Header>
+            <Accordion.Collapse eventKey='1'>
+              <Card.Body>Hello! I am another body</Card.Body>
+            </Accordion.Collapse>
+          </Card>
+        </Accordion> */}
+
+        <Accordion defaultActiveKey='0' alwaysOpen>
+          {renderCategories(categories)}
+        </Accordion>
+
+        {/* WORKING CATEGORIES FILTER */}
+
+        {/* <Form.Group controlId='category'>
           <Form.Label className='mt-2'>Category</Form.Label>
           <div>{renderCategories(categories)}</div>
-        </Form.Group>
+        </Form.Group> */}
 
         <Form.Group controlId='brand'>
           <Form.Label className='mt-2'>Brand</Form.Label>

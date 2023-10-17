@@ -9,7 +9,6 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -44,9 +43,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import './assets/styles/lux.css';
 
 import './assets/styles/index.css';
-import './assets/styles/custom.css';
 import './assets/styles/rating.css';
 import './assets/styles/product.css';
+import './assets/styles/custom.css';
 
 // const routeConfigurations = [
 //   { path: '/', element: <HomeScreen /> },
@@ -224,17 +223,15 @@ const router = createBrowserRouter(
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <GoogleOAuthProvider clientId='1074628838090-4og0omla1vei0rb3bq136sos0th3gcgq.apps.googleusercontent.com'>
-    <React.StrictMode>
-      <HelmetProvider>
-        <Provider store={store}>
-          <PayPalScriptProvider deferLoading={true}>
-            <RouterProvider router={router} />
-          </PayPalScriptProvider>
-        </Provider>
-      </HelmetProvider>
-    </React.StrictMode>
-  </GoogleOAuthProvider>
+  <React.StrictMode>
+    <HelmetProvider>
+      <Provider store={store}>
+        <PayPalScriptProvider deferLoading={true}>
+          <RouterProvider router={router} />
+        </PayPalScriptProvider>
+      </Provider>
+    </HelmetProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

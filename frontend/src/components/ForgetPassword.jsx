@@ -8,11 +8,9 @@ import { setCredentials } from '../slices/authSlice';
 
 import { toast } from 'react-toastify';
 import Divider from '../components/Divider';
-import { Eye, EyeSlash } from 'react-bootstrap-icons';
 
-const Login = ({ onForgotPassword }) => {
-  const [showPassword, setShowPassword] = useState(false);
-
+const ForgetPassword = ({ onBackToLogin }) => {
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [validated, setValidated] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -72,7 +70,7 @@ const Login = ({ onForgotPassword }) => {
 
   return (
     <>
-      <h1>Sign In</h1>
+      <h1>Recover Password</h1>
       <Form onSubmit={submitHandler} noValidate>
         <Col>
           <Form.Group controlId='email' className='my-3'>
@@ -92,53 +90,43 @@ const Login = ({ onForgotPassword }) => {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group controlId='password' className='my-3'>
+          {/* <Form.Group controlId='password' className='my-3'>
             <Form.Label>Enter Password</Form.Label>
-            <InputGroup>
-              <Form.Control
-                type={showPassword ? 'text' : 'password'}
-                placeholder='Enter Password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <InputGroup.Text
-                onClick={() => setShowPassword(!showPassword)}
-                style={{ cursor: 'pointer' }}
-              >
-                {showPassword ? <EyeSlash size={20} /> : <Eye size={20} />}
-              </InputGroup.Text>
-            </InputGroup>
-            {/* <Form.Control.Feedback type='valid'>
+            <Form.Control
+              type='password'
+              placeholder='Enter Password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            ></Form.Control>
+            <Form.Control.Feedback type='valid'>
             Password is valid.
-          </Form.Control.Feedback> */}
+          </Form.Control.Feedback>
             <Form.Control.Feedback type='invalid'>
               Please enter a valid password.
             </Form.Control.Feedback>
-          </Form.Group>
+          </Form.Group> */}
 
           <Row className='mt-2'>
             <Col xs={6}>
               <Button type='submit' variant='primary' disabled={isLoading}>
-                Sign In
+                Send Reset Code
               </Button>
             </Col>
             {/* <Col xs={4}>
             <h6>New Customer? </h6>
           </Col> */}
-            <Col xs={6} className='text-end'>
+            {/* <Col xs={6} className='text-end'>
               <Link
                 to={redirect ? `/register?redirect=${redirect}` : '/register'}
               >
                 <Button variant='primary'>Register</Button>
               </Link>
-            </Col>
+            </Col> */}
           </Row>
           <Row>
             <Col xs={6} className='mt-4'>
-              <Link onClick={onForgotPassword} className='unselectable'>
-                Forgot Password?
-              </Link>
+              <Link onClick={onBackToLogin}>Go back to Login</Link>
             </Col>
           </Row>
         </Col>
@@ -149,4 +137,4 @@ const Login = ({ onForgotPassword }) => {
   );
 };
 
-export default Login;
+export default ForgetPassword;

@@ -40,6 +40,12 @@ const HomeScreen = () => {
     price,
   });
 
+  useEffect(() => {
+    if (data && data.products) {
+      sessionStorage.setItem('products', JSON.stringify(data.products));
+    }
+  }, [data]);
+
   // if (isLoading) {
   //   // Loading state
   // } else if (error) {

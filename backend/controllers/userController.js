@@ -230,7 +230,7 @@ const updatePassword = asyncHandler(async (req, res) => {
   s.status(500).send({ message: 'An error occurred while checking the email' });
 });
 
-// @desc    Update user password
+// @desc    Send email with user password
 // @route   PUT /api/users/check_mail
 // @access  Public
 const sendEmail = asyncHandler(async (req, res) => {

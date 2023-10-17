@@ -1,6 +1,5 @@
 import React from 'react';
 import { Col, Row, Form, Button } from 'react-bootstrap';
-import { GoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
 
 const LoginOtherOptions = () => {
   const responseMessage = (response) => {
@@ -21,21 +20,11 @@ const LoginOtherOptions = () => {
           }}
         >
           <Form.Label>
-            <h6>Other options</h6>
+            <h6 className='unselectable'>Other options</h6>
           </Form.Label>
         </div>
 
-        <div className='mb-2 pt-2 d-flex justify-content-center mt-3'>
-          <GoogleLogin
-            type='standard'
-            size='large'
-            theme='outline'
-            onSuccess={responseMessage}
-            onError={errorMessage}
-            useOneTap
-          />
-        </div>
-        {/* <useGoogleOneTapLogin /> */}
+        <div className='mb-2 pt-2 d-flex justify-content-center mt-3 unselectable'></div>
 
         <Button
           style={{ border: '1px solid #eaeaea' }}
