@@ -474,7 +474,7 @@ const ProductEditScreen = () => {
             </Row>
 
             <Row className='mb-3'>
-              <Col xs={7}>
+              <Col xs={12}>
                 <Form.Group controlId='imagesUpload'>
                   <Form.Control
                     type='file'
@@ -486,7 +486,7 @@ const ProductEditScreen = () => {
                 </Form.Group>
               </Col>
 
-              <Col xs={5}>
+              {/* <Col xs={5}>
                 <Form.Group controlId='updateImages'>
                   <Form.Group>
                     <Button
@@ -499,7 +499,7 @@ const ProductEditScreen = () => {
                     </Button>
                   </Form.Group>
                 </Form.Group>
-              </Col>
+              </Col> */}
             </Row>
 
             {/* <Row className='my-2'>

@@ -323,6 +323,8 @@ const Product = ({ product, value, text }) => {
             <Card.Img
               src={product.images[0]?.original || 'N/A'}
               variant='top'
+              alt={product.name}
+              aria-label={product.name}
               onLoad={handleImageLoad}
               style={{
                 display: loading ? 'none' : 'flex',
@@ -390,6 +392,7 @@ const Product = ({ product, value, text }) => {
               /> */}
                 <Button
                   type='button'
+                  aria-label='add-to-cart'
                   className='btn-sm'
                   style={
                     showAddToCart || showDeleteCard || showSuccessCard
