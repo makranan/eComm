@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
 import { Button, Offcanvas, Form, Badge } from 'react-bootstrap';
 import { ProductFilter } from '../components';
-import { FaFilter } from 'react-icons/fa';
 
 function FilterMenu({ name, ...props }) {
   const [show, setShow] = useState(false);

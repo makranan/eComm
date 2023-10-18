@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button, Row, Col, Badge } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import Collapsible from 'react-collapsible';
 import Slider from 'rc-slider';
@@ -57,12 +57,12 @@ const categories = [
     subcategories: [
       {
         name: 'Subcategory 2.1',
-        collapsible: true, // Make 'Subcategory 2.1' collapsible
+        selectable: true, // Make 'Subcategory 2.1' collapsible
         subcategories: [],
       },
       {
         name: 'Subcategory 2.2',
-        collapsible: true, // Make 'Subcategory 2.2' collapsible
+        selectable: true, // Make 'Subcategory 2.2' collapsible
         subcategories: [],
       },
     ],
@@ -83,26 +83,15 @@ const ProductFilter = ({ onFilter }) => {
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [price, setPrice] = useState([minPrice, maxPrice]);
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState(
+    categoryUrl ? categoryUrl.split('&') : []
+  );
   const [selectedSubcategories, setSelectedSubcategories] = useState([]);
 
   // Update selectedCategories based on URL parameters
   useEffect(() => {
     if (categoryUrl) {
-      const categoryParams = categoryUrl.split('&');
-      const updatedSelectedCategories = categoryParams.filter((param) => {
-        return categories.some((category) => category.name === param);
-      });
-      setSelectedCategories(updatedSelectedCategories);
-
-      const updatedSelectedSubcategories = categoryParams.filter((param) => {
-        return categories.some((category) => {
-          return category.subcategories.some(
-            (subcategory) => subcategory.name === param
-          );
-        });
-      });
-      setSelectedSubcategories(updatedSelectedSubcategories);
+      setSelectedCategories(categoryUrl.split('&'));
     }
   }, [categoryUrl]);
 
@@ -308,6 +297,23 @@ const ProductFilter = ({ onFilter }) => {
 
   return (
     <div>
+      <div className='selected-categories'>
+        Category:
+        {selectedCategories.map((category) => (
+          <Badge
+            key={category}
+            bg='light'
+            style={{
+              cursor: 'pointer',
+              marginRight: '4px',
+              marginBottom: '4px',
+            }}
+            onClick={() => handleCategoryClick(category)}
+          >
+            {category} <span style={{ color: 'red' }}>&times;</span>
+          </Badge>
+        ))}
+      </div>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='keyword'>
           <Form.Label>Search</Form.Label>
