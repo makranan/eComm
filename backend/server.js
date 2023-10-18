@@ -8,7 +8,6 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 import connectDB from './config/db.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
-
 import productsRoutes from './routes/productsRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
@@ -16,11 +15,10 @@ import uploadRoutes from './routes/uploadRoutes.js';
 
 const port = process.env.PORT;
 
-connectDB(); // Connect to MongoDB
-
 const app = express();
 
-app.use(cors());
+connectDB(); // Connect to MongoDB
+
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   next();

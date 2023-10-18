@@ -36,6 +36,7 @@ import {
   DashboardScreen,
 } from './screens/admin';
 import { PrivateRoute, AdminRoute } from './components';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import './assets/styles/bootstrap.custom.css';
 import 'react-toastify/dist/ReactToastify.css';

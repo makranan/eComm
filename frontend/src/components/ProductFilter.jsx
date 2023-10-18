@@ -295,6 +295,7 @@ const ProductFilter = ({ onFilter }) => {
             key={category.name}
             trigger={category.name}
             transitionTime={100}
+            className='unselectable'
           >
             {renderCategories(category.subcategories, depth + 1)}
           </Collapsible>

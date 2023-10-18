@@ -1,5 +1,7 @@
 import React from 'react';
 import { Col, Row, Form, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { FaFacebook, FaGoogle } from 'react-icons/fa';
 
 const LoginOtherOptions = () => {
   const responseMessage = (response) => {
@@ -25,6 +27,32 @@ const LoginOtherOptions = () => {
         </div>
 
         <div className='mb-2 pt-2 d-flex justify-content-center mt-3 unselectable'></div>
+
+        <Row>
+          <Link
+          // to='/auth/google'
+          >
+            <Button className='btn-full-w' variant='danger'>
+              <div className='d-flex justify-content-center align-items-center'>
+                <FaGoogle size={24} style={{ marginRight: '10px' }} /> Sign In
+                with Google
+              </div>
+            </Button>
+          </Link>
+        </Row>
+
+        <Row className='mt-3'>
+          <Link
+          // to='/auth/google'
+          >
+            <Button className='btn-full-w' variant='info'>
+              <div className='d-flex justify-content-center align-items-center'>
+                <FaFacebook size={24} style={{ marginRight: '10px' }} /> Sign In
+                with Facebook
+              </div>
+            </Button>
+          </Link>
+        </Row>
 
         <Button
           style={{ border: '1px solid #eaeaea' }}
