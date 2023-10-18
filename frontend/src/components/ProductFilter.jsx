@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import Collapsible from 'react-collapsible';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css'; // Import the CSS for styling
+import '../assets/styles/productfilter.css';
 
 // Define your hierarchical categories
 const categories = [
@@ -17,8 +18,8 @@ const categories = [
         subcategories: [
           {
             name: 'Hard Drives',
-            // selectable: true, // Make 'Hard Drives' selectable as a checkbox
             collapsible: true,
+            // selectable: true, // Make 'Hard Drives' selectable as a checkbox
             subcategories: [
               {
                 name: 'HDD',
@@ -31,22 +32,22 @@ const categories = [
               },
             ],
           },
+          {
+            name: 'Monitor',
+            selectable: true, // Make 'Monitor' selectable as a checkbox
+            subcategories: [],
+          },
+          {
+            name: 'Drone',
+            selectable: true, // Make 'Drone' selectable as a checkbox
+            subcategories: [],
+          },
+          {
+            name: 'test',
+            selectable: true, // Make 'test' selectable as a checkbox
+            subcategories: [],
+          },
         ],
-      },
-      {
-        name: 'Monitor',
-        selectable: true, // Make 'Monitor' selectable as a checkbox
-        subcategories: [],
-      },
-      {
-        name: 'Drone',
-        selectable: true, // Make 'Drone' selectable as a checkbox
-        subcategories: [],
-      },
-      {
-        name: 'test',
-        selectable: true, // Make 'test' selectable as a checkbox
-        subcategories: [],
       },
     ],
   },
@@ -108,6 +109,8 @@ const ProductFilter = ({ onFilter }) => {
   const handleFilter = () => {
     // Call the onFilter function passed from the parent component
     onFilter(selectedCategories, brand, maxPrice, minPrice, keyword, price);
+
+    // Check if any filters are applied
   };
 
   const clearFilters = () => {
@@ -153,6 +156,16 @@ const ProductFilter = ({ onFilter }) => {
     // Navigate to the constructed URL
     navigate(url);
 
+    if (
+      !selectedCategories.length &&
+      !brand &&
+      !minPrice &&
+      !maxPrice &&
+      !keyword
+    ) {
+      // If no filters are applied, navigate to the root URL
+      navigate('/');
+    }
     // // Construct the URL based on the provided values
     // let url = '/';
 
@@ -278,7 +291,11 @@ const ProductFilter = ({ onFilter }) => {
         );
       } else if (category.collapsible) {
         return (
-          <Collapsible key={category.name} trigger={category.name}>
+          <Collapsible
+            key={category.name}
+            trigger={category.name}
+            transitionTime={100}
+          >
             {renderCategories(category.subcategories, depth + 1)}
           </Collapsible>
         );
@@ -348,23 +365,29 @@ const ProductFilter = ({ onFilter }) => {
           </div>
         </Form.Group>
 
-        <Button
-          className='mt-3'
-          type='submit'
-          variant='primary'
-          onClick={handleFilter}
-        >
-          Apply Filters
-        </Button>
+        <Row>
+          <Col>
+            <Button
+              className='mt-3'
+              type='submit'
+              variant='primary'
+              onClick={handleFilter}
+            >
+              Apply Filters
+            </Button>
+          </Col>
 
-        <Button
-          className='mt-3 ml-3'
-          type='button'
-          variant='secondary'
-          onClick={clearFilters}
-        >
-          Clear Filters
-        </Button>
+          <Col className='text-end'>
+            <Button
+              className='mt-3 ml-3'
+              type='button'
+              variant='secondary'
+              onClick={clearFilters}
+            >
+              Clear Filters
+            </Button>
+          </Col>
+        </Row>
       </Form>
     </div>
   );

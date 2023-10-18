@@ -1,0 +1,54 @@
+.collapsible-open::before {
+  content: '▼'; /* Your collapse icon here */
+}
+
+.collapsible-closed::before {
+  content: '\276F'; /* Your expand icon here */
+}
+
+.collapsible-opened {
+  transition: none !important;
+  background-color: red;
+}
+.collapsible-close {
+  transition: none !important;
+}
+
+.Collapsible {
+  background: #f7f7f9;
+  padding: 6px;
+  /* border-bottom: 1px solid #a7a7a7; */
+}
+
+/* Style the checkbox background when it's not checked */
+.Collapsible input[type='checkbox']:not(:checked) {
+  background-color: #ffffff; /* Background color for unchecked checkbox */
+  border: 1px solid #ccc; /* Border style for unchecked checkbox */
+  border-radius: 5px; /* Border radius for unchecked checkbox */
+  /* Add any other styles you want for the unchecked checkbox */
+}
+
+.Collapsible input[type='checkbox'] {
+  margin-left: 1px;
+  margin-right: 4px;
+}
+
+.Collapsible__trigger {
+  /* background-color: aqua; */
+}
+
+.Collapsible__contentInner {
+  /* background: #fff; */
+}
+
+.Collapsible__trigger {
+  background: #f7f7f9;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 5px;
+}
