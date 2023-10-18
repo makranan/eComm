@@ -222,7 +222,11 @@ const ProductFilter = ({ onFilter }) => {
     setMaxPrice(value);
   };
 
-  const renderSubcategories = (subcategories, depth) => {
+  const renderSubcategories = (
+    subcategories,
+    depth,
+    parentCategorySelected
+  ) => {
     if (depth >= 5) {
       return null; // Stop rendering if depth exceeds 5
     }
@@ -233,7 +237,9 @@ const ProductFilter = ({ onFilter }) => {
 
     return subcategories.map((subcategory) => {
       if (subcategory.selectable) {
-        const isSelected = selectedSubcategories.includes(subcategory.name);
+        const isSelected =
+          parentCategorySelected ||
+          selectedSubcategories.includes(subcategory.name);
         return (
           <div key={subcategory.name}>
             <Form.Check
@@ -243,13 +249,26 @@ const ProductFilter = ({ onFilter }) => {
               checked={isSelected}
               onChange={() => handleSubcategoryClick(subcategory.name)}
             />
-            {renderSubcategories(subcategory.subcategories, depth + 1)}
+            {renderSubcategories(
+              subcategory.subcategories,
+              depth + 1,
+              isSelected
+            )}
           </div>
         );
       } else if (subcategory.collapsible) {
+        const isOpen =
+          parentCategorySelected ||
+          subcategory.subcategories.some((subcat) =>
+            isCategorySelected(subcat.name)
+          );
         return (
-          <Collapsible key={subcategory.name} trigger={subcategory.name}>
-            {renderSubcategories(subcategory.subcategories, depth + 1)}
+          <Collapsible
+            key={subcategory.name}
+            trigger={subcategory.name}
+            open={isOpen}
+          >
+            {renderSubcategories(subcategory.subcategories, depth + 1, isOpen)}
           </Collapsible>
         );
       } else {
@@ -258,6 +277,9 @@ const ProductFilter = ({ onFilter }) => {
     });
   };
 
+  const isCategorySelected = (categoryName) =>
+    selectedCategories.includes(categoryName);
+
   const renderCategories = (categories, depth) => {
     if (depth >= 5) {
       return null; // Stop rendering if depth exceeds 5
@@ -265,7 +287,7 @@ const ProductFilter = ({ onFilter }) => {
 
     return categories.map((category) => {
       if (category.selectable) {
-        const isSelected = selectedCategories.includes(category.name);
+        const isSelected = isCategorySelected(category.name);
         return (
           <div key={category.name}>
             <Form.Check
@@ -275,16 +297,20 @@ const ProductFilter = ({ onFilter }) => {
               checked={isSelected}
               onChange={() => handleCategoryClick(category.name)}
             />
-            {renderSubcategories(category.subcategories, depth + 1)}
+            {renderSubcategories(category.subcategories, depth + 1, isSelected)}
           </div>
         );
       } else if (category.collapsible) {
+        const isOpen = category.subcategories.some((subcat) =>
+          isCategorySelected(subcat.name)
+        );
         return (
           <Collapsible
             key={category.name}
             trigger={category.name}
             transitionTime={100}
             className='unselectable'
+            open={isOpen}
           >
             {renderCategories(category.subcategories, depth + 1)}
           </Collapsible>
@@ -297,8 +323,10 @@ const ProductFilter = ({ onFilter }) => {
 
   return (
     <div>
-      <div className='selected-categories'>
-        Category:
+      <div
+        className='selected-categories'
+        style={{ background: '#f7f7f9', borderRadius: '5px' }}
+      >
         {selectedCategories.map((category) => (
           <Badge
             key={category}
