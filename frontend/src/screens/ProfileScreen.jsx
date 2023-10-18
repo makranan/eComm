@@ -14,6 +14,7 @@ const ProfileScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -48,6 +49,8 @@ const ProfileScreen = () => {
         dispatch(setCredentials(res));
 
         toast.success('Profile updated successfully');
+
+        setIsEditing(false);
       } catch (err) {
         toast.error(err?.data?.message || err?.error || err);
       }
@@ -59,53 +62,64 @@ const ProfileScreen = () => {
       <Col md={3}>
         <h2>User Profile</h2>
 
-        <Form onSubmit={submitHandler}>
-          <Form.Group controlId='name' className='my-2'>
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              type='name'
-              placeholder='Enter Name'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
-
-          <Form.Group controlId='email' className='my-2'>
-            <Form.Label>Email Address</Form.Label>
-            <Form.Control
-              type='email'
-              placeholder='Enter Email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
-
-          <Form.Group controlId='password' className='my-2'>
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type='password'
-              placeholder='Enter Password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
-
-          <Form.Group controlId='confirmPassword' className='my-2'>
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              type='password'
-              placeholder='Confirm Password'
-              value={password}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
-
-          <Button type='submit' variant='primary' className='my-4'>
-            Update
+        {/* Edit button to enable editing */}
+        {!isEditing ? (
+          <Button
+            variant='primary'
+            className='my-2'
+            onClick={() => setIsEditing(true)}
+          >
+            Edit Profile
           </Button>
+        ) : (
+          <Form onSubmit={submitHandler}>
+            <Form.Group controlId='name' className='my-2'>
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type='name'
+                placeholder='Enter Name'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
 
-          {loadingUpdateProfile && <Loader />}
-        </Form>
+            <Form.Group controlId='email' className='my-2'>
+              <Form.Label>Email Address</Form.Label>
+              <Form.Control
+                type='email'
+                placeholder='Enter Email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='password' className='my-2'>
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type='password'
+                placeholder='Enter Password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='confirmPassword' className='my-2'>
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control
+                type='password'
+                placeholder='Confirm Password'
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Button type='submit' variant='primary' className='my-4'>
+              Update
+            </Button>
+
+            {loadingUpdateProfile && <Loader />}
+          </Form>
+        )}
       </Col>
       <Col md={9}>
         <h2>My Orders</h2>
