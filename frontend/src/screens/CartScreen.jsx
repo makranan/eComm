@@ -15,6 +15,7 @@ import { FaTrash, FaPlus, FaMinus, FaChevronLeft } from 'react-icons/fa';
 import { BtnGoBack, BtnCount, Message, StyledNumberInput } from '../components';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
 import { LinkContainer } from 'react-router-bootstrap';
+import { createNextState } from '@reduxjs/toolkit';
 
 const CartScreen = () => {
   // eslint-disable-next-line no-unused-vars
