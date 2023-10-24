@@ -3,7 +3,7 @@ import { Table, Form, Button, Row, Col } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { Message, Loader } from '../components';
+import { Message, Loader, FormContainer } from '../components';
 import { useProfileMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { useGetMyOrdersQuery } from '../slices/orderApiSlice';
@@ -55,6 +55,10 @@ const ProfileScreen = () => {
         toast.error(err?.data?.message || err?.error || err);
       }
     }
+  };
+
+  const cancelHandler = () => {
+    setIsEditing(false);
   };
 
   return (
@@ -113,9 +117,22 @@ const ProfileScreen = () => {
               ></Form.Control>
             </Form.Group>
 
-            <Button type='submit' variant='primary' className='my-4'>
-              Update
-            </Button>
+            <Row>
+              <Button type='submit' variant='primary' className='my-2'>
+                Update
+              </Button>
+            </Row>
+
+            <Row>
+              <Button
+                type='button'
+                variant='primary'
+                className='my-2'
+                onClick={cancelHandler}
+              >
+                Cancel
+              </Button>
+            </Row>
 
             {loadingUpdateProfile && <Loader />}
           </Form>
