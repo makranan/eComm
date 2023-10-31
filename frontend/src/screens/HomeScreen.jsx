@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { Row, Col, Offcanvas, Button, Form } from 'react-bootstrap';
 import {
   Product,
@@ -39,6 +39,9 @@ const HomeScreen = () => {
     maxPrice,
     price,
   });
+
+  const { search } = useLocation();
+  const isSearchPage = window.location.pathname.includes('/search');
 
   useEffect(() => {
     if (data && data.products) {
@@ -83,7 +86,9 @@ const HomeScreen = () => {
           {/* <ProductCarousel /> */}
 
           {/* <FilterMenu /> */}
-          <h1>Latest Products</h1>
+
+          {/* <h1>Latest Products</h1> */}
+          <h1>{isSearchPage ? 'Filter Results' : 'Latest Products'}</h1>
           <Row>
             {data.products.map((product) => (
               <Col

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Col, Row, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { FaFacebook, FaGoogle } from 'react-icons/fa';
+import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
+import FacebookLogo from '../assets/FacebookLogo.svg';
+import GoogleLogo from '../assets/GoogleLogo.svg';
 
 const LoginOtherOptions = () => {
   const responseMessage = (response) => {
@@ -32,10 +34,15 @@ const LoginOtherOptions = () => {
           <Link
           // to='/auth/google'
           >
-            <Button className='btn-full-w' variant='danger'>
+            <Button
+              className='btn-full-w'
+              variant='secondary'
+              style={{ border: '1px solid #eaeaea' }}
+            >
               <div className='d-flex justify-content-center align-items-center'>
-                <FaGoogle size={24} style={{ marginRight: '10px' }} /> Sign In
-                with Google
+                {/* <FaGoogle size={24} style={{ marginRight: '10px' }} /> */}
+                <img src={GoogleLogo} alt='Google' className='mx-2' />
+                Sign In with Google
               </div>
             </Button>
           </Link>
@@ -45,10 +52,37 @@ const LoginOtherOptions = () => {
           <Link
           // to='/auth/google'
           >
-            <Button className='btn-full-w' variant='info'>
+            <Button
+              className='btn-full-w'
+              variant='secondary'
+              style={{ border: '1px solid #eaeaea' }}
+            >
               <div className='d-flex justify-content-center align-items-center'>
-                <FaFacebook size={24} style={{ marginRight: '10px' }} /> Sign In
-                with Facebook
+                {/* <FaFacebook size={24} style={{ marginRight: '10px' }} /> */}
+                <img
+                  src={FacebookLogo}
+                  alt='Facebook'
+                  className='mx-2'
+                  style={{ width: '20px' }}
+                />
+                Sign In with Facebook
+              </div>
+            </Button>
+          </Link>
+        </Row>
+
+        <Row className='mt-3'>
+          <Link
+          // to='/auth/google'
+          >
+            <Button
+              className='btn-full-w'
+              variant='secondary'
+              style={{ border: '1px solid #eaeaea' }}
+            >
+              <div className='d-flex justify-content-center align-items-center'>
+                <FaApple size={24} style={{ marginRight: '10px' }} /> Sign In
+                with Apple
               </div>
             </Button>
           </Link>
