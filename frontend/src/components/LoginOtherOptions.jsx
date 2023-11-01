@@ -12,6 +12,9 @@ const LoginOtherOptions = () => {
   const errorMessage = (error) => {
     console.log(error);
   };
+
+  // test
+
   return (
     <Col className='d-flex align-items-center justify-content-center '>
       <Col className='text-center '>
