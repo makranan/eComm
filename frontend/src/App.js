@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { Outlet, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -8,14 +8,44 @@ const App = () => {
   const location = useLocation();
   const isHomeScreen = location.pathname === '/';
   const [isMessageVisible, setMessageVisible] = useState(true);
+  const [isHeaderVisible, setHeaderVisible] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
 
   const closeMessage = () => {
     setMessageVisible(false);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+
+      if (prevScrollPos > currentScrollPos) {
+        // Scrolling up, show the header
+        setHeaderVisible(true);
+      } else {
+        // Scrolling down, hide the header
+        setHeaderVisible(false);
+      }
+
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [prevScrollPos]);
+
   return (
     <>
-      <Header />
+      <div
+        className={`header-wrapper ${
+          isHeaderVisible ? 'visible-header' : 'hidden-header'
+        }`}
+      >
+        <Header />
+      </div>
       <main className='py-3'>
         <Container>
           {isMessageVisible && (

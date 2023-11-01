@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Badge, Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
@@ -11,6 +11,7 @@ import logo from '../assets/logo.svg';
 
 const Header = () => {
   const [show, setShow] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -50,30 +51,81 @@ const Header = () => {
   //   '/placeorder',
   // ].includes(location.pathname);
 
+  useEffect(() => {
+    // Add a window resize event listener to update the window width
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    // Attach the event listener
+    window.addEventListener('resize', handleResize);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const isSmallScreen = windowWidth <= 400;
+
   return (
     <>
       <CheckoutStepsCircles />
       <FilterMenu show={show} onHide={handleClose} />
       <header>
         <Navbar bg='primary' variant='dark' expand='md' collapseOnSelect>
-          <Container>
+          <Container className='d-flex'>
             <LinkContainer to='/'>
               <Navbar.Brand>
                 <img src={logo} alt='Tech World' style={{ height: '2.5rem' }} />{' '}
                 <strong style={{ fontSize: '1rem', fontWeight: '600' }}>
-                  TechWorld
+                  {isSmallScreen ? 'TechWorld' : 'TechWorld'}
                 </strong>
               </Navbar.Brand>
             </LinkContainer>
+
+            <div
+              className='ms-auto'
+              style={{
+                display: window.innerWidth < 768 ? 'flex' : 'none',
+                marginRight: '1rem',
+              }}
+            >
+              <LinkContainer to='/cart'>
+                <Nav.Link className='mb-1'>
+                  <FaShoppingCart
+                    color='white'
+                    style={{ marginRight: '5px' }}
+                  />
+
+                  {/* Cart */}
+                  {cartItems.length > 0 && (
+                    <Badge className='bg-warning' pill>
+                      <span style={{ color: 'black', fontWeight: '900' }}>
+                        {cartItems.reduce((a, c) => a + c.qty, 0)}
+                      </span>
+                    </Badge>
+                  )}
+                </Nav.Link>
+              </LinkContainer>
+            </div>
+
             <Navbar.Toggle aria-controls='basic-navbar-bav' />
             <Navbar.Collapse id='basic-navbar-nav'>
-              <div className='ms-auto'>
+              <div className='ms-auto d-flex justify-content-center'>
                 <SearchBox openSearchHandler={filterMenuHandler} />
               </div>
+
               <Nav className='ms-auto ' navbarScroll>
-                <LinkContainer to='/cart'>
+                <LinkContainer
+                  to='/cart'
+                  style={{
+                    display: window.innerWidth < 768 ? 'none' : 'flex',
+                  }}
+                >
                   <Nav.Link className='mb-1'>
                     <FaShoppingCart style={{ marginRight: '5px' }} />
+                    {/* {isSmallScreen ? '' : 'Cart'} */}
                     Cart
                     {cartItems.length > 0 && (
                       <Badge className='bg-warning' pill>
@@ -84,6 +136,7 @@ const Header = () => {
                     )}
                   </Nav.Link>
                 </LinkContainer>
+
                 {userInfo ? (
                   <NavDropdown
                     title={userInfo.name}

@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
-const customInputStyle = {
-  backgroundColor: '#fff',
-  color: '#000',
-  padding: '10px',
-  border: '1px solid #ccc',
-  borderRadius: '5px',
-  width: 'auto',
-  // maxWidth: 'calc(50% - 5px)',
-  textAlign: 'center',
-  position: 'relative',
-  display: 'flex',
-  alignItems: 'center',
-};
+// const customInputStyle = {
+//   backgroundColor: '#fff',
+//   color: '#000',
+//   padding: window.innerWidth >= 400 ? '10px' : '0px',
+//   border: '1px solid #ccc',
+//   borderRadius: '5px',
+//   width: 'auto',
+//   textAlign: 'center',
+//   position: 'relative',
+//   display: 'flex',
+//   alignItems: 'center',
+// };
 
 const inputStyle = {
   flex: 1,
@@ -35,6 +34,9 @@ const buttonStyle = {
 
 function StyledNumberInput({ value, onChange, min, max }) {
   const [inputValue, setInputValue] = useState(value.toString());
+  const [padding, setPadding] = useState(
+    window.innerWidth >= 400 ? '10px' : '0px'
+  );
 
   const handleInputChange = (event) => {
     const newValue = event.target.value;
@@ -69,8 +71,33 @@ function StyledNumberInput({ value, onChange, min, max }) {
     onChange(newValue);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setPadding(window.innerWidth >= 400 ? '10px' : '0px');
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
-    <div style={customInputStyle}>
+    <div
+      style={{
+        backgroundColor: '#fff',
+        padding,
+        border: '1px solid #ccc',
+        borderRadius: '5px',
+        width: 'auto',
+        textAlign: 'center',
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        minWidth: '130px',
+      }}
+    >
       <Button
         type='button'
         onClick={decrementValue}

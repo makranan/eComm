@@ -217,7 +217,7 @@ const Product = ({ product, value, text }) => {
               onClick={() => setShowAddToCart(false)}
             />
 
-            <MdOutlineAddShoppingCart size={40} color='white' />
+            <MdOutlineAddShoppingCart size={60} color='white' />
 
             <h5 className='text-center px-5 my-4' style={{ color: 'white' }}>
               {qty === 1 ? 'Add item to cart' : "Add item's to cart"}

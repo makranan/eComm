@@ -25,6 +25,7 @@ const BtnGoBack = () => {
     <button
       className='d-flex align-items-center btn-light btn my-3'
       onClick={handleGoBack}
+      style={{ border: '1px solid #eaeaea' }}
     >
       <FaChevronLeft /> &nbsp;Go Back
     </button>
