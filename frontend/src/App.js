@@ -8,44 +8,17 @@ const App = () => {
   const location = useLocation();
   const isHomeScreen = location.pathname === '/';
   const [isMessageVisible, setMessageVisible] = useState(true);
-  const [isHeaderVisible, setHeaderVisible] = useState(true);
-  const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
 
   const closeMessage = () => {
     setMessageVisible(false);
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-
-      if (prevScrollPos > currentScrollPos) {
-        // Scrolling up, show the header
-        setHeaderVisible(true);
-      } else {
-        // Scrolling down, hide the header
-        setHeaderVisible(false);
-      }
-
-      setPrevScrollPos(currentScrollPos);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [prevScrollPos]);
-
   return (
     <>
-      <div
-        className={`header-wrapper ${
-          isHeaderVisible ? 'visible-header' : 'hidden-header'
-        }`}
-      >
-        <Header />
-      </div>
+      <Header />
+
+      {/* {isHomeScreen && <HeaderSwiper />} */}
+
       <main className='py-3'>
         <Container>
           {isMessageVisible && (
@@ -70,7 +43,6 @@ const App = () => {
             </Message>
           )}
 
-          {/* {isHomeScreen && <HeaderSwiper />} */}
           <Outlet />
         </Container>
       </main>

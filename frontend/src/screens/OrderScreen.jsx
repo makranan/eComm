@@ -205,7 +205,11 @@ const OrderScreen = () => {
         </Col>
 
         <Col md={4}>
-          <Card>
+          <Card
+            style={{
+              boxShadow: '0px -5px 15px rgba(0, 0, 0, 0.1)',
+            }}
+          >
             <ListGroup variant='flush'>
               <ListGroup.Item>
                 <h2 className='pt-2'>Order Summary:</h2>

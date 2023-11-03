@@ -73,7 +73,7 @@ const Header = () => {
       <CheckoutStepsCircles />
       <FilterMenu show={show} onHide={handleClose} />
       <header>
-        <Navbar bg='primary' variant='dark' expand='md' collapseOnSelect>
+        <Navbar bg='primary' variant='dark' expand='md' fixed='true'>
           <Container className='d-flex'>
             <LinkContainer to='/'>
               <Navbar.Brand>
@@ -96,12 +96,19 @@ const Header = () => {
                   <FaShoppingCart
                     color='white'
                     style={{ marginRight: '5px' }}
+                    size={20}
                   />
 
                   {/* Cart */}
                   {cartItems.length > 0 && (
                     <Badge className='bg-warning' pill>
-                      <span style={{ color: 'black', fontWeight: '900' }}>
+                      <span
+                        style={{
+                          color: 'black',
+                          fontWeight: '900',
+                          fontSize: '1rem',
+                        }}
+                      >
                         {cartItems.reduce((a, c) => a + c.qty, 0)}
                       </span>
                     </Badge>

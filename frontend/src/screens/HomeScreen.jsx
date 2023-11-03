@@ -81,7 +81,7 @@ const HomeScreen = () => {
         </Message>
       ) : (
         <>
-          {(keyword || category || brand) && <BtnGoBack />}
+          {(keyword || category || brand || price) && <BtnGoBack />}
 
           {/* <ProductCarousel /> */}
 
@@ -89,21 +89,25 @@ const HomeScreen = () => {
 
           {/* <h1>Latest Products</h1> */}
           <h1>{isSearchPage ? 'Filter Results' : 'Latest Products'}</h1>
-          <Row>
-            {data.products.map((product) => (
-              <Col
-                key={product._id}
-                xs={12}
-                sm={6}
-                md={6}
-                lg={4}
-                xl={3}
-                xxl={2}
-              >
-                <Product product={product} />
-              </Col>
-            ))}
-          </Row>
+          {data.products.length === 0 ? (
+            <Message variant='info'>No products found.</Message>
+          ) : (
+            <Row>
+              {data.products.map((product) => (
+                <Col
+                  key={product._id}
+                  xs={12}
+                  sm={6}
+                  md={6}
+                  lg={4}
+                  xl={3}
+                  xxl={2}
+                >
+                  <Product product={product} />
+                </Col>
+              ))}
+            </Row>
+          )}
           <Paginate
             pageSize={pageSize}
             setPageSize={setPageSize}

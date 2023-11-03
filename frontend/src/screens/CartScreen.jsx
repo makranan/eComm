@@ -11,7 +11,7 @@ import {
   Button,
   Card,
 } from 'react-bootstrap';
-import { FaTrash, FaPlus, FaMinus, FaChevronLeft } from 'react-icons/fa';
+import { FaTrash, FaChevronLeft } from 'react-icons/fa';
 import {
   BtnGoBack,
   BtnCount,
@@ -164,7 +164,7 @@ const CartScreen = () => {
                             <h4>${item.price}</h4>
                           </Col>
 
-                          <Col md={2} xs={3} className='text-end'>
+                          <Col md={3} xs={3} className='text-end'>
                             <Button
                               type='button'
                               variant='danger'
@@ -315,74 +315,77 @@ const CartScreen = () => {
           </Col>
         </Row>
 
-        <Col className='pt-4'>
-          <Card
-            style={{
-              boxShadow: '0px -10px 10px rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            <ListGroup variant='flush'>
-              <ListGroup.Item>
-                <Row className='d-flex align-items-center'>
-                  <Col
-                    md={5}
-                    sm={6}
-                    xs={6}
-                    style={{
-                      verticalAlign: 'center',
-                      padding: '0px',
-                      marginTop: '10px',
-                    }}
-                  >
-                    <h5 style={{ marginLeft: '10px' }}>
-                      Subtotal:
-                      {/* Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}
+        <Row>
+          <Col></Col>
+          <Col xs={12} md={8} lg={6} className='pt-4'>
+            <Card
+              style={{
+                boxShadow: '0px -10px 10px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              <ListGroup variant='flush'>
+                <ListGroup.Item>
+                  <Row className='d-flex align-items-center'>
+                    <Col
+                      md={5}
+                      sm={6}
+                      xs={6}
+                      style={{
+                        verticalAlign: 'center',
+                        padding: '0px',
+                        marginTop: '10px',
+                      }}
+                    >
+                      <h5 style={{ marginLeft: '10px' }}>
+                        Subtotal:
+                        {/* Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}
                         ) items */}
-                    </h5>
-                  </Col>
+                      </h5>
+                    </Col>
 
-                  <Col
-                    md={7}
-                    sm={6}
-                    xs={6}
-                    className='text-end'
-                    style={{
-                      verticalAlign: 'center',
-                      padding: '0px',
-                      marginTop: '10px',
-                    }}
-                  >
-                    <h2 style={{ fontSize: '1.5rem' }}>
-                      $
-                      {cartItems
-                        .reduce((acc, item) => acc + item.qty * item.price, 0)
-                        .toFixed(2)}
-                    </h2>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item className='no-pd-mr'>
-                <Button
-                  type='button'
-                  className='btn-block btn-lg btn-full-w'
-                  disabled={cartItems.length === 0}
-                  onClick={checkoutHandler}
-                >
-                  Proceed to Checkout
-                </Button>
-                <LinkContainer to='/'>
+                    <Col
+                      md={7}
+                      sm={6}
+                      xs={6}
+                      className='text-end'
+                      style={{
+                        verticalAlign: 'center',
+                        padding: '0px',
+                        marginTop: '10px',
+                      }}
+                    >
+                      <h2 style={{ fontSize: '1.5rem' }}>
+                        $
+                        {cartItems
+                          .reduce((acc, item) => acc + item.qty * item.price, 0)
+                          .toFixed(2)}
+                      </h2>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item className='no-pd-mr'>
                   <Button
                     type='button'
-                    variant='light'
                     className='btn-block btn-lg btn-full-w'
+                    disabled={cartItems.length === 0}
+                    onClick={checkoutHandler}
                   >
-                    <FaChevronLeft /> Continue Shopping
+                    Proceed to Checkout
                   </Button>
-                </LinkContainer>
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
-        </Col>
+                  <LinkContainer to='/'>
+                    <Button
+                      type='button'
+                      variant='light'
+                      className='btn-block btn-lg btn-full-w'
+                    >
+                      <FaChevronLeft /> Continue Shopping
+                    </Button>
+                  </LinkContainer>
+                </ListGroup.Item>
+              </ListGroup>
+            </Card>
+          </Col>
+        </Row>
       </FormContainer>
     </>
   );

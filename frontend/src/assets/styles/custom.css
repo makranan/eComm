@@ -411,11 +411,6 @@ input:-webkit-autofill:focus {
   background: #f7f7f9;
 }
 
-.visible-header {
-  transition: transform 0.3s;
-  transform: translateY(0);
-}
-
-.hidden-header {
-  transform: translateY(-100%);
+.navbar {
+  padding: 0.3rem;
 }

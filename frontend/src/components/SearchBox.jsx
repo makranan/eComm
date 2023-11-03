@@ -48,7 +48,7 @@ const SearchBox = ({ openSearchHandler }) => {
   };
 
   return (
-    <div style={{ width: 'auto' }}>
+    <div style={{ width: 'auto', position: 'relative' }}>
       <Form onSubmit={submitHandler} className={`d-flex`}>
         <div className='input-group'>
           <Form.Control
@@ -67,7 +67,7 @@ const SearchBox = ({ openSearchHandler }) => {
               className='p-2'
               onClick={openSearchHandler}
               style={{
-                transform: 'translate(-45px, 4px)',
+                transform: 'translate(-55px, 4px)',
                 // background: 'red',
                 zIndex: '100',
               }}
@@ -82,7 +82,8 @@ const SearchBox = ({ openSearchHandler }) => {
           variant='secondary'
           // className='p-2 mx-2'
           style={{
-            transform: 'translateX(-40px)',
+            position: 'absolute',
+            right: '-20px', // Adjust this value as needed
             zIndex: '100',
             boxShadow: '-10px 0px 10px rgba(0, 0, 0, 0.3)',
           }}
