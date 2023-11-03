@@ -73,12 +73,27 @@ const Header = () => {
       <CheckoutStepsCircles />
       <FilterMenu show={show} onHide={handleClose} />
       <header>
-        <Navbar bg='primary' variant='dark' expand='md' fixed='true'>
+        <Navbar
+          bg='primary'
+          variant='dark'
+          expand='md'
+          fixed='true'
+          style={{ paddingTop: '5px' }}
+        >
           <Container className='d-flex'>
             <LinkContainer to='/'>
               <Navbar.Brand>
-                <img src={logo} alt='Tech World' style={{ height: '2.5rem' }} />{' '}
-                <strong style={{ fontSize: '1rem', fontWeight: '600' }}>
+                <img
+                  src={logo}
+                  alt='Tech World'
+                  style={{ height: isSmallScreen ? '1.5rem' : '2.5rem' }}
+                />{' '}
+                <strong
+                  style={{
+                    fontSize: isSmallScreen ? '0.7rem' : '1rem',
+                    fontWeight: '600',
+                  }}
+                >
                   {isSmallScreen ? 'TechWorld' : 'TechWorld'}
                 </strong>
               </Navbar.Brand>
