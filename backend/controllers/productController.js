@@ -53,6 +53,13 @@ const getProducts = asyncHandler(async (req, res) => {
     };
   }
 
+  console.log('Min price:', req.query.minPrice);
+  console.log('Max price:', req.query.maxPrice);
+
+  // ...
+
+  console.log('Filters:', filters);
+
   // Perform filtering logic here
 
   const count = await Product.countDocuments({

@@ -39,7 +39,7 @@ const Header = () => {
   };
 
   const customDropdownStyle = {
-    transform: 'translateX(-20%)', // Shift 20% to the left
+    transform: 'translateX(-20%)',
   };
 
   // Conditionally render CheckoutStepsCircles based on the current route
@@ -77,7 +77,6 @@ const Header = () => {
           bg='primary'
           variant='dark'
           expand='md'
-          fixed='true'
           style={{ paddingTop: '5px' }}
         >
           <Container className='d-flex'>

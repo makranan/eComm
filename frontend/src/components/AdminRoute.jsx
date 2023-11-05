@@ -1,10 +1,11 @@
+import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import React from 'react';
+// This code ensures that only admins can access the admin dashboard.
 
 const AdminRoute = () => {
-  const { userInfo } = useSelector(state => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
 
   return userInfo && userInfo.isAdmin ? (
     <Outlet />

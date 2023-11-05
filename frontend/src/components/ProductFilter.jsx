@@ -216,10 +216,12 @@ const ProductFilter = ({ onFilter }) => {
 
   const handleMinPriceChange = (value) => {
     setMinPrice(value);
+    setPrice([value, price[1]]);
   };
 
   const handleMaxPriceChange = (value) => {
     setMaxPrice(value);
+    setPrice([price[0], value]);
   };
 
   const renderSubcategories = (
