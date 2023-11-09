@@ -14,15 +14,15 @@ const Paginate = ({
   brand = '',
 }) => {
   const scrollToTop = () => {
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: 'instant',
-    // });
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant',
+    });
   };
 
-  // useEffect(() => {
-  //   window.scrollTo({ top: 0, behavior: 'instant' });
-  // }, [page]);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [page]);
 
   // Memoize the array of page numbers
   const pageNumbers = useMemo(() => [...Array(pages).keys()], [pages]);

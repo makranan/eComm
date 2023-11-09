@@ -9,6 +9,7 @@ import 'swiper/css/navigation';
 import '../assets/styles/swiper.css';
 import { Autoplay, Navigation } from 'swiper/modules';
 import { Loader } from './';
+import Skeleton from 'react-loading-skeleton';
 
 const HeaderSwiper = () => {
   const [loading, setLoading] = useState(true);
@@ -16,6 +17,9 @@ const HeaderSwiper = () => {
   const handleImageLoad = () => {
     setLoading(false);
   };
+
+  const skeletonHeight = '100%';
+  const skeletonWidth = '100%';
 
   return (
     <div className='unselectable'>
@@ -35,27 +39,15 @@ const HeaderSwiper = () => {
         className='mb-3 '
       >
         <SwiperSlide>
-          {loading && (
-            <div
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}
-            >
-              <>
-                <Loader />
-                <h6>Loading ...</h6>
-              </>
-            </div>
+          {loading ? (
+            <Skeleton />
+          ) : (
+            <img
+              src='/images/carousel/slide1.svg'
+              alt=''
+              onLoad={handleImageLoad}
+            />
           )}
-
-          <img
-            src='/images/carousel/slide1.svg'
-            alt=''
-            onLoad={handleImageLoad}
-          />
         </SwiperSlide>
         <SwiperSlide>
           {loading && (

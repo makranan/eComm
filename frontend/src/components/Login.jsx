@@ -119,8 +119,14 @@ const Login = ({ onForgotPassword }) => {
 
           <Row className='mt-2'>
             <Col xs={6}>
-              <Button type='submit' variant='primary' disabled={isLoading}>
-                Sign In
+              <Button
+                type='submit'
+                variant='primary'
+                className='custom-button'
+                style={{ backgroundColor: '#3d3a4e' }}
+                disabled={isLoading}
+              >
+                <span className='custom-button-content '>Sign In</span>
               </Button>
             </Col>
             {/* <Col xs={4}>
@@ -130,7 +136,13 @@ const Login = ({ onForgotPassword }) => {
               <Link
                 to={redirect ? `/register?redirect=${redirect}` : '/register'}
               >
-                <Button variant='primary'>Register</Button>
+                <Button
+                  variant='primary'
+                  className='custom-button'
+                  style={{ backgroundColor: '#3d3a4e' }}
+                >
+                  <span className='custom-button-content'>Register</span>
+                </Button>
               </Link>
             </Col>
           </Row>

@@ -13,18 +13,23 @@ import {
 } from '../components';
 import PageSizeDropdown from '../components/PageSizeDropdown';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
+import Skeleton from 'react-loading-skeleton';
 
-const HomeScreen = () => {
-  const [pageSize, setPageSize] = useState(() => {
-    // Initialize with the pageSize value from localStorage, or a default value if it doesn't exist
-    return sessionStorage.getItem('pageSize') || '24';
+const useSessionStorage = (key, initialValue) => {
+  const [storedValue, setStoredValue] = useState(() => {
+    const item = window.sessionStorage.getItem(key);
+    return item ? JSON.parse(item) : initialValue;
   });
 
-  // When the pageSize changes, update it in localStorage
   useEffect(() => {
-    sessionStorage.setItem('pageSize', pageSize);
-  }, [pageSize]);
+    window.sessionStorage.setItem(key, JSON.stringify(storedValue));
+  }, [key, storedValue]);
 
+  return [storedValue, setStoredValue];
+};
+
+const HomeScreen = () => {
+  const [pageSize, setPageSize] = useSessionStorage('pageSize', '24');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('');
   const { keyword, pageNumber, category, brand, minPrice, maxPrice, price } =
@@ -68,12 +73,29 @@ const HomeScreen = () => {
   //   setSelectedBrand(selectedBrand);
   // };
 
+  const skeletonWidth = '100%';
+
   return (
     <>
+      {(keyword || category || brand || price) && (
+        <BtnGoBack className='mb-4' />
+      )}
+      <h4>{isSearchPage ? 'Filter Results' : 'Latest Products'}</h4>
       {isLoading ? (
         <div className='text-center'>
-          <Loader />
-          <h6>Loading ...</h6>
+          {/* <Loader />
+          <h6>Loading ...</h6> */}
+          <Row>
+            {Array.from({ length: 12 }).map((_, index) => (
+              <Col key={index} xs={12} sm={6} md={6} lg={4} xl={3} xxl={2}>
+                <div className='product-skeleton my-2'>
+                  <Skeleton width={skeletonWidth} height={340} />
+                  <Skeleton width={skeletonWidth} height={50} />
+                  <Skeleton width={skeletonWidth} height={50} />
+                </div>
+              </Col>
+            ))}
+          </Row>
         </div>
       ) : error ? (
         <Message variant='danger'>
@@ -81,14 +103,11 @@ const HomeScreen = () => {
         </Message>
       ) : (
         <>
-          {(keyword || category || brand || price) && <BtnGoBack />}
-
           {/* <ProductCarousel /> */}
 
           {/* <FilterMenu /> */}
 
           {/* <h1>Latest Products</h1> */}
-          <h1>{isSearchPage ? 'Filter Results' : 'Latest Products'}</h1>
           {data.products.length === 0 ? (
             <Message variant='info'>No products found.</Message>
           ) : (

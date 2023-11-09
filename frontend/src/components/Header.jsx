@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Badge, Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import {
+  Badge,
+  Navbar,
+  Nav,
+  Container,
+  NavDropdown,
+  Row,
+  Col,
+} from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
+import { IoMdCart } from 'react-icons/io';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 import { LinkContainer } from 'react-router-bootstrap';
-import { CheckoutStepsCircles, SearchBox, FilterMenu } from '.';
+import { CheckoutStepsCircles, SearchBox, FilterMenu, FormContainer } from '.';
 import logo from '../assets/logo.svg';
 
 const Header = () => {
@@ -39,7 +48,11 @@ const Header = () => {
   };
 
   const customDropdownStyle = {
-    transform: 'translateX(-20%)',
+    transform: 'translateX(-80px)',
+  };
+
+  const customUserStyle = {
+    transform: 'translateX(80px)',
   };
 
   // Conditionally render CheckoutStepsCircles based on the current route
@@ -70,21 +83,20 @@ const Header = () => {
 
   return (
     <>
-      <CheckoutStepsCircles />
       <FilterMenu show={show} onHide={handleClose} />
       <header>
         <Navbar
-          bg='primary'
-          variant='dark'
-          expand='md'
-          style={{ paddingTop: '5px' }}
+          bg='secondary'
+          variant='light'
+          // expand='md'
+          style={{ paddingTop: '5px', borderBottom: '2px solid #e0e0e0' }}
         >
           <Container className='d-flex'>
             <LinkContainer to='/'>
               <Navbar.Brand>
                 <img
                   src={logo}
-                  alt='Tech World'
+                  alt='TechWorld'
                   style={{ height: isSmallScreen ? '1.5rem' : '2.5rem' }}
                 />{' '}
                 <strong
@@ -98,59 +110,26 @@ const Header = () => {
               </Navbar.Brand>
             </LinkContainer>
 
-            <div
-              className='ms-auto'
-              style={{
-                display: window.innerWidth < 768 ? 'flex' : 'none',
-                marginRight: '1rem',
-              }}
-            >
-              <LinkContainer to='/cart'>
-                <Nav.Link className='mb-1'>
-                  <FaShoppingCart
-                    color='white'
-                    style={{ marginRight: '5px' }}
-                    size={20}
-                  />
-
-                  {/* Cart */}
-                  {cartItems.length > 0 && (
-                    <Badge className='bg-warning' pill>
-                      <span
-                        style={{
-                          color: 'black',
-                          fontWeight: '900',
-                          fontSize: '1rem',
-                        }}
-                      >
-                        {cartItems.reduce((a, c) => a + c.qty, 0)}
-                      </span>
-                    </Badge>
-                  )}
-                </Nav.Link>
-              </LinkContainer>
-            </div>
-
             <Navbar.Toggle aria-controls='basic-navbar-bav' />
             <Navbar.Collapse id='basic-navbar-nav'>
               <div className='ms-auto d-flex justify-content-center'>
-                <SearchBox openSearchHandler={filterMenuHandler} />
-              </div>
-
-              <Nav className='ms-auto ' navbarScroll>
-                <LinkContainer
-                  to='/cart'
+                <SearchBox
+                  openSearchHandler={filterMenuHandler}
                   style={{
                     display: window.innerWidth < 768 ? 'none' : 'flex',
                   }}
-                >
+                />
+              </div>
+
+              <Nav className='ms-auto ' navbarScroll>
+                <LinkContainer to='/cart'>
                   <Nav.Link className='mb-1'>
-                    <FaShoppingCart style={{ marginRight: '5px' }} />
+                    <IoMdCart size={20} style={{ marginRight: '0px' }} />
                     {/* {isSmallScreen ? '' : 'Cart'} */}
-                    Cart
+                    {/* Cart */}
                     {cartItems.length > 0 && (
-                      <Badge className='bg-warning' pill>
-                        <span style={{ color: 'black', fontWeight: '900' }}>
+                      <Badge className='bg-info' pill>
+                        <span style={{ color: 'white', fontWeight: '900' }}>
                           {cartItems.reduce((a, c) => a + c.qty, 0)}
                         </span>
                       </Badge>
@@ -160,7 +139,7 @@ const Header = () => {
 
                 {userInfo ? (
                   <NavDropdown
-                    title={userInfo.name}
+                    title={<FaUser size={16} />}
                     id='username'
                     drop='down-centered'
                   >
@@ -174,7 +153,8 @@ const Header = () => {
                 ) : (
                   <LinkContainer to='/login'>
                     <Nav.Link>
-                      <FaUser /> &nbsp; Sign In
+                      <FaUser />
+                      {/* &nbsp; Sign In */}
                     </Nav.Link>
                   </LinkContainer>
                 )}
@@ -200,6 +180,7 @@ const Header = () => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
+        <CheckoutStepsCircles />
       </header>
     </>
   );

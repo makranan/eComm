@@ -16,10 +16,12 @@ import {
   FaMinus,
   FaTimes,
   FaCheckSquare,
+  FaCheck,
 } from 'react-icons/fa';
 import { MdOutlineAddShoppingCart } from 'react-icons/md';
 import { StyledNumberInput, BtnCount } from './';
 import { toast } from 'react-toastify';
+import Skeleton from 'react-loading-skeleton';
 
 const Product = ({ product, value, text }) => {
   // const { id: productId } = useParams();
@@ -212,14 +214,14 @@ const Product = ({ product, value, text }) => {
             }`}
           >
             <FaTimes
-              style={{ backgroundColor: 'transparent', color: '#ffffff' }}
+              style={{ backgroundColor: 'transparent' }}
               className='fatimes-position'
               onClick={() => setShowAddToCart(false)}
             />
 
-            <MdOutlineAddShoppingCart size={60} color='white' />
+            <MdOutlineAddShoppingCart size={60} className='card-circle' />
 
-            <h5 className='text-center px-5 my-4' style={{ color: 'white' }}>
+            <h5 className='text-center px-5 my-4'>
               {qty === 1 ? 'Add item to cart' : "Add item's to cart"}
             </h5>
 
@@ -246,12 +248,13 @@ const Product = ({ product, value, text }) => {
               decreaseIcon={<FaMinus />}
             /> */}
             <Button
-              className='my-3'
-              bg='info'
-              variant='info'
+              className='custom-button'
+              // bg='info'
+              // variant='info'
+              style={{ background: '#3d3a4e' }}
               onClick={addToCartHandler}
             >
-              Add
+              <span className='custom-button-content'>Add</span>
             </Button>
           </div>
         )}
@@ -262,25 +265,34 @@ const Product = ({ product, value, text }) => {
               showAdditionalContent ? 'show-additional-content' : ''
             }`}
           >
-            <FaTimes
+            {/* <FaTimes
               style={{ color: '#ffffff', cursor: 'pointer' }}
               className='fatimes-position'
               onClick={() => setShowSuccessCard(false)}
-            />
-            <FaCheckSquare size={52} color='lightgreen' />
+            /> */}
+            <FaCheck size={52} color='#35ad3f' className='card-circle' />
             {/* {successImageLoaded && (
             <img src={successSvg} alt='Success' className='svg-success' />
           )} */}
 
-            <h5 className='text-center px-5 my-4' style={{ color: '#ffffff' }}>
+            <h5
+              className='text-center px-5 my-4'
+              style={{ fontWeight: 'bold' }}
+            >
               {qty === 1
                 ? 'Item added successfully'
                 : "Item's added successfully"}
             </h5>
 
             <Link to='/cart'>
-              <Button type='button' variant='info' bg='info'>
-                Go to Cart
+              <Button
+                type='button'
+                // variant='info'
+                // bg='info'
+                style={{ background: '#3d3a4e' }}
+                className='custom-button'
+              >
+                <span className='custom-button-content'>Go to Cart</span>
               </Button>
             </Link>
           </div>
@@ -354,7 +366,7 @@ const Product = ({ product, value, text }) => {
               }}
             />
           </Card.Text>
-          <Row className='d-flex align-items-center'>
+          <Row className='d-flex align-items-center mt-3'>
             <Col lg={6} md={7} sm={7} xs={6}>
               <Card.Text as='h4' style={{ marginTop: '10px' }}>
                 <div
@@ -381,7 +393,7 @@ const Product = ({ product, value, text }) => {
                 </div>
               </Card.Text>
             </Col>
-            <Col>
+            <Col lg={6} md={5} sm={5} xs={6}>
               <div
                 className='text-end'
                 style={{ transform: 'translateX(2px)' }}
@@ -393,16 +405,23 @@ const Product = ({ product, value, text }) => {
                 <Button
                   type='button'
                   aria-label='add-to-cart'
-                  className='btn-sm'
+                  className='custom-button'
                   style={
                     showAddToCart || showDeleteCard || showSuccessCard
-                      ? { display: 'none' }
-                      : { display: 'inline' }
+                      ? { opacity: '0' }
+                      : product.countInStock === 0
+                      ? { backgroundColor: 'gray', color: 'white' }
+                      : {
+                          background: '#3d3a4e',
+                        }
                   }
                   onClick={() => toggleAddToCard()}
                   disabled={product.countInStock === 0}
                 >
-                  <MdOutlineAddShoppingCart size={20} />
+                  <MdOutlineAddShoppingCart
+                    className='custom-button-content'
+                    size={20}
+                  />
                 </Button>
               </div>
             </Col>

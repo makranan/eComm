@@ -135,7 +135,7 @@ const ProductDetails = () => {
       )}
 
       <div className='d-flex justify-content-between align-items-center'>
-        <BtnGoBack className='btn btn-primary my-3' to='/' />
+        <BtnGoBack />
 
         {userInfo && userInfo.isAdmin && (
           <Col md={4} className='text-end'>

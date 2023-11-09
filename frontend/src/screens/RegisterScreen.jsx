@@ -140,6 +140,7 @@ const RegisterScreen = () => {
         <Form.Group controlId='acceptTerms' className='my-4'>
           <Form.Check
             type='checkbox'
+            className='checkbox-wrapper'
             label={
               <>
                 <span style={{ color: 'red' }}>*</span> Accept our{' '}

@@ -1,9 +1,13 @@
-import { LineWave } from 'react-loader-spinner';
+// import { LineWave } from 'react-loader-spinner';
+import '../assets/styles/loader.css';
 
-const Loader = () => {
+const Loader = ({ className }) => {
   return (
-    <div className='svg-center'>
-      <LineWave
+    <div
+      className={`d-flex justify-content-center align-items-center ${className}`}
+    >
+      <div className='loader'>
+        {/* <LineWave
         height='100'
         width='100'
         color='#077bf7'
@@ -14,7 +18,8 @@ const Loader = () => {
         firstLineColor=''
         middleLineColor=''
         lastLineColor=''
-      />
+      /> */}
+      </div>
     </div>
   );
 };

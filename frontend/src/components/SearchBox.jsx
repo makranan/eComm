@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaSearch, FaSlidersH } from 'react-icons/fa';
 
-const SearchBox = ({ openSearchHandler }) => {
+const SearchBox = ({ openSearchHandler, style }) => {
   const navigate = useNavigate();
   const { keyword: urlKeyword } = useParams();
 
@@ -48,48 +48,56 @@ const SearchBox = ({ openSearchHandler }) => {
   };
 
   return (
-    <div style={{ width: 'auto', position: 'relative' }}>
-      <Form onSubmit={submitHandler} className={`d-flex`}>
+    <div
+      style={{
+        width: 'auto',
+        height: '100%',
+        position: 'relative',
+        margin: '0',
+        ...style,
+      }}
+    >
+      <Form onSubmit={submitHandler} className={`d-flex align-items-center`}>
         <div className='input-group'>
+          <Button
+            type='button'
+            variant='outline-secondary'
+            // className='p-2'
+            onClick={openSearchHandler}
+            style={{
+              // transform: 'translate(-55px, 4px)',
+              // background: 'red',
+              border: 'none',
+              zIndex: '100',
+            }}
+          >
+            <FaSlidersH style={{ fontSize: '1rem' }} />
+          </Button>
+
           <Form.Control
             type='text'
             name='keyword'
             onChange={(e) => setKeyword(e.target.value)}
             value={keyword}
             placeholder='Search...'
-            className='mr-sm-2 ml-sm-5'
+            // className='mr-sm-2 ml-sm-5'
           />
 
-          <div className='input-group-append'>
-            <Button
-              type='button'
-              variant='primary'
-              className='p-2'
-              onClick={openSearchHandler}
-              style={{
-                transform: 'translate(-55px, 4px)',
-                // background: 'red',
-                zIndex: '100',
-              }}
-            >
-              <FaSlidersH style={{ fontSize: '1rem' }} />
-            </Button>
-          </div>
+          <Button
+            type='submit'
+            variant='outline-secondary'
+            // className='p-2 mx-2'
+            style={{
+              // position: 'absolute',
+              // right: '-20px', // Adjust this value as needed
+              border: 'none',
+              zIndex: '100',
+              // boxShadow: '-10px 0px 10px rgba(0, 0, 0, 0.3)',
+            }}
+          >
+            <FaSearch style={{ fontSize: '1rem' }} />
+          </Button>
         </div>
-
-        <Button
-          type='submit'
-          variant='secondary'
-          // className='p-2 mx-2'
-          style={{
-            position: 'absolute',
-            right: '-20px', // Adjust this value as needed
-            zIndex: '100',
-            boxShadow: '-10px 0px 10px rgba(0, 0, 0, 0.3)',
-          }}
-        >
-          <FaSearch style={{ fontSize: '1rem' }} />
-        </Button>
       </Form>
     </div>
   );

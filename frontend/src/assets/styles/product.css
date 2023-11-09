@@ -1,6 +1,6 @@
 :root {
-  --dark-background-blurred: rgba(58, 58, 58, 0.7);
-  --dark-background-blur: blur(1px);
+  --dark-background-blurred: rgba(255, 255, 255, 0.8);
+  --dark-background-blur: blur(4px);
   --child-scale: scale(1);
 }
 

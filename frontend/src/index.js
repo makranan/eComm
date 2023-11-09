@@ -37,10 +37,11 @@ import {
 } from './screens/admin';
 import { PrivateRoute, AdminRoute } from './components';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import './assets/styles/bootstrap.custom.css';
+// import 'bootstrap/dist/css/bootstrap.css';
+// import './assets/styles/bootstrap.custom.css';
 import 'react-toastify/dist/ReactToastify.css';
 // import 'bootswatch/dist/lux/bootstrap.min.css';
+import 'react-loading-skeleton/dist/skeleton.css';
 import './assets/styles/lux.css';
 
 import './assets/styles/index.css';
