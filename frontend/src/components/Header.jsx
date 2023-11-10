@@ -10,7 +10,7 @@ import {
   Col,
 } from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
-import { GrUserAdmin } from 'react-icons/gr';
+import { MdAdminPanelSettings } from 'react-icons/md';
 import { IoMdCart } from 'react-icons/io';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLogoutMutation } from '../slices/usersApiSlice';
@@ -161,7 +161,7 @@ const Header = () => {
                 )}
                 {userInfo && userInfo.isAdmin && (
                   <NavDropdown
-                    title={<GrUserAdmin size={18} />}
+                    title={<MdAdminPanelSettings size={18} />}
                     id='adminmenu'
                     drop='down-centered'
                   >

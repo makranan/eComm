@@ -35,9 +35,9 @@ h1 {
   margin-top: 0;
 }
 
-.add-to-cart-btn {
+/* .custom-button {
   box-shadow: 5px 5px 10px #8b8b8b, -5px -5px 10px #e2e2e2;
-}
+} */
 
 .custom-button {
   position: relative;
@@ -45,13 +45,12 @@ h1 {
   height: 3rem;
   padding: 0 2rem;
   border-radius: 0.5rem;
-  background: #3d3a4e;
   background-size: 400%;
   color: #fff;
   border: none;
 }
 
-.add-to-cart-btn {
+.custom-button {
   background: #3d3a4e;
 }
 
@@ -70,7 +69,7 @@ h1 {
   top: 0;
   left: 0;
   transform: scaleX(0);
-  transform-origin: 0 50%;
+  transform-origin: 50% 0;
   width: 100%;
   height: inherit;
   border-radius: inherit;
@@ -226,9 +225,9 @@ h1 {
   border-radius: 0 0 5px 5px;
 }
 
-.card .btn-full-w:hover {
+/* .card .btn-full-w:hover {
   background: #007bff;
-}
+} */
 
 .filter-btn {
   position: fixed;
@@ -540,3 +539,15 @@ input[type='color']:focus,
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(0, 0, 0, 0.6);
   outline: 0 none;
 } */
+
+.hidden {
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.text-white-hover {
+  background: #fff;
+}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Outlet, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -17,7 +17,7 @@ const App = () => {
     <>
       <Header />
 
-      {isHomeScreen && <HeaderSwiper />}
+      {/* {isHomeScreen && <HeaderSwiper />} */}
 
       <main className='py-3'>
         <Container>

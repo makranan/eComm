@@ -169,16 +169,17 @@ const Product = ({ product, value, text }) => {
             }`}
           >
             <FaTimes
-              style={{ color: '#ffffff', cursor: 'pointer' }}
+              style={{ cursor: 'pointer' }}
               className='fatimes-position'
               onClick={() => setShowDeleteCard(false)}
             />
             <h5
               style={{
                 // backgroundColor: 'white',
-                color: '#ffffff',
+                // color: '#ffffff',
                 padding: '10px',
                 borderRadius: '5px',
+                fontWeight: 'bold',
               }}
             >
               Delete?
@@ -187,7 +188,7 @@ const Product = ({ product, value, text }) => {
               className='text-center px-4'
               style={{
                 backgroundColor: 'black',
-                color: 'red',
+                color: '#fff',
                 padding: '10px 0 10px 0',
                 // borderRadius: '5px',
               }}
@@ -412,7 +413,7 @@ const Product = ({ product, value, text }) => {
                       : product.countInStock === 0
                       ? { backgroundColor: 'gray', color: 'white' }
                       : {
-                          background: '#3d3a4e',
+                          backgroundColor: '#3d3a4e',
                         }
                   }
                   onClick={() => toggleAddToCard()}
