@@ -32,6 +32,10 @@ const LoginScreen = () => {
   //   }
   // }, [userInfo, redirect, navigate]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <FormContainer xs={12} md={10}>
       <Row>

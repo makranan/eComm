@@ -32,6 +32,7 @@ import { addToCart } from '../slices/cartSlice';
 import { FaPlus, FaMinus, FaEdit, FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { addDecimals } from '../utils/cartUtils';
+import Skeleton from 'react-loading-skeleton';
 
 const ProductDetails = () => {
   const { id: productId } = useParams();
@@ -52,6 +53,8 @@ const ProductDetails = () => {
     refetch,
     error,
   } = useGetProductDetailsQuery(productId);
+
+  // const isLoading = false;
 
   const [createReview, { isLoading: loadingReview }] =
     useCreateReviewMutation();
@@ -160,7 +163,43 @@ const ProductDetails = () => {
       {loadingDelete && <Loader />}
 
       {isLoading ? (
-        <Loader />
+        <>
+          <Row className='mt-2'>
+            {/* <Loader /> */}
+            <Col md={5}>
+              <Skeleton height={300} />
+              <Skeleton height={100} />
+            </Col>
+            <Col md={4}>
+              <Skeleton height={150} />
+              <Skeleton height={40} />
+              <Skeleton height={40} />
+              <Skeleton height={40} />
+            </Col>
+            <Col md={3}>
+              <Skeleton height={40} />
+              <Skeleton height={40} />
+              <Skeleton height={70} />
+              <Skeleton height={50} />
+            </Col>
+          </Row>
+
+          <Row className='mt-3'>
+            <Col md={4}>
+              <Skeleton height={50} />
+            </Col>
+            <Col md={4}>
+              <Skeleton height={50} />
+            </Col>
+            <Col md={4}>
+              <Skeleton height={50} />
+            </Col>
+          </Row>
+
+          <Row className=''>
+            <Skeleton height={150} />
+          </Row>
+        </>
       ) : error ? (
         <Message variant='danger'>
           {error?.data?.message || error.error}

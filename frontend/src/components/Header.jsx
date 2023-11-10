@@ -10,6 +10,7 @@ import {
   Col,
 } from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
+import { GrUserAdmin } from 'react-icons/gr';
 import { IoMdCart } from 'react-icons/io';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLogoutMutation } from '../slices/usersApiSlice';
@@ -159,7 +160,11 @@ const Header = () => {
                   </LinkContainer>
                 )}
                 {userInfo && userInfo.isAdmin && (
-                  <NavDropdown title='Admin' id='adminmenu' drop='start'>
+                  <NavDropdown
+                    title={<GrUserAdmin size={18} />}
+                    id='adminmenu'
+                    drop='down-centered'
+                  >
                     <LinkContainer to='/admin/'>
                       <NavDropdown.Item>Dashboard</NavDropdown.Item>
                     </LinkContainer>
