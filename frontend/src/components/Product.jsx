@@ -1025,23 +1025,27 @@ const Product = ({ product, value, text, isCarousel }) => {
                   {/* Conditionally render different content based on isCarousel */}
                   {isCarousel ? (
                     // Content for carousel button
-                    <button
+                    <Button
                       type='button'
                       aria-label='add-to-cart'
                       className='carousel-button'
                       style={
-                        {
-                          /* your carousel button styles here */
-                        }
+                        showAddToCart || showDeleteCard || showSuccessCard
+                          ? { opacity: '0' }
+                          : product.countInStock === 0
+                          ? { backgroundColor: 'gray', color: 'white' }
+                          : {
+                              backgroundColor: '#3d3a4e',
+                            }
                       }
                       onClick={() => toggleAddToCard()}
                       disabled={product.countInStock === 0}
                     >
                       <MdOutlineAddShoppingCart
-                        className='custom-button-content'
+                        className='carousel-button-content'
                         size={20}
                       />
-                    </button>
+                    </Button>
                   ) : (
                     // Content for regular button
                     <Button
