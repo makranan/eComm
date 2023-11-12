@@ -47,6 +47,7 @@ import './assets/styles/lux.css';
 import './assets/styles/index.css';
 import './assets/styles/rating.css';
 import './assets/styles/product.css';
+import './assets/styles/card.css';
 import './assets/styles/custom.css';
 
 // const routeConfigurations = [

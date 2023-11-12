@@ -1,0 +1,9 @@
+.card-sm {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.card-sm .card-title {
+  margin: 0;
+}

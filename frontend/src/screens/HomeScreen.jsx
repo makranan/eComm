@@ -32,6 +32,7 @@ const HomeScreen = () => {
   const [pageSize, setPageSize] = useSessionStorage('pageSize', '24');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('');
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 575);
   const { keyword, pageNumber, category, brand, minPrice, maxPrice, price } =
     useParams();
   const { data, isLoading, error } = useGetProductsQuery({
@@ -54,6 +55,19 @@ const HomeScreen = () => {
     }
   }, [data]);
 
+  const handleResize = () => {
+    setIsSmallScreen(window.innerWidth < 575);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      // Clean up the event listener when the component unmounts
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // Empty dependency array ensures that the effect runs only once after the initial render
+
   // if (isLoading) {
   //   // Loading state
   // } else if (error) {
@@ -74,6 +88,8 @@ const HomeScreen = () => {
   // };
 
   const skeletonWidth = '100%';
+
+  // const isSmallScreen = window.innerWidth < 575;
 
   return (
     <>
@@ -111,16 +127,17 @@ const HomeScreen = () => {
           {data.products.length === 0 ? (
             <Message variant='info'>No products found.</Message>
           ) : (
-            <Row>
+            <Row
+            // style={{ display: isSmallScreen ? 'none' : 'flex' }}
+            >
               {data.products.map((product) => (
                 <Col
                   key={product._id}
                   xs={12}
                   sm={6}
-                  md={6}
-                  lg={4}
-                  xl={3}
-                  xxl={2}
+                  md={isSmallScreen ? 4 : 6}
+                  lg={isSmallScreen ? 3 : 4}
+                  xl={isSmallScreen ? 2 : 3}
                 >
                   <Product product={product} />
                 </Col>
