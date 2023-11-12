@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   Badge,
   Navbar,
@@ -9,7 +9,7 @@ import {
   Row,
   Col,
 } from 'react-bootstrap';
-import { FaShoppingCart, FaUser } from 'react-icons/fa';
+import { FaShoppingCart, FaUser, FaSearch } from 'react-icons/fa';
 import { MdAdminPanelSettings } from 'react-icons/md';
 import { IoMdCart } from 'react-icons/io';
 import { useSelector, useDispatch } from 'react-redux';
@@ -123,6 +123,16 @@ const Header = () => {
               </div>
 
               <Nav className='ms-auto ' navbarScroll>
+                <Nav.Link>
+                  <FaSearch
+                    size={20}
+                    onClick={filterMenuHandler}
+                    style={{
+                      display: windowWidth > 768 ? 'none' : 'flex',
+                      marginRight: '0px',
+                    }}
+                  />
+                </Nav.Link>
                 <LinkContainer to='/cart'>
                   <Nav.Link className='mb-1'>
                     <IoMdCart size={20} style={{ marginRight: '0px' }} />
