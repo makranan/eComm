@@ -2,7 +2,13 @@ import { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Outlet, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { Header, Footer, HeaderSwiper, Message } from './components';
+import {
+  Header,
+  Footer,
+  HeaderSwiper,
+  Message,
+  TopProductsCarousel,
+} from './components';
 
 const App = () => {
   const location = useLocation();
@@ -42,6 +48,8 @@ const App = () => {
               </button>
             </Message>
           )}
+
+          {isHomeScreen && <TopProductsCarousel />}
 
           <Outlet />
         </Container>

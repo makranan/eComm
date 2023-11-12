@@ -125,7 +125,7 @@ const Header = () => {
               <Nav className='ms-auto ' navbarScroll>
                 <Nav.Link>
                   <FaSearch
-                    size={20}
+                    size={16}
                     onClick={filterMenuHandler}
                     style={{
                       display: windowWidth > 768 ? 'none' : 'flex',

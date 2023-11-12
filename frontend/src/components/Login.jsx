@@ -147,7 +147,7 @@ const Login = ({ onForgotPassword }) => {
             </Col>
           </Row>
           <Row>
-            <Col xs={6} className='mt-4'>
+            <Col className='my-4'>
               <Link onClick={onForgotPassword} className='unselectable'>
                 Forgot Password?
               </Link>

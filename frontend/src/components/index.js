@@ -27,6 +27,7 @@ import FilterMenu from './FilterMenu';
 import Login from './Login';
 import LoginOtherOptions from './LoginOtherOptions';
 import ForgetPassword from './ForgetPassword';
+import TopProductsCarousel from './TopProductsCarousel';
 
 export {
   Header,
@@ -58,4 +59,5 @@ export {
   Login,
   LoginOtherOptions,
   ForgetPassword,
+  TopProductsCarousel,
 };

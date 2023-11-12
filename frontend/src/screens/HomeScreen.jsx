@@ -105,7 +105,7 @@ const HomeScreen = () => {
             {Array.from({ length: 12 }).map((_, index) => (
               <Col key={index} xs={12} sm={6} md={6} lg={4} xl={3} xxl={2}>
                 <div className='product-skeleton my-2'>
-                  <Skeleton width={skeletonWidth} height={340} />
+                  <Skeleton width={skeletonWidth} height={240} />
                   <Skeleton width={skeletonWidth} height={50} />
                   <Skeleton width={skeletonWidth} height={50} />
                 </div>
@@ -131,14 +131,7 @@ const HomeScreen = () => {
             // style={{ display: isSmallScreen ? 'none' : 'flex' }}
             >
               {data.products.map((product) => (
-                <Col
-                  key={product._id}
-                  xs={12}
-                  sm={6}
-                  md={isSmallScreen ? 4 : 6}
-                  lg={isSmallScreen ? 3 : 4}
-                  xl={isSmallScreen ? 2 : 3}
-                >
+                <Col key={product._id} xs={12} sm={6} md={4} lg={3} xl={2}>
                   <Product product={product} />
                 </Col>
               ))}
