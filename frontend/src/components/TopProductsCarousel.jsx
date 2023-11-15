@@ -59,16 +59,16 @@ const ProductCarousel = () => {
           draggable={false}
           showDots={true}
           responsive={responsive}
-          ssr={false}
+          ssr={true}
           infinite={true}
           autoPlaySpeed={1000}
           keyBoardControl={true}
-          customTransition='transform 500ms ease-in-out'
-          transitionDuration={500}
+          customTransition='transform 400ms ease-in-out'
+          // transitionDuration={500}
           // containerClass='carousel-container'
           //   removeArrowOnDeviceType={['tablet', 'mobile']}
-          dotListClass='custom-dot-list-style'
-          partialVisible={true}
+          // dotListClass='custom-dot-list-style'
+          // partialVisible={true}
           //   customDot={<CustomDot />}
           // itemClass='carousel-item-padding-40-px'
         >
