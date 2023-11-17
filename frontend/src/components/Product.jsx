@@ -73,14 +73,6 @@ const Product = ({ product, value, text, isCarousel }) => {
     }, 3000);
   };
 
-  const openDeleteModal = () => {
-    setShowDeleteModal(true);
-  };
-
-  const openAddToCartModal = () => {
-    setShowAddToCartModal(true);
-  };
-
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
     setShowAddToCart(false);
@@ -316,25 +308,6 @@ const Product = ({ product, value, text, isCarousel }) => {
               </div>
             )}
 
-            {/* Modal */}
-
-            {/* {product && (
-        <AddToCartModal
-          product={product}
-          showModal={showAddToCartModal}
-          setShowModal={setShowAddToCartModal}
-        />
-      )}
-
-      {product && (
-        <DeleteModal
-          product={product}
-          showModal={showDeleteModal}
-          setShowModal={setShowDeleteModal}
-          onDelete={deleteProduct}
-        />
-      )} */}
-
             <Link to={`/product/${product._id}`}>
               <div>
                 {loading && (
@@ -468,10 +441,6 @@ const Product = ({ product, value, text, isCarousel }) => {
                 </Col>
               </Row>
             </Card.Body>
-            {/* Render the MyModal component with product information */}
-            {/* {showModal && (
-        <MyModal product={product} handleClose={() => setShowModal(false)} />
-      )} */}
           </Card>
         ) : (
           <Card

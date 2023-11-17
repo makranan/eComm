@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col, InputGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Loader, FormContainer } from '../components';
+import { Loader, FormContainer, Message } from '../components';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 
@@ -73,6 +73,7 @@ const Login = ({ onForgotPassword }) => {
   return (
     <>
       <h1>Sign In</h1>
+
       <Form onSubmit={submitHandler} noValidate>
         <Col>
           <Form.Group controlId='email' className='my-3'>
@@ -157,6 +158,9 @@ const Login = ({ onForgotPassword }) => {
 
         {isLoading && <Loader />}
       </Form>
+      <Message>
+        You can use this credentials. Email: test@mail.com | password: 123456
+      </Message>
     </>
   );
 };
