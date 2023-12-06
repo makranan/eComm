@@ -22,7 +22,7 @@ const Login = ({ onForgotPassword }) => {
 
   const [login, { isLoading }] = useLoginMutation();
 
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector(state => state.auth);
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const redirect = searchParams.get('redirect') || '/';
@@ -33,7 +33,7 @@ const Login = ({ onForgotPassword }) => {
     }
   }, [userInfo, redirect, navigate]);
 
-  const submitHandler = async (e) => {
+  const submitHandler = async e => {
     e.preventDefault();
 
     const form = e.currentTarget;
@@ -82,7 +82,7 @@ const Login = ({ onForgotPassword }) => {
               type='email'
               placeholder='Enter Email'
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               required
             ></Form.Control>
             {/* <Form.Control.Feedback type='valid'>
@@ -100,7 +100,7 @@ const Login = ({ onForgotPassword }) => {
                 type={showPassword ? 'text' : 'password'}
                 placeholder='Enter Password'
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
                 required
               />
               <InputGroup.Text
@@ -159,7 +159,9 @@ const Login = ({ onForgotPassword }) => {
         {isLoading && <Loader />}
       </Form>
       <Message>
-        You can use this credentials. Email: test@mail.com | password: 123456
+        You can use this credentials:
+        <br /> Email: test@mail.com
+        <br /> password: 123456
       </Message>
     </>
   );
