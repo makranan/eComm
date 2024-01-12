@@ -58,7 +58,18 @@ const PaymentScreen = () => {
                 onChange={(e) => setPaymentMethod(e.target.value)}
                 checked
               ></Form.Check>
+
               <br />
+
+              <Form.Check
+                id='blik'
+                name='paymentMethod'
+                value='Blik'
+                className=''
+                type='radio'
+                label='Blik'
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              ></Form.Check>
             </Col>
           </Form.Group>
           <Row className='d-flex align-items-center mt-4'>

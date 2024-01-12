@@ -75,6 +75,8 @@ const ProductFilter = ({ onFilter }) => {
     keyword: keywordUrl,
     category: categoryUrl,
     brand: brandUrl,
+    minPrice: minPriceUrl,
+    maxPrice: maxPriceUrl,
     pageNumber,
   } = useParams();
 
@@ -82,7 +84,7 @@ const ProductFilter = ({ onFilter }) => {
   const [brand, setBrand] = useState(brandUrl || '');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
-  const [price, setPrice] = useState([minPrice, maxPrice]);
+  const [price, setPrice] = useState([minPriceUrl, maxPriceUrl]);
   const [selectedCategories, setSelectedCategories] = useState(
     categoryUrl ? categoryUrl.split('&') : []
   );
@@ -114,8 +116,8 @@ const ProductFilter = ({ onFilter }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    // console.log('Min Price:', minPrice);
-    // console.log('Max Price:', maxPrice);
+    console.log('Min Price:', minPrice);
+    console.log('Max Price:', maxPrice);
 
     // Construct the URL based on the provided values
     let url = '/search';

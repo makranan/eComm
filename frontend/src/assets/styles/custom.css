@@ -260,11 +260,13 @@ header {
 
 .footer-social-text {
   color: #727272;
+  text-decoration: none;
+  text-transform: uppercase;
   transition: all 0.1s ease-in;
 }
 
 .footer-social-text:hover {
-  color: var(--line-border-fill);
+  color: var(--line-border-fill) !important;
 }
 
 .svg-center {
