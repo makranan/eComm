@@ -2,6 +2,7 @@ import asyncHandler from '../middleware/asyncHandler.js';
 import nodemailer from 'nodemailer';
 import User from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js';
+import sendEmail from '../utils/sendEmail.js';
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
@@ -185,6 +186,46 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Forgot password
+// @route   POST /api/users/forgotpassword
+// @access  Public
+
+const forgotPassword = asyncHandler(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    throw new Error('There is no user with that email address');
+  }
+
+  const resetToken = user.getResetPasswordToken();
+
+  await user.save({ validateBeforeSave: false });
+
+  const resetUrl = `${req.protocol}://${req.get(
+    'host'
+  )}/api/v1/auth/resetpassword/${resetToken}`;
+
+  const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: 'Password reset token',
+      message,
+    });
+
+    res.status(200).json({ message: 'Email sent' });
+  } catch (err) {
+    console.log(err);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save({ validateBeforeSave: false });
+
+    throw new Error('Email could not be sent');
+  }
+});
+
 export {
   authUser,
   registerUser,
@@ -195,4 +236,5 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  forgotPassword,
 };

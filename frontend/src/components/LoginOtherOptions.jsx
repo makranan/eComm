@@ -2,8 +2,7 @@ import React from 'react';
 import { Col, Row, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
-import FacebookLogo from '../assets/FacebookLogo.svg';
-import GoogleLogo from '../assets/GoogleLogo.svg';
+import { googleLogo, facebookLogo } from '../assets';
 
 const LoginOtherOptions = () => {
   const responseMessage = (response) => {
@@ -44,7 +43,7 @@ const LoginOtherOptions = () => {
             >
               <div className='d-flex justify-content-center align-items-center'>
                 {/* <FaGoogle size={24} style={{ marginRight: '10px' }} /> */}
-                <img src={GoogleLogo} alt='Google' className='mx-2' />
+                <img src={googleLogo} alt='Google' className='mx-2' />
                 Sign In with Google
               </div>
             </Button>
@@ -63,7 +62,7 @@ const LoginOtherOptions = () => {
               <div className='d-flex justify-content-center align-items-center'>
                 {/* <FaFacebook size={24} style={{ marginRight: '10px' }} /> */}
                 <img
-                  src={FacebookLogo}
+                  src={facebookLogo}
                   alt='Facebook'
                   className='mx-2'
                   style={{ width: '20px' }}

@@ -17,6 +17,7 @@ const ProductEditScreen = () => {
   const { userInfo: user } = useSelector((state) => state.auth);
 
   const [name, setName] = useState('');
+  const [discountValue, setDiscountValue] = useState(0); // [1
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState('');
   const [images, setImages] = useState([]);
@@ -284,13 +285,39 @@ const ProductEditScreen = () => {
           </Message>
         ) : (
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name' style={styles}>
-              <Form.Label>Product Name</Form.Label>
+            <Row>
+              <Col xs={12} sm={6} md={8}>
+                <Form.Group controlId='name' style={styles}>
+                  <Form.Label>Product Name</Form.Label>
+                  <Form.Control
+                    type='text'
+                    placeholder='Enter Product Name'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+
+              <Col xs={12} sm={6} md={4} className='mb-2'>
+                <Form.Group controlId='price' style={styles}>
+                  <Form.Label>Price</Form.Label>
+                  <Form.Control
+                    type='number'
+                    placeholder='Price'
+                    value={price}
+                    onChange={priceChangeHandler}
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+            </Row>
+
+            <Form.Group controlId='discount' style={styles}>
+              <Form.Label>Discount</Form.Label>
               <Form.Control
-                type='text'
-                placeholder='Enter Product Name'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                type='number'
+                placeholder='Discount'
+                value={discountValue}
+                onChange={(e) => setDiscountValue(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -322,18 +349,6 @@ const ProductEditScreen = () => {
             </Form.Group>
 
             <Row className='my-2'>
-              <Col xs={12} sm={6} md={4} className='mb-2'>
-                <Form.Group controlId='price' style={styles}>
-                  <Form.Label>Price</Form.Label>
-                  <Form.Control
-                    type='number'
-                    placeholder='Price'
-                    value={price}
-                    onChange={priceChangeHandler}
-                  ></Form.Control>
-                </Form.Group>
-              </Col>
-
               <Col xs={12} sm={6} md={4}>
                 <Form.Group controlId='countInStock' style={styles}>
                   <Form.Label>Stock</Form.Label>

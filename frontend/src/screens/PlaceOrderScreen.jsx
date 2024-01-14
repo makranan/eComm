@@ -6,7 +6,9 @@ import { toast } from 'react-toastify';
 import { CheckoutSteps, Message, Loader, BtnGoBack } from '../components';
 import { useCreateOrderMutation } from '../slices/orderApiSlice';
 import { clearCartItems } from '../slices/cartSlice';
+import { FaCcVisa } from 'react-icons/fa';
 import { BsPaypal } from 'react-icons/bs';
+import { MdOutlineAttachMoney } from 'react-icons/md';
 
 const PlaceOrderScreen = () => {
   const navigate = useNavigate();
@@ -22,6 +24,18 @@ const PlaceOrderScreen = () => {
       navigate('/payment');
     }
   }, [cart.shippingAddress.address, cart.paymentMethod, navigate]);
+
+  let paymentIcon;
+
+  if (cart.paymentMethod === 'PayPal') {
+    paymentIcon = <BsPaypal />;
+  } else if (cart.paymentMethod === 'Blik') {
+    paymentIcon = '';
+  } else if (cart.paymentMethod === 'Cash') {
+    paymentIcon = <MdOutlineAttachMoney />;
+  } else if (cart.paymentMethod === 'Visa') {
+    paymentIcon = <FaCcVisa />;
+  }
 
   const placeOrderHandler = async () => {
     try {
@@ -63,6 +77,10 @@ const PlaceOrderScreen = () => {
             <ListGroup.Item className='py-4'>
               <h2>Shipping</h2>
               <p>
+                <strong>Name: </strong>
+                {cart.shippingAddress.name}
+              </p>
+              <p>
                 <strong>Address: </strong>
                 {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
                 {cart.shippingAddress.postalCode},{' '}
@@ -73,7 +91,7 @@ const PlaceOrderScreen = () => {
             <ListGroup.Item className='py-4'>
               <h2>Payment Method</h2>
               <strong>Method: </strong>
-              <BsPaypal /> {cart.paymentMethod}
+              {paymentIcon} {cart.paymentMethod}
             </ListGroup.Item>
 
             <ListGroup.Item className='py-4'>
@@ -178,7 +196,7 @@ const PlaceOrderScreen = () => {
               <ListGroup.Item>
                 <p>
                   By placing order you are accepting our{' '}
-                  <Link>Terms of Service</Link>
+                  <Link to='/tos'>Terms of Service</Link>
                 </p>
               </ListGroup.Item>
 

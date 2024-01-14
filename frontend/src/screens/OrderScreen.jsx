@@ -140,15 +140,21 @@ const OrderScreen = () => {
         <Col md={8}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h2>Shipping</h2>
+              <h2>User</h2>
               <p>
-                <strong>Name: </strong> {order.user.name}
+                <strong>Username: </strong> {order.user.name}
               </p>
 
               <p>
                 <strong>Email: </strong> {order.user.email}
               </p>
 
+              <h2>Shipping</h2>
+
+              <p>
+                <strong>Name: </strong>
+                {order.shippingAddress.name}
+              </p>
               <p>
                 <strong>Address: </strong> {order.shippingAddress.address},{' '}
                 {order.shippingAddress.city} {order.shippingAddress.postalCode},{' '}

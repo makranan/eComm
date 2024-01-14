@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { socialMedia, footerLinks } from '../footer';
+import { socialMedia, footerLinks, developer } from '../footer';
 import { FormContainer } from '../components';
 import logo from '../assets/logo.svg';
 
@@ -36,27 +36,28 @@ const Footer = () => {
             </Col>
           </Row>
           <Row>
-            {footerLinks.map((footerLinkGroup, index) => (
+            {footerLinks.map((footerLink, index) => (
               <Col sm={6} md={4} key={index}>
                 <div className='my-4'>
-                  <h4 className='text-white '>{footerLinkGroup.title}</h4>
+                  <h4 className='text-white '>{footerLink.title}</h4>
                   <ul className='mt-4 '>
-                    {footerLinkGroup.links.map((link, linkIndex) => (
+                    {footerLink.links.map((link, linkIndex) => (
                       <li
-                        key={linkIndex}
                         className={`${
-                          linkIndex !== footerLinkGroup.links.length - 1
+                          linkIndex !== footerLink.links.length - 1
                             ? 'mb-4'
                             : 'mb-0'
                         }`}
+                        key={linkIndex}
                       >
                         <Link
                           to={link.link}
                           style={{
                             textTransform: 'uppercase',
                             textDecoration: 'none',
+                            color: '#696969',
                           }}
-                          className='footer-social-text'
+                          className='footerLink footer-social-text '
                         >
                           {link.name}
                         </Link>
@@ -81,6 +82,34 @@ const Footer = () => {
                 </a>
               </Col>
             ))}
+          </Row>
+
+          <Row className='text-center my-6'>
+            <Col>
+              {developer.map((dev, index) => (
+                <div
+                  style={{
+                    marginTop: '3rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  key={index}
+                >
+                  <span style={{ color: 'white' }}>Contact developer</span>
+                  <a
+                    href={dev.link}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className={`uppercase, footer-social-text`}
+                    style={{ fontSize: '1.5rem' }}
+                  >
+                    {dev.name}
+                  </a>
+                </div>
+              ))}
+            </Col>
           </Row>
           <Row className='my-5 '>
             <Col className='text-center py-3'>
