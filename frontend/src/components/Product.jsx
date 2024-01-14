@@ -140,7 +140,6 @@ const Product = ({ product, value, text, isCarousel }) => {
     };
   }, []); // Empty dependency array ensures that the effect runs only once after the initial render
 
-  const discount = 20;
   return (
     <>
       {isSmallScreen ? (
@@ -444,284 +443,285 @@ const Product = ({ product, value, text, isCarousel }) => {
             </Card.Body>
           </Card>
         ) : (
-          <Card
-            className='card-sm'
-            style={{ border: '1px solid #e2e2e2', margin: '0', padding: '0' }}
-          >
-            {loadingDelete && <Spinner style={{ zIndex: '9999' }} />}
-            {userInfo && userInfo.isAdmin && (
-              <Col
-                className='text-end'
-                style={
-                  showDeleteCard || showAddToCart || showSuccessCard
-                    ? { opacity: '0' }
-                    : { opacity: '1' }
-                }
-              >
-                <Link to={`/admin/product/${product._id}/edit`}>
-                  <Button variant='light' className='btn-sm'>
-                    <FaEdit />
-                  </Button>
-                </Link>
-                <Button
-                  variant='light'
-                  className='btn-sm'
-                  // onClick={() => openDeleteModal()}
-                  onClick={() => toggleDeleteCard()}
-                >
-                  <FaTrash style={{ color: 'red' }} />
-                </Button>
-              </Col>
-            )}
+          //     <Card
+          //       className='card-sm'
+          //       style={{ border: '1px solid #e2e2e2', margin: '0', padding: '0' }}
+          //     >
+          //       {loadingDelete && <Spinner style={{ zIndex: '9999' }} />}
+          //       {userInfo && userInfo.isAdmin && (
+          //         <Col
+          //           className='text-end'
+          //           style={
+          //             showDeleteCard || showAddToCart || showSuccessCard
+          //               ? { opacity: '0' }
+          //               : { opacity: '1' }
+          //           }
+          //         >
+          //           <Link to={`/admin/product/${product._id}/edit`}>
+          //             <Button variant='light' className='btn-sm'>
+          //               <FaEdit />
+          //             </Button>
+          //           </Link>
+          //           <Button
+          //             variant='light'
+          //             className='btn-sm'
+          //             // onClick={() => openDeleteModal()}
+          //             onClick={() => toggleDeleteCard()}
+          //           >
+          //             <FaTrash style={{ color: 'red' }} />
+          //           </Button>
+          //         </Col>
+          //       )}
 
-            {showDeleteCard && userInfo && userInfo.isAdmin && (
-              <div
-                className={`delete-content ${
-                  showAdditionalContent ? 'show-additional-content' : ''
-                }`}
-              >
-                <FaTimes
-                  style={{ cursor: 'pointer' }}
-                  className='fatimes-position'
-                  onClick={() => setShowDeleteCard(false)}
-                />
-                <h5
-                  style={{
-                    // backgroundColor: 'white',
-                    // color: '#ffffff',
-                    padding: '10px',
-                    borderRadius: '5px',
-                    fontWeight: 'bold',
-                  }}
-                >
-                  Delete?
-                </h5>
-                <h6
-                  className='text-center px-4'
-                  style={{
-                    backgroundColor: 'black',
-                    color: '#fff',
-                    padding: '10px 0 10px 0',
-                    // borderRadius: '5px',
-                  }}
-                >
-                  Item will be deleted from database
-                </h6>
-                <Button
-                  variant='danger'
-                  style={{ color: 'white' }}
-                  className='my-4'
-                  onClick={() => deleteHandler()}
-                  ref={yesButtonRef}
-                >
-                  Yes
-                </Button>
-                <Button onClick={() => setShowDeleteCard(false)}>No</Button>
-              </div>
-            )}
+          //       {showDeleteCard && userInfo && userInfo.isAdmin && (
+          //         <div
+          //           className={`delete-content ${
+          //             showAdditionalContent ? 'show-additional-content' : ''
+          //           }`}
+          //         >
+          //           <FaTimes
+          //             style={{ cursor: 'pointer' }}
+          //             className='fatimes-position'
+          //             onClick={() => setShowDeleteCard(false)}
+          //           />
+          //           <h5
+          //             style={{
+          //               // backgroundColor: 'white',
+          //               // color: '#ffffff',
+          //               padding: '10px',
+          //               borderRadius: '5px',
+          //               fontWeight: 'bold',
+          //             }}
+          //           >
+          //             Delete?
+          //           </h5>
+          //           <h6
+          //             className='text-center px-4'
+          //             style={{
+          //               backgroundColor: 'black',
+          //               color: '#fff',
+          //               padding: '10px 0 10px 0',
+          //               // borderRadius: '5px',
+          //             }}
+          //           >
+          //             Item will be deleted from database
+          //           </h6>
+          //           <Button
+          //             variant='danger'
+          //             style={{ color: 'white' }}
+          //             className='my-4'
+          //             onClick={() => deleteHandler()}
+          //             ref={yesButtonRef}
+          //           >
+          //             Yes
+          //           </Button>
+          //           <Button onClick={() => setShowDeleteCard(false)}>No</Button>
+          //         </div>
+          //       )}
 
-            {showAddToCart && (
-              <div
-                className={`additional-content ${
-                  showAdditionalContent ? 'show-additional-content' : ''
-                }`}
-              >
-                <FaTimes
-                  style={{ backgroundColor: 'transparent' }}
-                  className='fatimes-position'
-                  onClick={() => setShowAddToCart(false)}
-                />
+          //       {showAddToCart && (
+          //         <div
+          //           className={`additional-content ${
+          //             showAdditionalContent ? 'show-additional-content' : ''
+          //           }`}
+          //         >
+          //           <FaTimes
+          //             style={{ backgroundColor: 'transparent' }}
+          //             className='fatimes-position'
+          //             onClick={() => setShowAddToCart(false)}
+          //           />
 
-                <MdOutlineAddShoppingCart size={60} className='card-circle' />
+          //           <MdOutlineAddShoppingCart size={60} className='card-circle' />
 
-                <h5 className='text-center px-5 my-4'>
-                  {qty === 1 ? 'Add item to cart' : "Add item's to cart"}
-                </h5>
+          //           <h5 className='text-center px-5 my-4'>
+          //             {qty === 1 ? 'Add item to cart' : "Add item's to cart"}
+          //           </h5>
 
-                <Row className='d-flex justify-content-center mb-3'>
-                  <StyledNumberInput
-                    value={qty}
-                    onChange={(newValue) => {
-                      setQty(newValue); // Update local state
-                    }}
-                    min={1}
-                    max={product.countInStock}
-                  />
-                </Row>
+          //           <Row className='d-flex justify-content-center mb-3'>
+          //             <StyledNumberInput
+          //               value={qty}
+          //               onChange={(newValue) => {
+          //                 setQty(newValue); // Update local state
+          //               }}
+          //               min={1}
+          //               max={product.countInStock}
+          //             />
+          //           </Row>
 
-                {/* <BtnCount
-              variant='dark'
-              initialValue={qty}
-              maxValue={product.countInStock}
-              onCountChange={(newCount) => {
-                setQty(newCount); // Update local state
-              }}
-              step={1}
-              increaseIcon={<FaPlus />}
-              decreaseIcon={<FaMinus />}
-            /> */}
-                <Button
-                  className='custom-button'
-                  // bg='info'
-                  // variant='info'
-                  style={{ background: '#3d3a4e' }}
-                  onClick={addToCartHandler}
-                >
-                  <span className='custom-button-content'>Add</span>
-                </Button>
-              </div>
-            )}
+          //           {/* <BtnCount
+          //         variant='dark'
+          //         initialValue={qty}
+          //         maxValue={product.countInStock}
+          //         onCountChange={(newCount) => {
+          //           setQty(newCount); // Update local state
+          //         }}
+          //         step={1}
+          //         increaseIcon={<FaPlus />}
+          //         decreaseIcon={<FaMinus />}
+          //       /> */}
+          //           <Button
+          //             className='custom-button'
+          //             // bg='info'
+          //             // variant='info'
+          //             style={{ background: '#3d3a4e' }}
+          //             onClick={addToCartHandler}
+          //           >
+          //             <span className='custom-button-content'>Add</span>
+          //           </Button>
+          //         </div>
+          //       )}
 
-            {showSuccessCard && (
-              <div
-                className={`success-content ${
-                  showAdditionalContent ? 'show-additional-content' : ''
-                }`}
-              >
-                {/* <FaTimes
-              style={{ color: '#ffffff', cursor: 'pointer' }}
-              className='fatimes-position'
-              onClick={() => setShowSuccessCard(false)}
-            /> */}
-                <FaCheck size={52} color='#35ad3f' className='card-circle' />
-                {/* {successImageLoaded && (
-            <img src={successSvg} alt='Success' className='svg-success' />
-          )} */}
+          //       {showSuccessCard && (
+          //         <div
+          //           className={`success-content ${
+          //             showAdditionalContent ? 'show-additional-content' : ''
+          //           }`}
+          //         >
+          //           {/* <FaTimes
+          //         style={{ color: '#ffffff', cursor: 'pointer' }}
+          //         className='fatimes-position'
+          //         onClick={() => setShowSuccessCard(false)}
+          //       /> */}
+          //           <FaCheck size={52} color='#35ad3f' className='card-circle' />
+          //           {/* {successImageLoaded && (
+          //       <img src={successSvg} alt='Success' className='svg-success' />
+          //     )} */}
 
-                <h5
-                  className='text-center px-5 my-4'
-                  style={{ fontWeight: 'bold' }}
-                >
-                  {qty === 1
-                    ? 'Item added successfully'
-                    : "Item's added successfully"}
-                </h5>
+          //           <h5
+          //             className='text-center px-5 my-4'
+          //             style={{ fontWeight: 'bold' }}
+          //           >
+          //             {qty === 1
+          //               ? 'Item added successfully'
+          //               : "Item's added successfully"}
+          //           </h5>
 
-                <Link to='/cart'>
-                  <Button
-                    type='button'
-                    // variant='info'
-                    // bg='info'
-                    style={{ background: '#3d3a4e' }}
-                    className='custom-button'
-                  >
-                    <span className='custom-button-content'>Go to Cart</span>
-                  </Button>
-                </Link>
-              </div>
-            )}
+          //           <Link to='/cart'>
+          //             <Button
+          //               type='button'
+          //               // variant='info'
+          //               // bg='info'
+          //               style={{ background: '#3d3a4e' }}
+          //               className='custom-button'
+          //             >
+          //               <span className='custom-button-content'>Go to Cart</span>
+          //             </Button>
+          //           </Link>
+          //         </div>
+          //       )}
 
-            <Row>
-              <Col xs={4}>
-                <Link to={`/product/${product._id}`}>
-                  <div className='d-flex'>
-                    {loading && (
-                      <div
-                        style={{
-                          // position: 'relative',
-                          // top: '50%',
-                          // left: '50%',
-                          // transform: 'translate(-50%, -50%)',
-                          padding: '70px',
-                        }}
-                      >
-                        <Loader />
-                      </div>
-                    )}
+          //       <Row>
+          //         <Col xs={4}>
+          //           <Link to={`/product/${product._id}`}>
+          //             <div className='d-flex'>
+          //               {loading && (
+          //                 <div
+          //                   style={{
+          //                     // position: 'relative',
+          //                     // top: '50%',
+          //                     // left: '50%',
+          //                     // transform: 'translate(-50%, -50%)',
+          //                     padding: '70px',
+          //                   }}
+          //                 >
+          //                   <Loader />
+          //                 </div>
+          //               )}
 
-                    <Card.Img
-                      src={product.images[0]?.original || 'N/A'}
-                      variant='top'
-                      alt={product.name}
-                      aria-label={product.name}
-                      onLoad={handleImageLoad}
-                      style={{
-                        display: loading ? 'none' : 'flex',
-                        marginTop: '20px',
-                        height: '100%',
-                        objectFit: 'cover',
-                        padding: '10px',
-                      }}
-                    />
-                  </div>
-                </Link>
-              </Col>
-              <Col xs={8}>
-                <Card.Body>
-                  <Link to={`/product/${product._id}`}>
-                    <Card.Title as='div' className='product-title mb-2'>
-                      <h6 style={{ lineHeight: '2' }}>{product.name}</h6>
-                    </Card.Title>
-                  </Link>
+          //               <Card.Img
+          //                 src={product.images[0]?.original || 'N/A'}
+          //                 variant='top'
+          //                 alt={product.name}
+          //                 aria-label={product.name}
+          //                 onLoad={handleImageLoad}
+          //                 style={{
+          //                   display: loading ? 'none' : 'flex',
+          //                   marginTop: '20px',
+          //                   height: '100%',
+          //                   objectFit: 'cover',
+          //                   padding: '10px',
+          //                 }}
+          //               />
+          //             </div>
+          //           </Link>
+          //         </Col>
+          //         <Col xs={8}>
+          //           <Card.Body>
+          //             <Link to={`/product/${product._id}`}>
+          //               <Card.Title as='div' className='product-title mb-2'>
+          //                 <h6 style={{ lineHeight: '2' }}>{product.name}</h6>
+          //               </Card.Title>
+          //             </Link>
 
-                  <Row className='d-flex align-items-center mt-3'>
-                    <Col lg={6} md={7} sm={7} xs={6}>
-                      <Card.Text as='h4' style={{ marginTop: '10px' }}>
-                        <div
-                          style={{
-                            whiteSpace: 'nowrap',
-                            backgroundColor: '#ffffff',
-                            zIndex: '1',
-                            display: 'inline-block',
-                            position: 'relative',
-                            pointerEvents: 'none',
-                            borderRadius: '5px',
-                            marginBottom: '5px',
-                          }}
-                        >
-                          <strong
-                            style={{
-                              fontWeight: '600',
-                              textAlign: 'center',
-                              verticalAlign: 'center',
-                            }}
-                          >
-                            ${product.price}
-                          </strong>
-                        </div>
-                      </Card.Text>
-                    </Col>
-                    <Col lg={6} md={5} sm={5} xs={6}>
-                      <div
-                        className='text-end'
-                        style={{ transform: 'translateX(2px)' }}
-                      >
-                        {/* <BtnAddToCart
-                product={product}
-                onAddToCart={() => toggleAddToCard()}
-              /> */}
-                        <Button
-                          type='button'
-                          aria-label='add-to-cart'
-                          className='custom-button'
-                          style={
-                            showAddToCart || showDeleteCard || showSuccessCard
-                              ? { opacity: '0' }
-                              : product.countInStock === 0
-                              ? { backgroundColor: 'gray', color: 'white' }
-                              : {
-                                  backgroundColor: '#3d3a4e',
-                                }
-                          }
-                          onClick={addToCartHandler}
-                          disabled={product.countInStock === 0}
-                        >
-                          <MdOutlineAddShoppingCart
-                            className='custom-button-content'
-                            size={20}
-                          />
-                        </Button>
-                      </div>
-                    </Col>
-                  </Row>
-                </Card.Body>
-              </Col>
-              {/* Render the MyModal component with product information */}
-              {/* {showModal && (
-        <MyModal product={product} handleClose={() => setShowModal(false)} />
-      )} */}
-            </Row>
-          </Card>
+          //             <Row className='d-flex align-items-center mt-3'>
+          //               <Col lg={6} md={7} sm={7} xs={6}>
+          //                 <Card.Text as='h4' style={{ marginTop: '10px' }}>
+          //                   <div
+          //                     style={{
+          //                       whiteSpace: 'nowrap',
+          //                       backgroundColor: '#ffffff',
+          //                       zIndex: '1',
+          //                       display: 'inline-block',
+          //                       position: 'relative',
+          //                       pointerEvents: 'none',
+          //                       borderRadius: '5px',
+          //                       marginBottom: '5px',
+          //                     }}
+          //                   >
+          //                     <strong
+          //                       style={{
+          //                         fontWeight: '600',
+          //                         textAlign: 'center',
+          //                         verticalAlign: 'center',
+          //                       }}
+          //                     >
+          //                       ${product.price}
+          //                     </strong>
+          //                   </div>
+          //                 </Card.Text>
+          //               </Col>
+          //               <Col lg={6} md={5} sm={5} xs={6}>
+          //                 <div
+          //                   className='text-end'
+          //                   style={{ transform: 'translateX(2px)' }}
+          //                 >
+          //                   {/* <BtnAddToCart
+          //           product={product}
+          //           onAddToCart={() => toggleAddToCard()}
+          //         /> */}
+          //                   <Button
+          //                     type='button'
+          //                     aria-label='add-to-cart'
+          //                     className='custom-button'
+          //                     style={
+          //                       showAddToCart || showDeleteCard || showSuccessCard
+          //                         ? { opacity: '0' }
+          //                         : product.countInStock === 0
+          //                         ? { backgroundColor: 'gray', color: 'white' }
+          //                         : {
+          //                             backgroundColor: '#3d3a4e',
+          //                           }
+          //                     }
+          //                     onClick={addToCartHandler}
+          //                     disabled={product.countInStock === 0}
+          //                   >
+          //                     <MdOutlineAddShoppingCart
+          //                       className='custom-button-content'
+          //                       size={20}
+          //                     />
+          //                   </Button>
+          //                 </div>
+          //               </Col>
+          //             </Row>
+          //           </Card.Body>
+          //         </Col>
+          //         {/* Render the MyModal component with product information */}
+          //         {/* {showModal && (
+          //   <MyModal product={product} handleClose={() => setShowModal(false)} />
+          // )} */}
+          //       </Row>
+          //     </Card>
+          <div></div>
         )
       ) : (
         <Card className='my-3 card-shadow'>
