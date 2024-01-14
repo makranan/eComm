@@ -222,6 +222,16 @@ const ProductDetails = () => {
                 <ListGroup.Item>
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
+
+                {/* <ListGroup.Item>
+                  Tags:{' '}
+                  {product.category.map((tag, index) => (
+                    <span key={index} className='tag'>
+                      {tag}
+                    </span>
+                  ))}
+                </ListGroup.Item> */}
+
                 <ListGroup.Item>
                   <div
                     style={{ cursor: 'pointer' }}

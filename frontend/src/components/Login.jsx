@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Loader, FormContainer, Message } from '../components';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
+import { TailSpin } from 'react-loader-spinner';
 
 import { toast } from 'react-toastify';
 import Divider from '../components/Divider';
@@ -21,8 +22,9 @@ const Login = ({ onForgotPassword }) => {
   const navigate = useNavigate();
 
   const [login, { isLoading }] = useLoginMutation();
+  // isLoading = true;
 
-  const { userInfo } = useSelector(state => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const redirect = searchParams.get('redirect') || '/';
@@ -33,7 +35,7 @@ const Login = ({ onForgotPassword }) => {
     }
   }, [userInfo, redirect, navigate]);
 
-  const submitHandler = async e => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     const form = e.currentTarget;
@@ -82,7 +84,7 @@ const Login = ({ onForgotPassword }) => {
               type='email'
               placeholder='Enter Email'
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               required
             ></Form.Control>
             {/* <Form.Control.Feedback type='valid'>
@@ -100,7 +102,7 @@ const Login = ({ onForgotPassword }) => {
                 type={showPassword ? 'text' : 'password'}
                 placeholder='Enter Password'
                 value={password}
-                onChange={e => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
               <InputGroup.Text
@@ -143,7 +145,11 @@ const Login = ({ onForgotPassword }) => {
                 style={{ backgroundColor: '#3d3a4e' }}
                 disabled={isLoading}
               >
-                <span className='custom-button-content '>Sign In</span>
+                {isLoading ? (
+                  <TailSpin color='#ffffff' height={30} width={50} radius={1} /> // Display spinner when loading
+                ) : (
+                  <span className='custom-button-content'>Sign In</span>
+                )}
               </Button>
             </Col>
           </Row>
@@ -156,7 +162,7 @@ const Login = ({ onForgotPassword }) => {
           </Row>
         </Col>
 
-        {isLoading && <Loader />}
+        {/* {isLoading && <Loader />} */}
       </Form>
       <Message>
         You can use this credentials:

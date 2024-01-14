@@ -140,6 +140,7 @@ const Product = ({ product, value, text, isCarousel }) => {
     };
   }, []); // Empty dependency array ensures that the effect runs only once after the initial render
 
+  const discount = 20;
   return (
     <>
       {isSmallScreen ? (
@@ -921,20 +922,51 @@ const Product = ({ product, value, text, isCarousel }) => {
                   <Loader />
                 </div>
               )}
-              <Card.Img
-                src={product.images[0]?.original || 'N/A'}
-                variant='top'
-                alt={product.name}
-                aria-label={product.name}
-                onLoad={handleImageLoad}
-                style={{
-                  display: loading ? 'none' : 'flex',
-                  marginTop: '20px',
-                  height: '100%',
-                  objectFit: 'cover',
-                  padding: '10px',
-                }}
-              />
+              <div style={{ position: 'relative' }}>
+                <Card.Img
+                  src={product.images[0]?.original || 'N/A'}
+                  variant='top'
+                  alt={product.name}
+                  aria-label={product.name}
+                  onLoad={handleImageLoad}
+                  style={{
+                    display: loading ? 'none' : 'flex',
+                    marginTop: '20px',
+                    height: '100%',
+                    objectFit: 'cover',
+                    padding: '10px',
+                  }}
+                />
+                <div
+                  className='discount-label'
+                  style={{
+                    backgroundColor: 'orange',
+                    zIndex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    position: 'absolute',
+                    bottom: '0',
+                    left: '5px',
+                    height: 'auto',
+                    width: 'auto',
+                    padding: '5px 5px',
+
+                    borderRadius: '5px',
+                  }}
+                >
+                  <h4
+                    style={{
+                      color: 'white',
+                      textShadow: '1px 1px 1px grey',
+                      fontSize: '14px',
+                      letterSpacing: '1px',
+                      margin: '0',
+                    }}
+                  >
+                    {discount}%
+                  </h4>
+                </div>
+              </div>
             </div>
           </Link>
           <Card.Body>

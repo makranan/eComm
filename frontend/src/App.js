@@ -23,7 +23,7 @@ const App = () => {
     <>
       <Header />
 
-      {isHomeScreen && <HeaderSwiper />}
+      {/* {isHomeScreen && <HeaderSwiper />} */}
 
       <main className='py-3'>
         <Container>
@@ -55,7 +55,7 @@ const App = () => {
         </Container>
       </main>
       <Footer />
-      <ToastContainer />
+      <ToastContainer theme='colored' />
     </>
   );
 };

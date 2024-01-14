@@ -1,3 +1,11 @@
+.card {
+  border-color: #ededed;
+}
+.card-img-top {
+  user-select: none;
+  margin-top: 20px;
+}
+
 .card-sm {
   width: 100%;
   margin: 0 auto;

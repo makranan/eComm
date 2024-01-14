@@ -4,21 +4,31 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Form, Button, Col, Row } from 'react-bootstrap';
 import { FormContainer, CheckoutSteps } from '../components';
 import { savePaymentMethod } from '../slices/cartSlice';
+import { paypalLogo, blikLogo, cashLogo, visaLogo } from '../assets';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
 const PaymentScreen = () => {
-  const [paymentMethod, setPaymentMethod] = useState('PayPal');
+  const cart = useSelector((state) => state.cart);
+
+  const { paymentMethod: initialPaymentMethod } = cart;
+  const [paymentMethod, setPaymentMethod] = useState(
+    initialPaymentMethod || 'PayPal'
+  );
+  const { shippingAddress } = cart;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
+  const logoSize = 100;
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
     navigate('/placeorder');
+  };
+
+  const handlePaymentMethod = (method) => {
+    setPaymentMethod(method);
   };
 
   useEffect(() => {
@@ -46,7 +56,54 @@ const PaymentScreen = () => {
         <Form onSubmit={submitHandler}>
           <Form.Group>
             <Form.Label as='legend'>Select Method</Form.Label>
-            <Col>
+
+            {/* Use buttons instead of radio options */}
+            <Col style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Button
+                variant='light'
+                className={`payment-logo ${
+                  paymentMethod === 'PayPal' ? 'selected' : ''
+                }`}
+                onClick={() => handlePaymentMethod('PayPal')}
+              >
+                <img src={paypalLogo} alt='PayPal' width={logoSize} />
+              </Button>
+
+              <Button
+                variant='light'
+                className={`payment-logo ${
+                  paymentMethod === 'Blik' ? 'selected' : ''
+                }`}
+                style={{ marginLeft: '1rem' }}
+                onClick={() => handlePaymentMethod('Blik')}
+              >
+                <img src={blikLogo} alt='Blik' width={logoSize} />
+              </Button>
+
+              <Button
+                variant='light'
+                className={`payment-logo ${
+                  paymentMethod === 'Cash' ? 'selected' : ''
+                }`}
+                style={{ marginLeft: '1rem' }}
+                onClick={() => handlePaymentMethod('Cash')}
+              >
+                <img src={cashLogo} alt='Cash' width={logoSize} />
+              </Button>
+
+              <Button
+                variant='light'
+                className={`payment-logo ${
+                  paymentMethod === 'Visa' ? 'selected' : ''
+                }`}
+                style={{ marginLeft: '1rem' }}
+                onClick={() => handlePaymentMethod('Visa')}
+              >
+                <img src={visaLogo} alt='Visa' width={logoSize} />
+              </Button>
+            </Col>
+
+            {/* <Col>
               <br />
               <Form.Check
                 id='paypal'
@@ -70,7 +127,7 @@ const PaymentScreen = () => {
                 label='Blik'
                 onChange={(e) => setPaymentMethod(e.target.value)}
               ></Form.Check>
-            </Col>
+            </Col> */}
           </Form.Group>
           <Row className='d-flex align-items-center mt-4'>
             <Col>

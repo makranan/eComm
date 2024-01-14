@@ -283,18 +283,24 @@ header {
   transform: translateX(20%);
 }
 
+.payment-logo {
+  background: transparent;
+  padding: 2px;
+  border: transparent 2px solid;
+}
+
+.payment-logo:hover {
+  background: #f7f7f9;
+}
+
+.selected {
+  border: var(--line-border-fill) 2px solid;
+}
+
 .modal-backdrop,
 .show {
   opacity: 1;
   backdrop-filter: blur(2px);
-}
-
-.card {
-  border-color: #ededed;
-}
-.card-img-top {
-  user-select: none;
-  margin-top: 20px;
 }
 
 .container {

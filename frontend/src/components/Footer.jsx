@@ -48,6 +48,7 @@ const Footer = () => {
                             ? 'mb-4'
                             : 'mb-0'
                         }`}
+                        key={linkIndex}
                       >
                         <Link
                           to={link.link}
@@ -86,15 +87,23 @@ const Footer = () => {
           <Row className='text-center my-6'>
             <Col>
               {developer.map((dev, index) => (
-                <div style={{ marginTop: '3rem' }}>
-                  <span style={{ color: 'white' }}>Contact developer: </span>
+                <div
+                  style={{
+                    marginTop: '3rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  key={index}
+                >
+                  <span style={{ color: 'white' }}>Contact developer</span>
                   <a
                     href={dev.link}
                     target='_blank'
                     rel='noopener noreferrer'
                     className={`uppercase, footer-social-text`}
-                    style={{ fontSize: '2rem' }}
-                    key={index}
+                    style={{ fontSize: '1.5rem' }}
                   >
                     {dev.name}
                   </a>
