@@ -2,6 +2,8 @@
   --line-border-fill: #1363f6;
   --line-border-empty: #1a1a1a;
   --borderTopColor: #c2c2c2;
+  --discount-label-color: orange;
+  --discount-label-content-color: white;
 }
 
 html {

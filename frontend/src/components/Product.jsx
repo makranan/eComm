@@ -937,35 +937,38 @@ const Product = ({ product, value, text, isCarousel }) => {
                     padding: '10px',
                   }}
                 />
-                <div
-                  className='discount-label'
-                  style={{
-                    backgroundColor: 'orange',
-                    zIndex: 1,
-                    display: 'flex',
-                    alignItems: 'center',
-                    position: 'absolute',
-                    bottom: '0',
-                    left: '5px',
-                    height: 'auto',
-                    width: 'auto',
-                    padding: '5px 5px',
+                {product.discount >= 1 ? (
+                  <div
+                    className='discount-label'
+                    // style={{
+                    //   backgroundColor: 'orange',
+                    //   zIndex: 1,
+                    //   display: 'flex',
+                    //   alignItems: 'center',
+                    //   position: 'absolute',
+                    //   bottom: '0',
+                    //   left: '5px',
+                    //   height: 'auto',
+                    //   width: 'auto',
+                    //   padding: '5px 5px',
 
-                    borderRadius: '5px',
-                  }}
-                >
-                  <h4
-                    style={{
-                      color: 'white',
-                      textShadow: '1px 1px 1px grey',
-                      fontSize: '14px',
-                      letterSpacing: '1px',
-                      margin: '0',
-                    }}
+                    //   borderRadius: '5px',
+                    // }}
                   >
-                    {discount}%
-                  </h4>
-                </div>
+                    <h4
+                      className='discount-label-content'
+                      // style={{
+                      //   color: 'white',
+                      //   textShadow: '1px 1px 1px grey',
+                      //   fontSize: '14px',
+                      //   letterSpacing: '1px',
+                      //   margin: '0',
+                      // }}
+                    >
+                      {product.discount}%
+                    </h4>
+                  </div>
+                ) : null}
               </div>
             </div>
           </Link>
