@@ -17,6 +17,8 @@ import {
   FaTimes,
   FaCheckSquare,
   FaCheck,
+  FaRegHeart,
+  FaHeart,
 } from 'react-icons/fa';
 import { MdOutlineAddShoppingCart } from 'react-icons/md';
 import { StyledNumberInput, BtnCount } from './';
@@ -28,6 +30,7 @@ const Product = ({ product, value, text, isCarousel }) => {
   const dispatch = useDispatch();
 
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 575);
+  const [isHovered, setIsHovered] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const [qty, setQty] = useState(1);
@@ -37,6 +40,7 @@ const Product = ({ product, value, text, isCarousel }) => {
   const [showAddToCart, setShowAddToCart] = useState(false);
   const [showSuccessCard, setShowSuccessCard] = useState(false);
   const [showAdditionalContent, setShowAdditionalContent] = useState(false);
+  const addAdminHoverClass = useSelector((state) => state.isAdmin);
 
   const yesButtonRef = useRef(null);
 
@@ -140,11 +144,18 @@ const Product = ({ product, value, text, isCarousel }) => {
     };
   }, []); // Empty dependency array ensures that the effect runs only once after the initial render
 
+  const newPrice = 39.99;
+
+  const btnHoverStyle = {
+    color: isHovered ? '#ffffff' : '#d1d1d1',
+    transition: 'all 0.2s ease-in-out',
+  };
+
   return (
     <>
       {isSmallScreen ? (
         isCarousel ? (
-          <Card className='my-3 card-shadow'>
+          <Card className={`my-3 ${addAdminHoverClass}`}>
             {loadingDelete && <Spinner style={{ zIndex: '9999' }} />}
             {userInfo && userInfo.isAdmin && (
               <Col
@@ -396,46 +407,49 @@ const Product = ({ product, value, text, isCarousel }) => {
                     {/* Conditionally render different content based on isCarousel */}
                     {isCarousel ? (
                       // Content for carousel button
-                      <button
-                        type='button'
-                        aria-label='add-to-cart'
-                        className='carousel-button'
-                        style={
-                          {
-                            /* your carousel button styles here */
-                          }
-                        }
-                        onClick={() => toggleAddToCard()}
-                        disabled={product.countInStock === 0}
-                      >
-                        <MdOutlineAddShoppingCart
-                          className='custom-button-content'
-                          size={20}
-                        />
-                      </button>
+                      // <button
+                      //   type='button'
+                      //   aria-label='add-to-cart'
+                      //   className='carousel-button'
+                      //   style={
+                      //     {
+                      //       /* your carousel button styles here */
+                      //     }
+                      //   }
+                      //   onClick={() => toggleAddToCard()}
+                      //   disabled={product.countInStock === 0}
+                      // >
+                      //   <MdOutlineAddShoppingCart
+                      //     className='custom-button-content'
+                      //     size={20}
+                      //   />
+                      // </button>
+                      <div></div>
                     ) : (
                       // Content for regular button
-                      <Button
-                        type='button'
-                        aria-label='add-to-cart'
-                        className='custom-button'
-                        style={
-                          showAddToCart || showDeleteCard || showSuccessCard
-                            ? { opacity: '0' }
-                            : product.countInStock === 0
-                            ? { backgroundColor: 'gray', color: 'white' }
-                            : {
-                                backgroundColor: '#3d3a4e',
-                              }
-                        }
-                        onClick={() => toggleAddToCard()}
-                        disabled={product.countInStock === 0}
-                      >
-                        <MdOutlineAddShoppingCart
-                          className='custom-button-content'
-                          size={20}
-                        />
-                      </Button>
+                      // <Button
+                      //   type='button'
+                      //   aria-label='add-to-cart'
+                      //   className='custom-button'
+                      //   style={{
+                      //     ...(showAddToCart || showDeleteCard || showSuccessCard
+                      //       ? { opacity: '0' }
+                      //       : product.countInStock === 0
+                      //       ? { backgroundColor: 'gray', color: 'white' }
+                      //       : {
+                      //           backgroundColor: '#3d3a4e',
+                      //         }),
+                      //     borderColor: 'red !impo',
+                      //   }}
+                      //   onClick={() => toggleAddToCard()}
+                      //   disabled={product.countInStock === 0}
+                      // >
+                      //   <MdOutlineAddShoppingCart
+                      //     className='custom-button-content'
+                      //     size={20}
+                      //   />
+                      // </Button>
+                      <div></div>
                     )}
                   </div>
                 </Col>
@@ -827,16 +841,16 @@ const Product = ({ product, value, text, isCarousel }) => {
               </Row>
 
               {/* <BtnCount
-              variant='dark'
-              initialValue={qty}
-              maxValue={product.countInStock}
-              onCountChange={(newCount) => {
-                setQty(newCount); // Update local state
-              }}
-              step={1}
-              increaseIcon={<FaPlus />}
-              decreaseIcon={<FaMinus />}
-            /> */}
+                variant='dark'
+                initialValue={qty}
+                maxValue={product.countInStock}
+                onCountChange={(newCount) => {
+                  setQty(newCount); // Update local state
+                }}
+                step={1}
+                increaseIcon={<FaPlus />}
+                decreaseIcon={<FaMinus />}
+              /> */}
               <Button
                 className='custom-button'
                 // bg='info'
@@ -856,14 +870,14 @@ const Product = ({ product, value, text, isCarousel }) => {
               }`}
             >
               {/* <FaTimes
-              style={{ color: '#ffffff', cursor: 'pointer' }}
-              className='fatimes-position'
-              onClick={() => setShowSuccessCard(false)}
-            /> */}
+                style={{ color: '#ffffff', cursor: 'pointer' }}
+                className='fatimes-position'
+                onClick={() => setShowSuccessCard(false)}
+              /> */}
               <FaCheck size={52} color='#35ad3f' className='card-circle' />
               {/* {successImageLoaded && (
-            <img src={successSvg} alt='Success' className='svg-success' />
-          )} */}
+              <img src={successSvg} alt='Success' className='svg-success' />
+            )} */}
 
               <h5
                 className='text-center px-5 my-4'
@@ -891,21 +905,21 @@ const Product = ({ product, value, text, isCarousel }) => {
           {/* Modal */}
 
           {/* {product && (
-        <AddToCartModal
-          product={product}
-          showModal={showAddToCartModal}
-          setShowModal={setShowAddToCartModal}
-        />
-      )}
+          <AddToCartModal
+            product={product}
+            showModal={showAddToCartModal}
+            setShowModal={setShowAddToCartModal}
+          />
+        )}
 
-      {product && (
-        <DeleteModal
-          product={product}
-          showModal={showDeleteModal}
-          setShowModal={setShowDeleteModal}
-          onDelete={deleteProduct}
-        />
-      )} */}
+        {product && (
+          <DeleteModal
+            product={product}
+            showModal={showDeleteModal}
+            setShowModal={setShowDeleteModal}
+            onDelete={deleteProduct}
+          />
+        )} */}
 
           <Link to={`/product/${product._id}`}>
             <div>
@@ -938,33 +952,8 @@ const Product = ({ product, value, text, isCarousel }) => {
                   }}
                 />
                 {product.discount >= 1 ? (
-                  <div
-                    className='discount-label'
-                    // style={{
-                    //   backgroundColor: 'orange',
-                    //   zIndex: 1,
-                    //   display: 'flex',
-                    //   alignItems: 'center',
-                    //   position: 'absolute',
-                    //   bottom: '0',
-                    //   left: '5px',
-                    //   height: 'auto',
-                    //   width: 'auto',
-                    //   padding: '5px 5px',
-
-                    //   borderRadius: '5px',
-                    // }}
-                  >
-                    <h4
-                      className='discount-label-content'
-                      // style={{
-                      //   color: 'white',
-                      //   textShadow: '1px 1px 1px grey',
-                      //   fontSize: '14px',
-                      //   letterSpacing: '1px',
-                      //   margin: '0',
-                      // }}
-                    >
+                  <div className='discount-label'>
+                    <h4 className='discount-label-content'>
                       {product.discount}%
                     </h4>
                   </div>
@@ -1003,6 +992,7 @@ const Product = ({ product, value, text, isCarousel }) => {
                       pointerEvents: 'none',
                       borderRadius: '5px',
                       marginBottom: '5px',
+                      width: '100%',
                     }}
                   >
                     <strong
@@ -1017,42 +1007,15 @@ const Product = ({ product, value, text, isCarousel }) => {
                   </div>
                 </Card.Text>
               </Col>
-              <Col lg={6} md={5} sm={5} xs={6}>
-                <div
-                  className='text-end'
-                  style={{ transform: 'translateX(2px)' }}
-                >
-                  {/* <BtnAddToCart
-                product={product}
-                onAddToCart={() => toggleAddToCard()}
-              /> */}
-                  {/* Conditionally render different content based on isCarousel */}
-                  {isCarousel ? (
-                    // Content for carousel button
-                    <Button
-                      type='button'
-                      aria-label='add-to-cart'
-                      className='carousel-button'
-                      style={
-                        showAddToCart || showDeleteCard || showSuccessCard
-                          ? { opacity: '0' }
-                          : product.countInStock === 0
-                          ? { backgroundColor: 'gray', color: 'white' }
-                          : {
-                              backgroundColor: '#3d3a4e',
-                            }
-                      }
-                      onClick={() => toggleAddToCard()}
-                      disabled={product.countInStock === 0}
-                    >
-                      <MdOutlineAddShoppingCart
-                        className='carousel-button-content'
-                        size={20}
-                      />
-                    </Button>
-                  ) : (
-                    // Content for regular button
-                    <Button
+
+              <Col className='crossed text-end'>{newPrice}</Col>
+            </Row>
+
+            <Row>
+              <div>
+                {/* Conditionally render different content based on isCarousel */}
+                <div className='d-flex justify-content-center'>
+                  {/* <Button
                       type='button'
                       aria-label='add-to-cart'
                       className='custom-button'
@@ -1072,16 +1035,35 @@ const Product = ({ product, value, text, isCarousel }) => {
                         className='custom-button-content'
                         size={20}
                       />
-                    </Button>
-                  )}
+                    </Button> */}
+
+                  <Button
+                    className='custom-button btn-full-w'
+                    style={{ background: 'transparent' }}
+                    onClick={() => toggleAddToCard()}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    disabled={product.countInStock === 0}
+                  >
+                    <span className='custom-button-content'>
+                      <MdOutlineAddShoppingCart
+                        // className='m-4'
+                        style={btnHoverStyle}
+                        size={22}
+                        // onClick={() => toggleAddToCard()}
+                      />
+                    </span>
+                  </Button>
+
+                  {/* <FaRegHeart  className='m-4' size={22} /> */}
                 </div>
-              </Col>
+              </div>
             </Row>
           </Card.Body>
           {/* Render the MyModal component with product information */}
           {/* {showModal && (
-        <MyModal product={product} handleClose={() => setShowModal(false)} />
-      )} */}
+          <MyModal product={product} handleClose={() => setShowModal(false)} />
+        )} */}
         </Card>
       )}
     </>
