@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { FormContainer, CheckoutSteps } from '../components';
+import { FormContainer, CheckoutSteps, BtnGoBack } from '../components';
 // import CheckoutSteps from '../components/CheckoutSteps';
 import { saveShippingAddress } from '../slices/cartSlice';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
@@ -100,6 +100,7 @@ const ShippingScreen = () => {
           </Form.Group>
           <Row className='d-flex align-items-center mt-4'>
             <Col>
+              <BtnGoBack />
               <Link to={'/cart'} className='btn btn-light my-3'>
                 <div className='d-flex align-items-center'>
                   <FaChevronLeft /> &nbsp;Go Back
@@ -107,13 +108,11 @@ const ShippingScreen = () => {
               </Link>
             </Col>
             <Col className='d-flex justify-content-end'>
-              <Button
-                type='submit'
-                variant='primary'
-                className='d-flex align-items-center'
-              >
-                Continue &nbsp;
-                <FaChevronRight />
+              <Button type='submit' variant='primary' className='custom-button'>
+                <span className='d-flex align-items-center custom-button-content'>
+                  Continue &nbsp;
+                  <FaChevronRight />
+                </span>
               </Button>
             </Col>
           </Row>

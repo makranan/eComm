@@ -143,7 +143,11 @@ const ProductDetails = () => {
         {userInfo && userInfo.isAdmin && (
           <Col md={4} className='text-end'>
             <Link to={`/admin/product/${productId}/edit`}>
-              <Button variant='light' className='btn-sm'>
+              <Button
+                variant='light'
+                className='btn-sm'
+                style={{ marginRight: '0.5rem' }}
+              >
                 <FaEdit /> Edit Product
               </Button>
             </Link>

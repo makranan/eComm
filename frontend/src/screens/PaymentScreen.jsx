@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { Form, Button, Col, Row } from 'react-bootstrap';
-import { FormContainer, CheckoutSteps } from '../components';
+import { FormContainer, CheckoutSteps, BtnGoBack } from '../components';
 import { savePaymentMethod } from '../slices/cartSlice';
 import { paypalLogo, blikLogo, cashLogo, visaLogo } from '../assets';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
@@ -131,6 +131,7 @@ const PaymentScreen = () => {
           </Form.Group>
           <Row className='d-flex align-items-center mt-4'>
             <Col>
+              <BtnGoBack />
               <Link to='/shipping' className='btn btn-light'>
                 <div className='d-flex align-items-center'>
                   <FaChevronLeft /> &nbsp;Go Back
@@ -139,13 +140,11 @@ const PaymentScreen = () => {
               {/* <BtnGoBack /> */}
             </Col>
             <Col className='d-flex justify-content-end'>
-              <Button
-                type='submit'
-                variant='primary'
-                className='d-flex align-items-center'
-              >
-                Continue &nbsp;
-                <FaChevronRight />
+              <Button type='submit' variant='primary' className='custom-button'>
+                <span className='d-flex align-items-center custom-button-content'>
+                  Continue &nbsp;
+                  <FaChevronRight />
+                </span>
               </Button>
             </Col>
           </Row>

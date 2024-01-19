@@ -66,6 +66,7 @@ header {
   cursor: pointer;
   border: none;
   background: #fff;
+  margin-bottom: 1rem;
 }
 
 .back-button > svg {
@@ -289,6 +290,7 @@ header {
   background: transparent;
   padding: 2px;
   border: transparent 2px solid;
+  border-radius: 5px;
 }
 
 .payment-logo:hover {
@@ -297,6 +299,7 @@ header {
 
 .selected {
   border: var(--line-border-fill) 2px solid;
+  border-radius: 5px;
 }
 
 .modal-backdrop,

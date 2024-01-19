@@ -1,6 +1,7 @@
 import Header from './Header';
 import Footer from './Footer';
 import Product from './Product';
+import ProductCard from './ProductCard';
 import Rating from './Rating';
 import BtnGoBack from './BtnGoBack';
 import BtnAddToCart from './BtnAddToCart';
@@ -33,6 +34,7 @@ export {
   Header,
   Footer,
   Product,
+  ProductCard,
   Rating,
   BtnGoBack,
   BtnAddToCart,

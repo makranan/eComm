@@ -203,11 +203,11 @@ const PlaceOrderScreen = () => {
               <ListGroup.Item className='no-pd-mr'>
                 <Button
                   type='button'
-                  className='btn-block btn-lg btn-full-w'
+                  className='custom-button btn-block btn-lg btn-full-w '
                   disabled={cart.cartItems.length === 0}
                   onClick={placeOrderHandler}
                 >
-                  Place Order
+                  <span className='custom-button-content'>Place Order</span>
                 </Button>
               </ListGroup.Item>
             </ListGroup>
