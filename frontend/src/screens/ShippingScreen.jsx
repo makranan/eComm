@@ -108,7 +108,14 @@ const ShippingScreen = () => {
               </Link>
             </Col>
             <Col className='d-flex justify-content-end'>
-              <Button type='submit' variant='primary' className='custom-button'>
+              <Button
+                type='submit'
+                variant='primary'
+                className='custom-button'
+                style={{
+                  backgroundColor: '#3d3a4e',
+                }}
+              >
                 <span className='d-flex align-items-center custom-button-content'>
                   Continue &nbsp;
                   <FaChevronRight />

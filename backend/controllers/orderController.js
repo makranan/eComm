@@ -2,6 +2,7 @@ import { raw } from 'express';
 import asyncHandler from '../middleware/asyncHandler.js';
 import Order from '../models/orderModel.js';
 import Product from '../models/productModel.js';
+import { calculateFinalPrice } from '../utils/calculateFinalPrice.js';
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -33,7 +34,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
       itemsPrice,
       taxPrice,
       shippingPrice,
-      totalPrice,
+      totalPrice: calculateFinalPrice(orderItems),
     });
 
     const createdOrder = await order.save();

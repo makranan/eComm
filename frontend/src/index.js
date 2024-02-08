@@ -1,4 +1,4 @@
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -35,7 +35,8 @@ import {
   UserEditScreen,
   DashboardScreen,
 } from './screens/admin';
-import { PrivateRoute, AdminRoute } from './components';
+import PrivateRoute from './utils/PrivateRoute';
+import AdminRoute from './utils/AdminRoute';
 
 // import 'bootstrap/dist/css/bootstrap.css';
 // import './assets/styles/bootstrap.custom.css';

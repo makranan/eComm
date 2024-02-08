@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Product from './productModel.js';
 
 const orderSchema = new mongoose.Schema(
   {
@@ -23,7 +24,8 @@ const orderSchema = new mongoose.Schema(
             },
           },
         ],
-        price: { type: String, required: true },
+        price: { type: Number, required: true },
+        isDiscounted: { type: Boolean, required: true, default: false },
         product: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
@@ -49,6 +51,11 @@ const orderSchema = new mongoose.Schema(
       emailAddress: { type: String },
     },
     itemsPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
+    discountPrice: {
       type: Number,
       required: true,
       default: 0.0,
@@ -89,6 +96,14 @@ const orderSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+orderSchema.methods.calculateDiscountedPrice = async function () {
+  const product = await Product.find({ _id: { $in: this.orderItems } });
+  const discount = product.discount;
+  const discountedPrice = product.price - (product.price * discount) / 100;
+  this.price = discountedPrice;
+  await this.save();
+};
 
 const Order = mongoose.model('Order', orderSchema);
 

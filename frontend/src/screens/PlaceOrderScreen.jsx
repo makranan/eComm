@@ -107,6 +107,17 @@ const PlaceOrderScreen = () => {
                     >
                       <Row className='d-flex align-items-center'>
                         <Col md={3} xs={3}>
+                          {item.discount > 0 ? (
+                            <div
+                              className='discount-label'
+                              style={{ marginBottom: '5px' }}
+                            >
+                              <strong className='discount-label-content'>
+                                {item.discount}%
+                              </strong>
+                            </div>
+                          ) : null}
+
                           <Image
                             src={item.images[0].original}
                             alt={item.name}
@@ -121,13 +132,33 @@ const PlaceOrderScreen = () => {
                           </Link>
                         </Col>
 
-                        <Col md={3} xs={3}>
-                          {item.qty} * {item.price} ={' '}
-                          <strong>
-                            {' '}
-                            ${(item.qty * item.price).toFixed(2)}
-                          </strong>
-                        </Col>
+                        {item.discount > 0 ? (
+                          <Col md={3} xs={3}>
+                            {item.qty} *{' '}
+                            {item.qty *
+                              (
+                                item.price -
+                                (item.price * item.discount) / 100
+                              ).toFixed(2)}{' '}
+                            ={' '}
+                            <strong>
+                              $
+                              {item.qty *
+                                (
+                                  item.price -
+                                  (item.price * item.discount) / 100
+                                ).toFixed(2)}
+                            </strong>
+                          </Col>
+                        ) : (
+                          <Col md={3} xs={3}>
+                            {item.qty} * {item.price} ={' '}
+                            <strong>
+                              {' '}
+                              ${(item.qty * item.price).toFixed(2)}
+                            </strong>
+                          </Col>
+                        )}
                       </Row>
                     </ListGroup.Item>
                   ))}
@@ -203,7 +234,10 @@ const PlaceOrderScreen = () => {
               <ListGroup.Item className='no-pd-mr'>
                 <Button
                   type='button'
-                  className='custom-button btn-block btn-lg btn-full-w '
+                  className='custom-button btn-block btn-lg btn-full-w'
+                  style={{
+                    backgroundColor: '#3d3a4e',
+                  }}
                   disabled={cart.cartItems.length === 0}
                   onClick={placeOrderHandler}
                 >

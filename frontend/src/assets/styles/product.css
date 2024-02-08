@@ -13,6 +13,17 @@
   /* white-space: nowrap; Prevent wrapping */
 }
 
+.old-price {
+  /* color: var(--product-old-price); */
+  font-size: var(--product-old-price-font-size);
+  text-decoration: line-through;
+  color: var(--product-old-price) !important;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
 .success-content {
   position: absolute;
   top: 0;

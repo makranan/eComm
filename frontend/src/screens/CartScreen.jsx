@@ -124,6 +124,16 @@ const CartScreen = () => {
                             fluid
                             rounded
                           ></Image>
+                          {item.discount > 0 ? (
+                            <div
+                              className='discount-label'
+                              style={{ marginBottom: '5px' }}
+                            >
+                              <span className='discount-label-content'>
+                                {item.discount}%
+                              </span>
+                            </div>
+                          ) : null}
                         </Link>
                       </Col>
 
@@ -161,7 +171,31 @@ const CartScreen = () => {
                               window.innerWidth <= 768 ? 'mt-2 ' : 'mt-2 '
                             }
                           >
-                            <h4>${item.price}</h4>
+                            <h4>
+                              {item.discount && item.discount > 0 ? (
+                                <div className='d-flex'>
+                                  <h4>
+                                    $
+                                    {(
+                                      item.price -
+                                      (item.price * item.discount) / 100
+                                    ).toFixed(2)}
+                                  </h4>
+
+                                  <h4
+                                    // style={{
+                                    //   textDecoration: 'line-through',
+                                    //   color: 'red',
+                                    // }}
+                                    className='old-price'
+                                  >
+                                    ${item.price}
+                                  </h4>
+                                </div>
+                              ) : (
+                                <h4>${item.price}</h4>
+                              )}
+                            </h4>
                           </Col>
 
                           <Col md={3} xs={3} className='text-end'>
@@ -357,8 +391,18 @@ const CartScreen = () => {
                     >
                       <h2 style={{ fontSize: '1.5rem' }}>
                         $
-                        {cartItems
+                        {/* {cartItems
                           .reduce((acc, item) => acc + item.qty * item.price, 0)
+                          .toFixed(2)} */}
+                        {cartItems
+                          .reduce((acc, item) => {
+                            let finalPrice = item.price;
+                            if (item.discount) {
+                              finalPrice =
+                                item.price - (item.price * item.discount) / 100;
+                            }
+                            return acc + item.qty * finalPrice;
+                          }, 0)
                           .toFixed(2)}
                       </h2>
                     </Col>

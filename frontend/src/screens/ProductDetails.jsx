@@ -126,6 +126,9 @@ const ProductDetails = () => {
     navigate('/admin/productlist');
   };
 
+  // const discountedPrice =
+  //   product.price - (product.price * product.discount) / 100;
+
   return (
     <>
       {product && (
@@ -222,12 +225,13 @@ const ProductDetails = () => {
               />
             </Col>
             <Col md={4}>
-              <ListGroup variant='flush'>
-                <ListGroup.Item>
-                  <h3>{product.name}</h3>
-                </ListGroup.Item>
+              <Card>
+                <ListGroup variant='flush'>
+                  <ListGroup.Item>
+                    <h3>{product.name}</h3>
+                  </ListGroup.Item>
 
-                {/* <ListGroup.Item>
+                  {/* <ListGroup.Item>
                   Tags:{' '}
                   {product.category.map((tag, index) => (
                     <span key={index} className='tag'>
@@ -236,46 +240,98 @@ const ProductDetails = () => {
                   ))}
                 </ListGroup.Item> */}
 
-                <ListGroup.Item>
-                  <div
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => {
-                      setActiveTab('reviews');
+                  <ListGroup.Item>
+                    <div
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => {
+                        setActiveTab('reviews');
 
-                      const tab = document.getElementById('product-tabs');
+                        const tab = document.getElementById('product-tabs');
 
-                      if (tab) {
-                        tab.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'start',
-                        });
-                      }
-                    }}
-                  >
-                    <Rating
-                      value={product.rating}
-                      text={`${product.numReviews} reviews`}
-                    />
-                  </div>
-                </ListGroup.Item>
-                <ListGroup.Item>Price: $ {product.price}</ListGroup.Item>
-                <ListGroup.Item>
+                        if (tab) {
+                          tab.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start',
+                          });
+                        }
+                      }}
+                    >
+                      <Rating
+                        value={product.rating}
+                        text={`${product.numReviews} reviews`}
+                      />
+                    </div>
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>
+                        Price:{' '}
+                        <span>
+                          {product.discount > 0
+                            ? `$${(
+                                product.price -
+                                (product.price * product.discount) / 100
+                              ).toFixed(2)}`
+                            : `$${product.price.toFixed(2)}`}
+                        </span>
+                      </Col>
+
+                      <Col className='d-flex'>
+                        {/* {product.discount > 0 ? (
+                          <div className='discount-label'>{product.price}</div>
+                        ) : null} */}
+                        {product.discount > 0 ? (
+                          <div
+                            className='discount-label'
+                            style={{
+                              position: 'relative',
+                              padding: '0 5px',
+                              marginRight: '5px',
+                            }}
+                          >
+                            <span className='discount-label-content'>
+                              {product.discount} %
+                            </span>
+                          </div>
+                        ) : null}
+                        <span className='crossed'>
+                          {product.discount > 0 ? `$${product.price}` : null}
+                        </span>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                  {/* <ListGroup.Item>
                   Tax: $ {calculateTaxPrice(product.price)}
-                </ListGroup.Item>
-                {/* <ListGroup.Item>
+                </ListGroup.Item> */}
+
+                  <ListGroup.Item>
+                    <span className='rating-text' style={{ paddingLeft: '0' }}>
+                      Lowest price from last 30 days: $ {product.price}
+                    </span>
+                  </ListGroup.Item>
+                  {/* <ListGroup.Item>
                   {product.description.substring(0, 200)}...
                 </ListGroup.Item> */}
-              </ListGroup>
+                </ListGroup>
+              </Card>
             </Col>
             <Col md={3}>
               <Card>
                 <ListGroup variant='flush'>
                   <ListGroup.Item>
                     <Row>
-                      <Col>Price:</Col>
+                      <Col>Price: </Col>
                       <Col>
                         <strong style={{ fontWeight: '600' }}>
-                          ${product.price}{' '}
+                          $
+                          {product.discount > 0
+                            ? (
+                                product.price -
+                                (product.price * product.discount) / 100
+                              ).toFixed(2)
+                            : product.price}
+                          {/* ${product.price}{' '} */}
                         </strong>
                       </Col>
                     </Row>
@@ -334,12 +390,15 @@ const ProductDetails = () => {
 
                   <ListGroup.Item className='no-pd-mr'>
                     <Button
-                      className='btn-block btn-full-w'
+                      className='btn-block btn-full-w custom-button'
                       type='button'
+                      style={{
+                        backgroundColor: '#3d3a4e',
+                      }}
                       disabled={product.countInStock === 0}
                       onClick={addToCartHandler}
                     >
-                      Add To Cart
+                      <span className='custom-button-content'>Add To Cart</span>
                     </Button>
                   </ListGroup.Item>
                 </ListGroup>

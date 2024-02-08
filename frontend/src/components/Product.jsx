@@ -34,8 +34,8 @@ const Product = ({ product, value, text, isCarousel }) => {
 
   const [loading, setLoading] = useState(true);
   const [qty, setQty] = useState(1);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showAddToCartModal, setShowAddToCartModal] = useState(false);
+  // const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // const [showAddToCartModal, setShowAddToCartModal] = useState(false);
   const [showDeleteCard, setShowDeleteCard] = useState(false);
   const [showAddToCart, setShowAddToCart] = useState(false);
   const [showSuccessCard, setShowSuccessCard] = useState(false);
@@ -144,7 +144,9 @@ const Product = ({ product, value, text, isCarousel }) => {
     };
   }, []); // Empty dependency array ensures that the effect runs only once after the initial render
 
-  const newPrice = 39.99;
+  // const newPrice = 39.99;
+  const discountedPrice =
+    product.price - (product.price * product.discount) / 100;
 
   const btnHoverStyle = {
     color: isHovered ? '#ffffff' : '#d1d1d1',
@@ -907,7 +909,7 @@ const Product = ({ product, value, text, isCarousel }) => {
           <Card.Body>
             <Link to={`/product/${product._id}`}>
               <Card.Title as='div' className='product-title mb-2'>
-                <h6 style={{ lineHeight: '2' }}>{product.name}</h6>
+                <h6 style={{ lineHeight: '1.9' }}>{product.name}</h6>
               </Card.Title>
             </Link>
             <Card.Text as='div' className='reviews-position'>
@@ -945,13 +947,20 @@ const Product = ({ product, value, text, isCarousel }) => {
                         verticalAlign: 'center',
                       }}
                     >
-                      ${product.price}
+                      {discountedPrice.toFixed(2)}
                     </strong>
                   </div>
                 </Card.Text>
               </Col>
 
-              <Col className='crossed text-end'>{newPrice}</Col>
+              <Col
+                className='crossed text-end'
+                style={{
+                  display: `${product.discount > 0 ? 'block' : 'none'}`,
+                }}
+              >
+                {product.price}
+              </Col>
             </Row>
 
             <Row>

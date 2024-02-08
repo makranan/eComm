@@ -4,6 +4,10 @@
   --borderTopColor: #c2c2c2;
   --discount-label-color: #ff8000;
   --discount-label-content-color: #ffffff;
+  --product-old-price: #848484;
+
+  /* FONT SIZES */
+  --product-old-price-font-size: 0.8rem;
 }
 
 html {
