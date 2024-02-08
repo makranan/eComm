@@ -77,7 +77,7 @@ const App = () => {
         </Container>
       </main>
 
-      {/* <Footer /> */}
+      <Footer />
       <ToastContainer theme='colored' />
     </>
   );

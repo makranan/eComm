@@ -947,7 +947,7 @@ const Product = ({ product, value, text, isCarousel }) => {
                         verticalAlign: 'center',
                       }}
                     >
-                      {discountedPrice.toFixed(2)}
+                      ${discountedPrice.toFixed(2)}
                     </strong>
                   </div>
                 </Card.Text>

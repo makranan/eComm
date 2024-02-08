@@ -267,14 +267,14 @@ const ProductDetails = () => {
                     <Row>
                       <Col>
                         Price:{' '}
-                        <span>
+                        <strong>
                           {product.discount > 0
                             ? `$${(
                                 product.price -
                                 (product.price * product.discount) / 100
                               ).toFixed(2)}`
                             : `$${product.price.toFixed(2)}`}
-                        </span>
+                        </strong>
                       </Col>
 
                       <Col className='d-flex'>

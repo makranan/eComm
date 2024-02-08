@@ -26,7 +26,7 @@ const Loader = ({ className }) => {
         <TailSpin
           height='50'
           width='50'
-          // color='#077bf7'
+          color='#077bf7'
           ariaLabel='tail-spin'
           // wrapperStyle={{}}
           // wrapperClass=''
