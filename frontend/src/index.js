@@ -26,6 +26,7 @@ import {
   PlaceOrderScreen,
   OrderScreen,
   ProfileScreen,
+  FeaturesScreen,
 } from './screens';
 import {
   OrderListScreen,
@@ -201,6 +202,7 @@ const router = createBrowserRouter(
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/login/send_recovery_email' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
+      <Route path='/appfeatures' element={<FeaturesScreen />} />
 
       <Route path='' element={<PrivateRoute />}>
         <Route path='/shipping' element={<ShippingScreen />} />

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import {
   Header,
@@ -41,12 +41,13 @@ const App = () => {
                 <strong>
                   <span className='unselectable'>CVV: </span>123
                 </strong> */}
-              its a freebie, dont worry about it and contact me if you want to
-              buy something yo yo. <br />
-              payments are ready to use (they are working but not on real
-              money), you can still buy stuff, just buy those 2 things and
-              contact me if find any bugs. <br /> For admin credentials, contact
-              me at: <br />
+              Experience the power of e-commerce with our fully customizable
+              demo app, available for purchase! Showcase your products,
+              streamline transactions, and provide a seamless shopping
+              experience to your customers. Elevate your online presence with
+              our user-friendly solution. Interested? Get in touch or click{' '}
+              <Link to='/appfeatures'>HERE</Link> to learn more!
+              <br /> For admin credentials, contact me at: <br />
               <strong>
                 <a href='mailto:krasowskinan@gmail.com?subject=TechWorld Admin Credentials'>
                   krasowskinan@gmail.com
