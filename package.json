@@ -4,6 +4,9 @@
   "description": "",
   "type": "module",
   "main": "server.js",
+  "engines": {
+    "node": "18.19.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/server.js",
