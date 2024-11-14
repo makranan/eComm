@@ -1,6 +1,8 @@
 {
   "name": "react-ecomm01",
   "version": "1.0.0",
+  "author": "Maciej 'mkra' Krasowski",
+  "license": "MIT",
   "description": "",
   "type": "module",
   "main": "server.js",
@@ -18,8 +20,6 @@
     "data:images": "node backend/imagesSeeder.js",
     "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
-  "author": "",
-  "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
