@@ -2,6 +2,8 @@
 
 An e-commerce application built to deliver a seamless online shopping experience, with a modern stack and fully functional features for browsing, purchasing, and managing products.
 
+Live preview: https://techworld.onrender.com
+
 ## Table of Contents
 
 - [Features](#features)
