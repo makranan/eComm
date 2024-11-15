@@ -54,7 +54,7 @@ An e-commerce application built to deliver a seamless online shopping experience
 
 3. #### Environment Variables
 
-   Change file name from `.env.example` to `.env` in the **root** directory and add your configurations.
+   Change file name from `example.env` to `.env` in the **root** directory and add your configurations.
 
 4. #### Run the Application
 
